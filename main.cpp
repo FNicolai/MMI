@@ -1,4 +1,5 @@
 #include "graphcontroller.h"
+#include "graph.h"
 #include <QApplication>
 
 using namespace std;
