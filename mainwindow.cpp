@@ -1,20 +1,20 @@
-#include "graphview.h"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QFileDialog>
 
-GraphView::GraphView(QWidget *parent) :
+MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::GraphView)
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 }
 
-GraphView::~GraphView()
+MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-void GraphView::on_pushButton_select_file_clicked()
+void MainWindow::on_pushButton_select_file_clicked()
 {
     //Start gui to choose graph
     QString filename = QFileDialog::getOpenFileName(
@@ -28,7 +28,7 @@ void GraphView::on_pushButton_select_file_clicked()
     ui->label_chosen_file->setText(filename);
 }
 
-void GraphView::on_pushButton_read_clicked()
+void MainWindow::on_pushButton_read_clicked()
 {
     /*
      * TODO
@@ -42,7 +42,7 @@ void GraphView::on_pushButton_read_clicked()
     }
 }
 
-void GraphView::on_pushButton_cancel_clicked()
+void MainWindow::on_pushButton_cancel_clicked()
 {
     QApplication::quit();
 }

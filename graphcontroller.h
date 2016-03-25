@@ -2,7 +2,7 @@
 #define GRAPHCONTROLLER_H
 
 #include "graphmodel.h"
-#include "graphview.h"
+#include "mainwindow.h"
 
 
 class GraphController
