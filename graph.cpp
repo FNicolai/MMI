@@ -1,5 +1,6 @@
 #include "graph.h"
 #include "nodes.h"
+#include "edges.h"
 
 GraphModel::GraphModel()
 {
