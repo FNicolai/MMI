@@ -1,4 +1,5 @@
-#include "graphmodel.h"
+#include "graph.h"
+#include "nodes.h"
 
 GraphModel::GraphModel()
 {
