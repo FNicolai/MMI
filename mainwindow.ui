@@ -14,7 +14,7 @@
    <string>Graph Library</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QGroupBox" name="groupBox_Matrixtyp">
+   <widget class="QGroupBox" name="groupBox_matrixtyp">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -26,7 +26,7 @@
     <property name="title">
      <string>Matrixtype</string>
     </property>
-    <widget class="QRadioButton" name="radioButton_Edgelist">
+    <widget class="QRadioButton" name="radioButton_edgelist">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -39,7 +39,7 @@
       <string>Edgelist</string>
      </property>
     </widget>
-    <widget class="QRadioButton" name="radioButton_Adjacency_matrix">
+    <widget class="QRadioButton" name="radioButton_adjacency_matrix">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -66,7 +66,7 @@
      <string>Read</string>
     </property>
    </widget>
-   <widget class="QGroupBox" name="groupBox">
+   <widget class="QGroupBox" name="groupBox_weighted">
     <property name="geometry">
      <rect>
       <x>20</x>
@@ -76,9 +76,9 @@
      </rect>
     </property>
     <property name="title">
-     <string>Weight</string>
+     <string>Weighted</string>
     </property>
-    <widget class="QRadioButton" name="radioButton_Weight_Yes">
+    <widget class="QRadioButton" name="radioButton_weighted_yes">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -91,7 +91,7 @@
       <string>Yes</string>
      </property>
     </widget>
-    <widget class="QRadioButton" name="radioButton_Weight_No">
+    <widget class="QRadioButton" name="radioButton_weighted_no">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -111,7 +111,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QGroupBox" name="groupBox_3">
+   <widget class="QGroupBox" name="groupBox_direction">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -123,7 +123,7 @@
     <property name="title">
      <string>Directed/Undirected</string>
     </property>
-    <widget class="QRadioButton" name="radioButton_Directed">
+    <widget class="QRadioButton" name="radioButton_directed">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -139,7 +139,7 @@
       <bool>false</bool>
      </property>
     </widget>
-    <widget class="QRadioButton" name="radioButton_Undirected">
+    <widget class="QRadioButton" name="radioButton_undirected">
      <property name="geometry">
       <rect>
        <x>20</x>

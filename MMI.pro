@@ -13,8 +13,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+    graphview.cpp \
+    graphmodel.cpp \
+    graphcontroller.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += \
+    graphview.h \
+    graphmodel.h \
+    graphcontroller.h
 
 FORMS    += mainwindow.ui

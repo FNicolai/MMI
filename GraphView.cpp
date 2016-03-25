@@ -1,20 +1,20 @@
-#include "mainwindow.h"
+#include "graphview.h"
 #include "ui_mainwindow.h"
 #include <QFileDialog>
 
-MainWindow::MainWindow(QWidget *parent) :
+GraphView::GraphView(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::GraphView)
 {
     ui->setupUi(this);
 }
 
-MainWindow::~MainWindow()
+GraphView::~GraphView()
 {
     delete ui;
 }
 
-void MainWindow::on_pushButton_Select_File_clicked()
+void GraphView::on_pushButton_select_file_clicked()
 {
     //Start gui to choose graph
     QString filename = QFileDialog::getOpenFileName(
@@ -28,21 +28,21 @@ void MainWindow::on_pushButton_Select_File_clicked()
     ui->label_chosen_file->setText(filename);
 }
 
-void MainWindow::on_pushButton_Read_clicked()
+void GraphView::on_pushButton_read_clicked()
 {
     /*
      * TODO
      * Read graph depending on matrixtype
      */
 
-    if(ui->radioButton_Adjacency_matrix->isChecked()){
+    if(ui->radioButton_adjacency_matrix->isChecked()){
 
     }else{
         //Only to options -> definitly Edgelist now
     }
 }
 
-void MainWindow::on_pushButton_Cancel_clicked()
+void GraphView::on_pushButton_cancel_clicked()
 {
     QApplication::quit();
 }

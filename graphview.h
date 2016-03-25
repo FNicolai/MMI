@@ -1,19 +1,19 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef GRAPHVIEW_H
+#define GRAPHVIEW_H
 
 #include <QMainWindow>
 
 namespace Ui {
-class MainWindow;
+class GraphView;
 }
 
-class MainWindow : public QMainWindow
+class GraphView : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    explicit GraphView(QWidget *parent = 0);
+    ~GraphView();
 
 private slots:
     void on_pushButton_Select_File_clicked();
@@ -23,7 +23,7 @@ private slots:
     void on_pushButton_Cancel_clicked();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::GraphView *ui;
 };
 
 #endif // MAINWINDOW_H
