@@ -1,11 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QFileDialog>
+#include "graph.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
-{
+{    
     ui->setupUi(this);
 }
 
@@ -30,16 +31,13 @@ void MainWindow::on_pushButton_select_file_clicked()
 
 void MainWindow::on_pushButton_read_clicked()
 {
-    /*
-     * TODO
-     * Read graph depending on matrixtype
-     */
+    new Graph(
+                ui->radioButton_weighted_yes->isChecked(),
+                ui->radioButton_directed->isChecked(),
+                ui->radioButton_adjacency_matrix->isChecked(),
+                ui->label_chosen_file->text());
+    this->hide();
 
-    if(ui->radioButton_adjacency_matrix->isChecked()){
-
-    }else{
-        //Only to options -> definitly Edgelist now
-    }
 }
 
 void MainWindow::on_pushButton_cancel_clicked()

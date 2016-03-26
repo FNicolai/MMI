@@ -15,14 +15,14 @@ TEMPLATE = app
 SOURCES += main.cpp\
     mainwindow.cpp \
     graph.cpp \
-    nodes.cpp \
-    edges.cpp
+    node.cpp \
+    edge.cpp
 
 HEADERS  += \
     mainwindow.h \
     graph.h \
-    nodes.h \
-    edges.h
+    node.h \
+    edge.h
 
 FORMS    += \
     mainwindow.ui
