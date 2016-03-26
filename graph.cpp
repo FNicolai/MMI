@@ -72,9 +72,9 @@ void Graph::read_graph(QString _filename)
             while (graph_file >> cur_node >> goal_node){
                 //cout << a << " " << b << endl;
                 edge* new_edge = new edge(goal_node, weight);
-                if(_nodes.at(cur_node)){ //Test if node exists and add edge
+                //if(_nodes.at(cur_node)){ //Test if node exists and add edge
                     //this->_nodes.at(cur_node) == new ;
-                }
+                //}
                 //this->_nodes.at(node).push_back(new_edge);
             }
         }else cout << "Error while reading file";
