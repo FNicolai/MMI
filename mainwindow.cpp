@@ -7,6 +7,13 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {    
+
+//    new Graph(
+//                false,
+//                true,
+//                false,
+//                "/home/nlimpert/FH\ Aachen/MMI/Graph2.txt");
+
     ui->setupUi(this);
 }
 
