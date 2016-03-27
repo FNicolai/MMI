@@ -3,27 +3,39 @@
 
 #include <vector>
 #include <iostream>
+
+// Forward declaration
+class Edge;
+
 #include "edge.h"
 
 using namespace std;
 
-class node
+class Node
 {
 public:
-    node();
+    Node();
+    Node(double value);
 
     bool get_visited() const;
     void set_visited(bool visited_);
 
-    vector<edge> get_edges() const;
+    bool has_edge_to(Node* target_node);
+    Edge* get_edge_to(Node* target_node);
+    Edge* insert_edge_to(Node* target_node, bool directed);
+
+    vector<Edge *> get_edges() const;
 
     void add_edge(double value_);
     void remove_edge(double value_);
 
+    double get_value();
+
 private:
     double _value;
     bool _visited = false;   //Alread visited?
-    vector<edge> _edges;
+
+    vector<Edge*> _edges;
 };
 
 #endif // NODE_H
