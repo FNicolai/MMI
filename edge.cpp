@@ -1,29 +1,37 @@
 #include "edge.h"
 
-edge::edge(double goal_node_,double weight_)
+Edge::Edge(Node* left_node, Node* right_node, double weight_)
 {
-    _goal_node = goal_node_;
+    this->left_node = left_node;
+    this->right_node = right_node;
+
+//    _goal_node = goal_node_;
     _weight = weight_;
 }
 
 // ### GET and SET methods
 
-double edge::get_goal_node() const
+Node* Edge::get_right_node() const
 {
-    return _goal_node;
+    return right_node;
 }
 
-void edge::set_goal_node(double goal_node_)
+Node* Edge::get_left_node() const
 {
-    _goal_node = goal_node_;
+    return left_node;
 }
 
-double edge::get_weight() const
+void Edge::set_goal_node(double goal_node_)
+{
+//    _goal_node = goal_node_;
+}
+
+double Edge::get_weight() const
 {
     return _weight;
 }
 
-void edge::set_weight(double weight_)
+void Edge::set_weight(double weight_)
 {
     _weight = weight_;
 }
