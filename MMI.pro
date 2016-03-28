@@ -19,7 +19,7 @@ SOURCES += main.cpp\
     graph.cpp \
     node.cpp \
     dfs.cpp \
-    edge.cpp
+    edge.cpp \
     bfs.cpp
 
 HEADERS  += \
@@ -27,7 +27,7 @@ HEADERS  += \
     graph.h \
     node.h \
     dfs.h \
-    edge.h
+    edge.h \
     bfs.h
 
 FORMS    += \
