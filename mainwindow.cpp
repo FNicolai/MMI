@@ -9,9 +9,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     _graph = new Graph(
                 false,
-                true,
                 false,
-                "/home/nlimpert/FH\ Aachen/MMI/Graph2.txt");
+                false,
+                "../Graph2.txt");
     BFS bfs(_graph);
     bfs.perform_iterative_BFS(1);
 
