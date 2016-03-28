@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "bfs.h"
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +25,11 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    Graph* _graph;
+    BFS* _bfs;
+
+
 };
 
 #endif // MAINWINDOW_H
