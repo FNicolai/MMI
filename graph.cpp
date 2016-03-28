@@ -165,3 +165,9 @@ void Graph::add_node(Node new_node_)
 Node* Graph::get_node(double value) {
     return nodes[value];
 }
+
+void Graph::reset_visited() {
+    for (int i = 0; i < nodes.size(); i++) {
+        nodes.at(i)->set_visited(false);
+    }
+}

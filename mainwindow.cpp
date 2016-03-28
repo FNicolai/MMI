@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
     BFS bfs(_graph);
     bfs.perform_iterative_BFS(1);
 
+    _graph->reset_visited();
+
     DFS dfs(_graph);
     dfs.perform_recursive_DFS(1);
 

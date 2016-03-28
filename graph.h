@@ -28,6 +28,7 @@ public:
     inline bool is_adjacency_matrix() const;
     void add_node(Node new_node_);                                // Add nodes to the graph
     Node* get_node(double value);
+    void reset_visited();
 
 private:
     vector<Node*> _nodes;
