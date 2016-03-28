@@ -39,65 +39,135 @@ void Graph::read_graph(QString _filename)
 
     //Get first line with quantity of lines
     double quantity;
-    if (graph_file){
-        graph_file >> quantity;
-        cout << "There are " << quantity << " lines in the file." << endl;
-        //graph_file.close();
-    }else cout << "Error while reading file";
+    read_quantity(graph_file, quantity);
 
-
-    double cur_node, goal_node;
-    double weight;
-
-    if(!is_weighted()){
-        weight = NULL; //No weight, because the graph is'nt weighted
-    }
 
     if (is_adjacency_matrix()){
 
         //IS ADJACENCY MATRIX
 
+        if(is_weighted()){
+            read_weighted_adjacency_matrix(graph_file, quantity);
+        }else{
+            read_unweighted_adjacency_matrix(graph_file, quantity);
+        }
+
     }else{
 
         //IS EDGELIST
 
-        if(graph_file){
-            while (graph_file >> cur_node >> goal_node){
-                //cout << a << " " << b << endl;
+        read_edgelist(graph_file);
+    }
+
+}
+
+void Graph::read_quantity(ifstream &graph_file_, double &quantity)
+{
+    if (graph_file_){
+        graph_file_ >> quantity;
+
+        cout << "There are " << quantity << " lines in the file." << endl;
+
+        //graph_file.close();
+    }else cout << "Error while reading file";
+}
+
+void Graph::read_unweighted_adjacency_matrix(ifstream &graph_file_, double quantity_)
+{
+    double edge_exists;
+
+    if (graph_file_){
+        for(double cur_node = 0; cur_node < quantity_; cur_node++){
+            for(double goal_node = 0; goal_node < quantity_; goal_node++){
+                graph_file_ >> edge_exists;
+                //cout << edge_exists << " ";
+                if(edge_exists == 1){
+                    //cout << "Edge from " << cur_node << " to " << goal_node << " exists." << endl;
+                    insert_edge(cur_node,goal_node,NAN);
+                }
+            }
+            //cout << endl;
+        }
+        cout << "DEBUG:\nNode\tnum_ed\tadjacent_nodes" << endl;
+        for (int i = 0; i < nodes.size(); i++) {
+            vector<Edge*> cur_edges = nodes.at(i)->get_edges();
+            cout << i << "\t" << cur_edges.size() << "\t";
+
+            for (int j = 0; j < cur_edges.size(); j++) {
+                cout << cur_edges[j]->get_right_node()->get_value() << "\t";
+            }
+            cout << endl;
+        }
+        cout << nodes.size() << endl;
+    }else cout << "Error while reading file";
+
+}
+
+void Graph::read_weighted_adjacency_matrix(ifstream &graph_file_, double quantity_)
+{
+
+    double weight;
+    if (graph_file_){
+        for(double cur_node = 0; cur_node < quantity_; cur_node++){
+            for(double goal_node = 0; goal_node < quantity_; goal_node++){
+                graph_file_ >> weight;
+                cout << weight << " ";
+                insert_edge(cur_node,goal_node,weight);
+            }
+            cout << endl;
+        }
+        cout << "DEBUG:\nNode\tnum_ed\tadjacent_nodes" << endl;
+        for (int i = 0; i < nodes.size(); i++) {
+            vector<Edge*> cur_edges = nodes.at(i)->get_edges();
+            cout << i << "\t" << cur_edges.size() << "\t";
+
+            for (int j = 0; j < cur_edges.size(); j++) {
+                cout << cur_edges[j]->get_right_node()->get_value() << "\t";
+            }
+            cout << endl;
+        }
+        cout << nodes.size() << endl;
+    }else cout << "Error while reading file";
+}
+
+void Graph::read_edgelist(ifstream &graph_file_)
+{
+    double cur_node, goal_node, weight;
+
+    if(!is_weighted()){
+        weight = NAN; //No weight, because the graph isn't weighted
+    }
+
+    if(graph_file_){
+        while (graph_file_ >> cur_node >> goal_node){
+            //cout << a << " " << b << endl;
 //                Node* left_node = new Node(cur_node);
 //                Node* right_node = new Node(goal_node);
 
 //                Edge* new_edge = new Edge(left_node, right_node, weight);
-                //if(_nodes.at(cur_node)){ //Test if node exists and add edge
-                    //this->_nodes.at(cur_node) == new ;
-                //}
-                //this->_nodes.at(node).push_back(new_edge);
+            //if(_nodes.at(cur_node)){ //Test if node exists and add edge
+                //this->_nodes.at(cur_node) == new ;
+            //}
+            //this->_nodes.at(node).push_back(new_edge);
 
-                insert_edge(cur_node, goal_node);
+            insert_edge(cur_node, goal_node, weight);
+        }
+
+
+        cout << "DEBUG:\nNode\tnum_ed\tadjacent_nodes" << endl;
+        for (int i = 0; i < nodes.size(); i++) {
+            vector<Edge*> cur_edges = nodes.at(i)->get_edges();
+            cout << i << "\t" << cur_edges.size() << "\t";
+
+            for (int j = 0; j < cur_edges.size(); j++) {
+                cout << cur_edges[j]->get_right_node()->get_value() << "\t";
             }
+            cout << endl;
+        }
+        cout << nodes.size() << endl;
 
-            cout << "DEBUG:\nNode\tnum_ed\tadjacent_nodes" << endl;
-            for (int i = 0; i < nodes.size(); i++) {
-                vector<Edge*> cur_edges = nodes.at(i)->get_edges();
-                cout << i << "\t" << cur_edges.size() << "\t";
 
-                for (int j = 0; j < cur_edges.size(); j++) {
-                    cout << cur_edges[j]->get_right_node()->get_value() << "\t";
-                }
-                cout << endl;
-
-            }
-            cout << nodes.size() << endl;
-        }else cout << "Error while reading file";
-    }
-
-//    string line;
-//    if (graph_file){
-//        while (getline( graph_file, line )){
-//            if
-//        }
-//        graph_file.close();
-//    }else cout << "Error while reading file";
+    }else cout << "Error while reading file";
 }
 
 Node* Graph::insert_node_if_not_exist(double value) {
@@ -107,7 +177,7 @@ Node* Graph::insert_node_if_not_exist(double value) {
     return nodes[value];
 }
 
-void Graph::insert_edge(double start_value, double end_value) {
+void Graph::insert_edge(double start_value, double end_value, double weight) {
 
     Node* start_node = insert_node_if_not_exist(start_value);
     Node* end_node = insert_node_if_not_exist(end_value);
@@ -155,11 +225,6 @@ void Graph::insert_edge(double start_value, double end_value) {
 
 bool Graph::insert_edge_if_not_exist(Node* start_node, Node* end_node) {
     start_node->insert_edge_to(end_node, is_directed());
-}
-
-void Graph::add_node(Node new_node_)
-{
-//    this->_nodes.push_back(new_node_);
 }
 
 Node* Graph::get_node(double value) {
