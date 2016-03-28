@@ -1,19 +1,20 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QFileDialog>
-#include "graph.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {    
 
-//    new Graph(
-//                false,
-//                true,
-//                false,
-//                "/home/nlimpert/FH\ Aachen/MMI/Graph2.txt");
+    _graph = new Graph(
+                false,
+                true,
+                false,
+                "/home/nlimpert/FH\ Aachen/MMI/Graph2.txt");
 
+    DFS dfs(_graph);
+    dfs.perform_recursive_DFS(1);
     ui->setupUi(this);
 }
 
