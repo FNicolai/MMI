@@ -10,11 +10,13 @@ DFS::DFS(Graph* graph)
 }
 
 void DFS::perform_recursive_DFS(double start_node_value) {
+    cout << "recursive DFS:" << endl;
     visit(_graph->get_node(start_node_value));
+    cout << endl;
 }
 
 void DFS::visit(Node* node) {
-    cout << "visit: " << node->get_value() << endl;
+    cout << node->get_value() << " -> ";
     node->set_visited(true);
     vector<Edge*> cur_edges = node->get_edges();
     Node* next_node;
