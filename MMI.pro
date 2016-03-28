@@ -18,13 +18,17 @@ SOURCES += main.cpp\
     mainwindow.cpp \
     graph.cpp \
     node.cpp \
-    edge.cpp
+    edge.cpp \
+    searchabstractbase.cpp \
+    bfs.cpp
 
 HEADERS  += \
     mainwindow.h \
     graph.h \
     node.h \
-    edge.h
+    edge.h \
+    searchabstractbase.h \
+    bfs.h
 
 FORMS    += \
     mainwindow.ui
