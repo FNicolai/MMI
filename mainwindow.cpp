@@ -12,9 +12,12 @@ MainWindow::MainWindow(QWidget *parent) :
                 true,
                 false,
                 "/home/nlimpert/FH\ Aachen/MMI/Graph2.txt");
+    BFS bfs(_graph);
+    bfs.perform_iterative_BFS(1);
 
     DFS dfs(_graph);
     dfs.perform_recursive_DFS(1);
+
     ui->setupUi(this);
 }
 
@@ -39,11 +42,13 @@ void MainWindow::on_pushButton_select_file_clicked()
 
 void MainWindow::on_pushButton_read_clicked()
 {
-    new Graph(
+    _graph = new Graph(
                 ui->radioButton_weighted_yes->isChecked(),
                 ui->radioButton_directed->isChecked(),
                 ui->radioButton_adjacency_matrix->isChecked(),
                 ui->label_chosen_file->text());
+
+
     this->hide();
 
 }

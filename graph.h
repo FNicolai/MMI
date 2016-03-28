@@ -20,6 +20,7 @@ using namespace std;
 class Graph
 {
 public:
+    Graph();
     Graph(bool weighted_, bool directed, bool is_adjacency_matrix_, QString filename_);
 
     inline bool is_weighted() const;
