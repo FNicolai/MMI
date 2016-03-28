@@ -26,6 +26,7 @@ public:
     inline bool is_directed() const;
     inline bool is_adjacency_matrix() const;
     void add_node(Node new_node_);                                // Add nodes to the graph
+    Node* get_node(double value);
 
 private:
     vector<Node*> _nodes;
