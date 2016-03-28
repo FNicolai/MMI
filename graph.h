@@ -20,12 +20,14 @@ using namespace std;
 class Graph
 {
 public:
+    Graph();
     Graph(bool weighted_, bool directed, bool is_adjacency_matrix_, QString filename_);
 
     inline bool is_weighted() const;
     inline bool is_directed() const;
     inline bool is_adjacency_matrix() const;
     void add_node(Node new_node_);                                // Add nodes to the graph
+    Node* get_node(double node_value);
 
 private:
     vector<Node*> _nodes;

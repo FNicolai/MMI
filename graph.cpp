@@ -161,3 +161,7 @@ void Graph::add_node(Node new_node_)
 {
 //    this->_nodes.push_back(new_node_);
 }
+
+Node* Graph::get_node(double node_value) {
+    return nodes[node_value];
+}
