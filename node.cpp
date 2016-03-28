@@ -60,7 +60,7 @@ Edge* Node::insert_edge_to(Node *target_node, bool directed) {
     }
 
     if (!directed) {
-        target_node->insert_edge_to(this, false);
+        target_node->insert_edge_to(this, true);
     }
     return retVal;
 }
