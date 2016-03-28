@@ -18,12 +18,14 @@ SOURCES += main.cpp\
     mainwindow.cpp \
     graph.cpp \
     node.cpp \
+    dfs.cpp \
     edge.cpp
 
 HEADERS  += \
     mainwindow.h \
     graph.h \
     node.h \
+    dfs.h \
     edge.h
 
 FORMS    += \
