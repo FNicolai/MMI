@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
                 false,
                 false,
                 false,
-                "../Graph2.txt");
+                "../../Graph2.txt");
     BFS bfs(_graph);
     bfs.perform_iterative_BFS(1);
 

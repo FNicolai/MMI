@@ -53,6 +53,8 @@ private:
     bool insert_edge_if_not_exist(Node* start_node, Node* end_node);
     void insert_edge(double start_value, double end_value, double weight);
 
+    void print_nodes();
+
 };
 
 #endif // GRAPH_H
