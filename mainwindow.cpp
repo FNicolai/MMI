@@ -7,18 +7,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {    
 
-    _graph = new Graph(
-                false,
-                false,
-                false,
-                "../../Graph2.txt");
-    BFS bfs(_graph);
-    bfs.perform_iterative_BFS(1);
-
-    _graph->reset_visited();
-
-    DFS dfs(_graph);
-    dfs.perform_recursive_DFS(1);
+//    _graph = new Graph(
+//                false,
+//                false,
+//                true,
+//                "../../Graph1.txt");
 
     ui->setupUi(this);
 }
@@ -40,6 +33,7 @@ void MainWindow::on_pushButton_select_file_clicked()
 
     //Set label in gui to chosen filename path
     ui->label_chosen_file->setText(filename);
+    ui->pushButton_read->setEnabled(true);
 }
 
 void MainWindow::on_pushButton_read_clicked()
@@ -50,12 +44,35 @@ void MainWindow::on_pushButton_read_clicked()
                 ui->radioButton_adjacency_matrix->isChecked(),
                 ui->label_chosen_file->text());
 
+    ui->pushButton_read->setText("Done!");
+    ui->pushButton_read->setEnabled(false);
+    ui->spinBox_start_node->setMaximum(_graph->get_nodes().size()-1);
+    QString max_node = "(Max. is ";
+    max_node.append(QString::number(_graph->get_nodes().size()-1));
+    max_node.append(")");
+    ui->label_max_node->setText(max_node);
 
-    this->hide();
+
+    ui->groupBox_algorithems->setEnabled(true);
+
 
 }
 
 void MainWindow::on_pushButton_cancel_clicked()
 {
     QApplication::quit();
+}
+
+void MainWindow::on_pushButton_start_bfs_clicked()
+{
+    BFS bfs(_graph);
+    bfs.perform_iterative_BFS(ui->spinBox_start_node->value());
+    _graph->reset_visited();
+}
+
+void MainWindow::on_pushButton_start_dfs_clicked()
+{
+    DFS dfs(_graph);
+    dfs.perform_recursive_DFS(ui->spinBox_start_node->value());
+    _graph->reset_visited();
 }

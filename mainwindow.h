@@ -6,6 +6,8 @@
 #include "dfs.h"
 #include "bfs.h"
 
+using namespace std;
+
 namespace Ui {
 class MainWindow;
 }
@@ -24,6 +26,10 @@ private slots:
     void on_pushButton_read_clicked();
 
     void on_pushButton_cancel_clicked();
+
+    void on_pushButton_start_bfs_clicked();
+
+    void on_pushButton_start_dfs_clicked();
 
 private:
     Ui::MainWindow *ui;

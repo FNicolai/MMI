@@ -28,6 +28,7 @@ public:
     inline bool is_adjacency_matrix() const;
     Node* get_node(double value);
     void reset_visited();
+    unordered_map<double, Node*> get_nodes();
 
 private:
     vector<Node*> _nodes;

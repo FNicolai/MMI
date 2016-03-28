@@ -20,7 +20,7 @@ void BFS::perform_iterative_BFS(double start_node_value) {
         cur_node = nodes_queue.front();
         nodes_queue.pop();
 
-        cout << cur_node->get_value() << " -> ";
+        cout << cur_node->get_value();
 
 //        if (cur_node == goal_node) {
 //            return;
@@ -34,6 +34,9 @@ void BFS::perform_iterative_BFS(double start_node_value) {
                 next_node->set_visited(true);
                 nodes_queue.push(next_node);
             }
+        }
+        if(!nodes_queue.empty()){
+            cout << " -> ";
         }
     }
     cout << endl;

@@ -203,6 +203,11 @@ void Graph::reset_visited() {
     }
 }
 
+unordered_map<double, Node *> Graph::get_nodes()
+{
+    return nodes;
+}
+
 
 void Graph::print_nodes()
 {

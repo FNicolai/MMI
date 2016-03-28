@@ -11,13 +11,13 @@ DFS::DFS(Graph* graph)
 }
 
 void DFS::perform_recursive_DFS(double start_node_value) {
-    cout << "recursive DFS:" << endl;
+    cout << endl << "recursive DFS:" << endl;
     visit(_graph->get_node(start_node_value));
     cout << endl;
 }
 
 void DFS::visit(Node* node) {
-    cout << node->get_value() << " -> ";
+    cout << node->get_value();
     node->set_visited(true);
     vector<Edge*> cur_edges = node->get_edges();
     Node* next_node;
@@ -25,6 +25,7 @@ void DFS::visit(Node* node) {
     for (uint iE = 0; iE < cur_edges.size(); iE++) {
         next_node = cur_edges[iE]->get_right_node();
         if (!next_node->get_visited()) {
+            cout << " -> ";
             visit(next_node);
         } else {
 #ifdef SHOWCYCLES
