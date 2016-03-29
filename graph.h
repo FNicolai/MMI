@@ -31,7 +31,6 @@ public:
     unordered_map<double, Node*> get_nodes();
 
 private:
-    vector<Node*> _nodes;
 
     bool _is_weighted;             //Is the given graph weighted?
     bool _is_directed;             //Is the given graph directed?

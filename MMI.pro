@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     node.cpp \
     dfs.cpp \
     edge.cpp \
-    bfs.cpp
+    bfs.cpp \
+    components.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -28,7 +29,8 @@ HEADERS  += \
     node.h \
     dfs.h \
     edge.h \
-    bfs.h
+    bfs.h \
+    components.h
 
 FORMS    += \
     mainwindow.ui

@@ -76,3 +76,10 @@ void MainWindow::on_pushButton_start_dfs_clicked()
     dfs.perform_recursive_DFS(ui->spinBox_start_node->value());
     _graph->reset_visited();
 }
+
+void MainWindow::on_pushButton_count_components_clicked()
+{
+    Components components(_graph);
+    components.perform_connected_compontents();
+    _graph->reset_visited();
+}

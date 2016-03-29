@@ -121,14 +121,6 @@ void Graph::read_edgelist(ifstream &graph_file_)
     if(graph_file_){
         while (graph_file_ >> cur_node >> goal_node){
             //cout << a << " " << b << endl;
-//                Node* left_node = new Node(cur_node);
-//                Node* right_node = new Node(goal_node);
-
-//                Edge* new_edge = new Edge(left_node, right_node, weight);
-            //if(_nodes.at(cur_node)){ //Test if node exists and add edge
-                //this->_nodes.at(cur_node) == new ;
-            //}
-            //this->_nodes.at(node).push_back(new_edge);
 
             insert_edge(cur_node, goal_node, weight);
         }

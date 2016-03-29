@@ -284,6 +284,19 @@
       <string>(Max. is x)</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="pushButton_count_components">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>80</y>
+       <width>111</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Count components</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>

@@ -5,6 +5,7 @@
 #include "graph.h"
 #include "dfs.h"
 #include "bfs.h"
+#include "components.h"
 
 using namespace std;
 
@@ -30,6 +31,8 @@ private slots:
     void on_pushButton_start_bfs_clicked();
 
     void on_pushButton_start_dfs_clicked();
+
+    void on_pushButton_count_components_clicked();
 
 private:
     Ui::MainWindow *ui;
