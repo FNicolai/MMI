@@ -26,8 +26,9 @@ double Components::perform_connected_compontents(SearchInputType search_input_ty
            break;
     }
 
+    unordered_map<double, Node*> nodes = _graph->get_nodes();
     std::unordered_map<double, Node*>::iterator nodes_iterator;
-    for (nodes_iterator = _graph->get_nodes().begin(); nodes_iterator != _graph->get_nodes().end(); nodes_iterator++) {
+    for (nodes_iterator = nodes.begin(); nodes_iterator != nodes.end(); nodes_iterator++) {
         if(!nodes_iterator->second->get_visited()){
             components++;
             switch(search_input_type_){
