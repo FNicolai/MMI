@@ -216,30 +216,17 @@
     <property name="title">
      <string>Algorithems</string>
     </property>
-    <widget class="QPushButton" name="pushButton_start_bfs">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>50</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Start BFS</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_start_dfs">
+    <widget class="QPushButton" name="pushButton_start_search">
      <property name="geometry">
       <rect>
        <x>110</x>
        <y>50</y>
-       <width>75</width>
-       <height>23</height>
+       <width>71</width>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
-      <string>Start DFS</string>
+      <string>Start search</string>
      </property>
     </widget>
     <widget class="QSpinBox" name="spinBox_start_node">
@@ -287,14 +274,24 @@
     <widget class="QPushButton" name="pushButton_count_components">
      <property name="geometry">
       <rect>
-       <x>20</x>
-       <y>80</y>
+       <x>200</x>
+       <y>50</y>
        <width>111</width>
        <height>31</height>
       </rect>
      </property>
      <property name="text">
       <string>Count components</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_search_type">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>50</y>
+       <width>71</width>
+       <height>31</height>
+      </rect>
      </property>
     </widget>
    </widget>

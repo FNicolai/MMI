@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
 //                "../../Graph1.txt");
 
     ui->setupUi(this);
+    ui->comboBox_search_type->addItem("DFS");
+    ui->comboBox_search_type->addItem("BFS");
 }
 
 MainWindow::~MainWindow()
@@ -63,23 +65,29 @@ void MainWindow::on_pushButton_cancel_clicked()
     QApplication::quit();
 }
 
-void MainWindow::on_pushButton_start_bfs_clicked()
-{
-    BFS bfs(_graph);
-    bfs.perform_iterative_BFS(ui->spinBox_start_node->value());
-    _graph->reset_visited();
-}
-
-void MainWindow::on_pushButton_start_dfs_clicked()
-{
-    DFS dfs(_graph);
-    dfs.perform_recursive_DFS(ui->spinBox_start_node->value());
-    _graph->reset_visited();
-}
-
 void MainWindow::on_pushButton_count_components_clicked()
 {
     Components components(_graph);
-    components.perform_connected_compontents();
+    components.perform_connected_compontents(Components::SearchInputType(ui->comboBox_search_type->currentIndex()));
     _graph->reset_visited();
+}
+
+void MainWindow::on_pushButton_start_search_clicked()
+{
+    switch(ui->comboBox_search_type->currentIndex()){
+    case Components::enum_DFS  :
+    {
+        DFS dfs(_graph);
+        dfs.perform_recursive_DFS(ui->spinBox_start_node->value());
+        _graph->reset_visited();
+        break;
+    }
+    case Components::enum_BFS  :
+    {
+        BFS bfs(_graph);
+        bfs.perform_iterative_BFS(ui->spinBox_start_node->value());
+        _graph->reset_visited();
+        break;
+    }
+    }
 }

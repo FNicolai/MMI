@@ -16,7 +16,9 @@ public:
     Components();
     Components(Graph* graph_);
 
-    double perform_connected_compontents();
+    enum SearchInputType {enum_DFS, enum_BFS};
+
+    double perform_connected_compontents(SearchInputType search_input_type_);
 public:
     Graph* _graph;
 };

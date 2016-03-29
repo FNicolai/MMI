@@ -28,11 +28,9 @@ private slots:
 
     void on_pushButton_cancel_clicked();
 
-    void on_pushButton_start_bfs_clicked();
-
-    void on_pushButton_start_dfs_clicked();
-
     void on_pushButton_count_components_clicked();
+
+    void on_pushButton_start_search_clicked();
 
 private:
     Ui::MainWindow *ui;
