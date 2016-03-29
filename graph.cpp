@@ -192,8 +192,9 @@ Node* Graph::get_node(double value) {
 }
 
 void Graph::reset_visited() {
-    for (int i = 0; i < nodes.size(); i++) {
-        nodes.at(i)->set_visited(false);
+    unordered_map<double, Node*>::iterator iter;
+    for (iter = nodes.begin(); iter != nodes.end(); iter++) {
+        iter->second->set_visited(false);
     }
 }
 
