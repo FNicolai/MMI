@@ -58,7 +58,7 @@ void Graph::read_graph(QString _filename)
 
         //IS EDGELIST
 
-        read_edgelist(graph_file);
+        read_edgelist(graph_file, quantity);
     }
 
 }
@@ -112,12 +112,16 @@ void Graph::read_weighted_adjacency_matrix(ifstream &graph_file_, double quantit
     }else cout << "Error while reading file";
 }
 
-void Graph::read_edgelist(ifstream &graph_file_)
+void Graph::read_edgelist(ifstream &graph_file_, double& quantity)
 {
     double cur_node, goal_node, weight;
 
     if(!is_weighted()){
         weight = NAN; //No weight, because the graph isn't weighted
+    }
+
+    for (double i = 0; i < quantity; i++) {
+        insert_node_if_not_exist(i);
     }
 
     if(graph_file_){

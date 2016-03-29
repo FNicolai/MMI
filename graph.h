@@ -48,7 +48,7 @@ private:
     void read_quantity(ifstream& graph_file_, double &quantity);
     void read_unweighted_adjacency_matrix(ifstream &graph_file_, double quantity_);
     void read_weighted_adjacency_matrix(ifstream &graph_file_, double quantity_);
-    void read_edgelist(ifstream &graph_file_);
+    void read_edgelist(ifstream &graph_file_, double &quantity);
 
 
     Node* insert_node_if_not_exist(double value);
