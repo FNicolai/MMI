@@ -12,6 +12,8 @@ Components::Components(Graph *graph_)
 
 double Components::perform_connected_compontents(SearchInputType search_input_type_)
 {
+    cout << endl << "Count connected components of graph ";
+
     double components;
 
     DFS * dfs;
@@ -20,9 +22,11 @@ double Components::perform_connected_compontents(SearchInputType search_input_ty
     switch(search_input_type_){
         case enum_DFS  :
            dfs = new DFS (_graph);
+           cout << "with DFS." << endl;
            break;
         case enum_BFS  :
            bfs = new BFS (_graph);
+           cout << "with BFS." << endl;
            break;
     }
 
@@ -43,5 +47,5 @@ double Components::perform_connected_compontents(SearchInputType search_input_ty
         }
     }
 
-    cout << "The graph has " << components << " components." << endl;
+    cout << endl << "The graph has " << components << " connected components." << endl;
 }

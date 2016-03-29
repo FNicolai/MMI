@@ -25,6 +25,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_select_file_clicked()
 {
+    ui->groupBox_algorithems->setEnabled(false);
     //Start gui to choose graph
     QString filename = QFileDialog::getOpenFileName(
                 this,
