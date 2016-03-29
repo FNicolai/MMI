@@ -14,7 +14,7 @@ double Components::perform_connected_compontents(SearchInputType search_input_ty
 {
     cout << endl << "Count connected components of graph ";
 
-    double components;
+    double components = 0.;
 
     DFS * dfs;
     BFS * bfs;
@@ -40,7 +40,7 @@ double Components::perform_connected_compontents(SearchInputType search_input_ty
                    dfs->perform_recursive_DFS(nodes_iterator->first);
                    break;
                 case enum_BFS  :
-                   bfs->perform_iterative_BFS(nodes_iterator->first);;
+                   bfs->perform_iterative_BFS(nodes_iterator->first);
                    break;
             }
 
