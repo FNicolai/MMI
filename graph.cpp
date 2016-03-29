@@ -212,9 +212,10 @@ unordered_map<double, Node *> Graph::get_nodes()
 void Graph::print_nodes()
 {
     cout << "DEBUG:\nNode\t#Edges\tadjacent_nodes" << endl;
-    for (int i = 0; i < nodes.size(); i++) {
-        vector<Edge*> cur_edges = nodes.at(i)->get_edges();
-        cout << i << "\t" << cur_edges.size() << "\t";
+    std::unordered_map<double, Node*>::iterator nodes_iterator;
+    for (nodes_iterator = nodes.begin(); nodes_iterator != nodes.end(); nodes_iterator++) {
+        vector<Edge*> cur_edges = nodes_iterator->second->get_edges();
+        cout << nodes_iterator->first << "\t" << cur_edges.size() << "\t";
 
         for (int j = 0; j < cur_edges.size(); j++) {
             cout << cur_edges[j]->get_right_node()->get_value() << "\t";
