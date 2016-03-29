@@ -20,12 +20,14 @@ using namespace std;
 class Graph
 {
 public:
+    enum GraphInputType {EDGELIST, ADJACENCY_MATRIX};
     Graph();
-    Graph(bool weighted_, bool directed, bool is_adjacency_matrix_, QString filename_);
+    Graph(bool weighted_, bool directed, GraphInputType graph_input_type, QString filename_);
 
     inline bool is_weighted() const;
     inline bool is_directed() const;
     inline bool is_adjacency_matrix() const;
+    inline bool is_edgelist() const;
     Node* get_node(double value);
     void reset_visited();
     unordered_map<double, Node*> get_nodes();
@@ -34,7 +36,7 @@ private:
 
     bool _is_weighted;             //Is the given graph weighted?
     bool _is_directed;             //Is the given graph directed?
-    bool _is_adjacency_matrix;  //In what kind of matrixtype has the given graph
+    GraphInputType _input_type;    //In what kind of matrixtype has the given graph
     QString _filename;          //Where is the given graph located
 
     std::unordered_map<double, Node*> nodes;

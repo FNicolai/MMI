@@ -41,7 +41,7 @@ void MainWindow::on_pushButton_read_clicked()
     _graph = new Graph(
                 ui->radioButton_weighted_yes->isChecked(),
                 ui->radioButton_directed->isChecked(),
-                ui->radioButton_adjacency_matrix->isChecked(),
+                ui->radioButton_adjacency_matrix->isChecked() ? Graph::ADJACENCY_MATRIX : Graph::EDGELIST,
                 ui->label_chosen_file->text());
 
     ui->pushButton_read->setText("Done!");

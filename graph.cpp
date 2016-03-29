@@ -1,18 +1,16 @@
 #include "graph.h"
 
-Graph::Graph(bool weighted_, bool directed_, bool is_adjacency_matrix_, QString filename_)
+Graph::Graph(bool weighted_, bool directed_, GraphInputType graph_input_type, QString filename_)
 {
     _is_weighted = weighted_;
     _is_directed = directed_;
     _filename = filename_;
-    _is_adjacency_matrix = is_adjacency_matrix_;
+    _input_type = graph_input_type;
 
-    cout << _is_weighted << " " << _is_directed << " " << _is_adjacency_matrix << " " << _filename.toUtf8().constData() << endl;
+    cout << _is_weighted << " " << _is_directed << " " << is_adjacency_matrix() << " " << _filename.toUtf8().constData() << endl;
 
     read_graph(_filename);
 }
-
-
 
 // ### GET and SET methods
 
@@ -27,7 +25,11 @@ bool Graph::is_directed() const
 }
 
 bool Graph::is_adjacency_matrix() const {
-    return _is_adjacency_matrix;
+    return _input_type == ADJACENCY_MATRIX;
+}
+
+bool Graph::is_edgelist() const {
+    return _input_type == EDGELIST;
 }
 
 // ### Other functions
@@ -52,7 +54,7 @@ void Graph::read_graph(QString _filename)
             read_unweighted_adjacency_matrix(graph_file, quantity);
         }
 
-    }else{
+    }else if (is_edgelist()){
 
         //IS EDGELIST
 
