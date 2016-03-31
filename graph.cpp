@@ -68,7 +68,7 @@ void Graph::read_quantity(ifstream &graph_file_, double &quantity)
     if (graph_file_){
         graph_file_ >> quantity;
 
-        cout << "There are " << quantity << " lines in the file." << endl;
+        cout << "There are " << quantity << " nodes in the file." << endl;
 
         //graph_file.close();
     }else cout << "Error while reading file";
