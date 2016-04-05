@@ -48,11 +48,12 @@ private:
     void read_quantity(ifstream& graph_file_, double &quantity);
     void read_unweighted_adjacency_matrix(ifstream &graph_file_, double quantity_);
     void read_weighted_adjacency_matrix(ifstream &graph_file_, double quantity_);
-    void read_edgelist(ifstream &graph_file_, double &quantity);
+    void read_weighted_edgelist(ifstream &graph_file_);
+    void read_unweighted_edgelist(ifstream &graph_file_);
 
 
     Node* insert_node_if_not_exist(double value);
-    bool insert_edge_if_not_exist(Node* start_node, Node* end_node);
+    bool insert_edge_if_not_exist(Node* start_node, Node* end_node, double weight);
     void insert_edge(double start_value, double end_value, double weight);
 
     void print_nodes();

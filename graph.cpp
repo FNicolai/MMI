@@ -39,7 +39,8 @@ void Graph::read_graph(QString _filename)
     ifstream graph_file (_filename.toUtf8().constData());
 
 
-    //Get first line with quantity of lines
+    // Get first line with quantity of lines
+    // AND generate a node for each n of quantity
     double quantity;
     read_quantity(graph_file, quantity);
 
@@ -57,8 +58,12 @@ void Graph::read_graph(QString _filename)
     }else if (is_edgelist()){
 
         //IS EDGELIST
+        if(is_weighted()){
+            read_weighted_edgelist(graph_file);
+        }else{
+            read_unweighted_edgelist(graph_file);
+        }
 
-        read_edgelist(graph_file, quantity);
     }
 
 }
@@ -69,6 +74,10 @@ void Graph::read_quantity(ifstream &graph_file_, double &quantity)
         graph_file_ >> quantity;
 
         cout << "There are " << quantity << " nodes in the file." << endl;
+
+        for (double i = 0; i < quantity; i++) {
+            insert_node_if_not_exist(i);
+        }
 
         //graph_file.close();
     }else cout << "Error while reading file";
@@ -97,7 +106,6 @@ void Graph::read_unweighted_adjacency_matrix(ifstream &graph_file_, double quant
 
 void Graph::read_weighted_adjacency_matrix(ifstream &graph_file_, double quantity_)
 {
-
     double weight;
     if (graph_file_){
         for(double cur_node = 0; cur_node < quantity_; cur_node++){
@@ -112,23 +120,27 @@ void Graph::read_weighted_adjacency_matrix(ifstream &graph_file_, double quantit
     }else cout << "Error while reading file";
 }
 
-void Graph::read_edgelist(ifstream &graph_file_, double& quantity)
+void Graph::read_weighted_edgelist(ifstream &graph_file_)
 {
     double cur_node, goal_node, weight;
 
-    if(!is_weighted()){
-        weight = NAN; //No weight, because the graph isn't weighted
-    }
+    if(graph_file_){        
+        while (graph_file_ >> cur_node >> goal_node >> weight){
+            //cout << a << " " << b << endl;
+            insert_edge(cur_node, goal_node, weight);
+        }
+        print_nodes();
+    }else cout << "Error while reading file";
+}
 
-    for (double i = 0; i < quantity; i++) {
-        insert_node_if_not_exist(i);
-    }
+void Graph::read_unweighted_edgelist(ifstream &graph_file_)
+{
+    double cur_node, goal_node;
 
     if(graph_file_){
         while (graph_file_ >> cur_node >> goal_node){
             //cout << a << " " << b << endl;
-
-            insert_edge(cur_node, goal_node, weight);
+            insert_edge(cur_node, goal_node, NAN);
         }
         print_nodes();
     }else cout << "Error while reading file";
@@ -154,7 +166,7 @@ void Graph::insert_edge(double start_value, double end_value, double weight) {
 //        nodes[end_value] = new Node();
 //    }
 
-    insert_edge_if_not_exist(start_node, end_node);
+    insert_edge_if_not_exist(start_node, end_node, weight);
 
 //    vector<Edge*> start_edges = nodes_to_edges[nodes[start_value]];
 //    vector<Edge*> end_edges = nodes_to_edges[nodes[end_value]];
@@ -187,8 +199,8 @@ void Graph::insert_edge(double start_value, double end_value, double weight) {
     //    }
 }
 
-bool Graph::insert_edge_if_not_exist(Node* start_node, Node* end_node) {
-    start_node->insert_edge_to(end_node, is_directed());
+bool Graph::insert_edge_if_not_exist(Node* start_node, Node* end_node,double weight) {
+    start_node->insert_edge_to(end_node, is_directed(), weight);
 }
 
 Node* Graph::get_node(double value) {
@@ -210,14 +222,14 @@ unordered_map<double, Node *> Graph::get_nodes()
 
 void Graph::print_nodes()
 {
-    cout << "DEBUG:\nNode\t#Edges\tadjacent_nodes" << endl;
+    cout << "DEBUG:\nNode\t#Edges\tadjacent_nodes (weight)" << endl;
     std::unordered_map<double, Node*>::iterator nodes_iterator;
     for (nodes_iterator = nodes.begin(); nodes_iterator != nodes.end(); nodes_iterator++) {
         vector<Edge*> cur_edges = nodes_iterator->second->get_edges();
         cout << nodes_iterator->first << "\t" << cur_edges.size() << "\t";
 
         for (int j = 0; j < cur_edges.size(); j++) {
-            cout << cur_edges[j]->get_right_node()->get_value() << "\t";
+            cout << cur_edges[j]->get_right_node()->get_value() << " (" << cur_edges[j]->get_weight() << ")" << "\t";
         }
         cout << endl;
     }
