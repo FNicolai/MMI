@@ -30,17 +30,16 @@ double Components::perform_connected_compontents(SearchInputType search_input_ty
            break;
     }
 
-    unordered_map<double, Node*> nodes = _graph->get_nodes();
-    std::unordered_map<double, Node*>::iterator nodes_iterator;
-    for (nodes_iterator = nodes.begin(); nodes_iterator != nodes.end(); nodes_iterator++) {
-        if(!nodes_iterator->second->get_visited()){
+    vector<Node*> nodes = _graph->get_nodes();
+    for (size_t i = 0; i < nodes.size(); i++) {
+        if(!nodes[i]->get_visited()){
             components++;
             switch(search_input_type_){
                 case enum_DFS  :
-                   dfs->perform_recursive_DFS(nodes_iterator->first);
+                   dfs->perform_recursive_DFS(i);
                    break;
                 case enum_BFS  :
-                   bfs->perform_iterative_BFS(nodes_iterator->first);
+                   bfs->perform_iterative_BFS(i);
                    break;
             }
 
