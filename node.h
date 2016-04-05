@@ -22,7 +22,7 @@ public:
 
     bool has_edge_to(Node* target_node);
     Edge* get_edge_to(Node* target_node);
-    Edge* insert_edge_to(Node* target_node, bool directed);
+    Edge* insert_edge_to(Node* target_node, bool directed, double weight);
 
     vector<Edge *> get_edges() const;
 
