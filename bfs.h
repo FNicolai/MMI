@@ -13,7 +13,7 @@ public:
     BFS();
     BFS(Graph * graph);
 
-    void perform_iterative_BFS(double start_node_value);
+    void perform_iterative_BFS(int start_node_value);
 
 private:
     Graph* _graph;

@@ -9,7 +9,7 @@ BFS::BFS(Graph* graph)
     _graph = graph;
 }
 
-void BFS::perform_iterative_BFS(double start_node_value) {
+void BFS::perform_iterative_BFS(int start_node_value) {
     Node* cur_node = _graph->get_node(start_node_value);
     nodes_queue.push(cur_node);
     cur_node->set_visited(true);
