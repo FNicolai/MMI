@@ -15,7 +15,7 @@ class Node
 {
 public:
     Node();
-    Node(double value);
+    Node(int value);
 
     bool get_visited() const;
     void set_visited(bool visited_);
@@ -29,7 +29,7 @@ public:
     void add_edge(double value_);
     void remove_edge(double value_);
 
-    double get_value();
+    int get_value();
 
 private:
     double _value;

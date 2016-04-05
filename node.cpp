@@ -2,17 +2,17 @@
 
 Node::Node()
 {
-
+    _value = 0;
 }
 
-Node::Node(double value)
+Node::Node(int value)
 {
     _value = value;
 }
 
 // ### GET and SET methods
 
-double Node::get_value()
+int Node::get_value()
 {
     return _value;
 }
@@ -35,7 +35,7 @@ vector<Edge *> Node::get_edges() const
 Edge* Node::get_edge_to(Node *target_node) {
     Edge* retVal = NULL;
 
-    for (int i = 0; i < _edges.size(); i++) {
+    for (size_t i = 0; i < _edges.size(); i++) {
         if (
                 _edges[i]->get_right_node() == target_node ||
                 _edges[i]->get_left_node() == target_node
