@@ -21,7 +21,9 @@ SOURCES += main.cpp\
     dfs.cpp \
     edge.cpp \
     bfs.cpp \
-    components.cpp
+    components.cpp \
+    kruskal.cpp \
+    prim.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -30,7 +32,9 @@ HEADERS  += \
     dfs.h \
     edge.h \
     bfs.h \
-    components.h
+    components.h \
+    kruskal.h \
+    prim.h
 
 FORMS    += \
     mainwindow.ui
