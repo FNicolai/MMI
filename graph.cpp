@@ -239,7 +239,11 @@ void Graph::print_nodes()
         cout << i << "\t" << cur_edges.size() << "\t";
 
         for (int j = 0; j < cur_edges.size(); j++) {
-            cout << cur_edges[j]->get_right_node()->get_value() << " (" << cur_edges[j]->get_weight() << ")" << "\t";
+            cout << cur_edges[j]->get_right_node()->get_value();
+            if(is_weighted()){
+                cout << " (" << cur_edges[j]->get_weight() << ")";
+            }
+            cout <<  "\t";
         }
         cout << endl;
     }
