@@ -8,6 +8,8 @@ class PRIM
 public:
     PRIM();
     PRIM(Graph* graph_);
+
+    void perform_prim();
 private:
     Graph* _graph;
 };
