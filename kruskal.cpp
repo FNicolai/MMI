@@ -1,16 +1,16 @@
 #include "kruskal.h"
 
-KRUSKAL::KRUSKAL()
+Kruskal::Kruskal()
 {
 
 }
 
-KRUSKAL::KRUSKAL(Graph *graph_)
+Kruskal::Kruskal(Graph *graph_)
 {
     _graph = graph_;
 }
 
-void KRUSKAL::perform_krukal()
+void Kruskal::perform_kruskal()
 {
 
 }

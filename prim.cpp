@@ -1,16 +1,16 @@
 #include "prim.h"
 
-PRIM::PRIM()
+Prim::Prim()
 {
 
 }
 
-PRIM::PRIM(Graph *graph_)
+Prim::Prim(Graph *graph_)
 {
 
 }
 
-void PRIM::perform_prim()
+void Prim::perform_prim()
 {
 
 }

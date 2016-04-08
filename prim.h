@@ -3,11 +3,11 @@
 
 #include "graph.h"
 
-class PRIM
+class Prim
 {
 public:
-    PRIM();
-    PRIM(Graph* graph_);
+    Prim();
+    Prim(Graph* graph_);
 
     void perform_prim();
 private:

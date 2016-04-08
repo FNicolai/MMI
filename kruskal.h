@@ -3,13 +3,13 @@
 
 #include "graph.h"
 
-class KRUSKAL
+class Kruskal
 {
 public:
-    KRUSKAL();
-    KRUSKAL(Graph* graph_);
+    Kruskal();
+    Kruskal(Graph* graph_);
 
-    void perform_krukal();
+    void perform_kruskal();
 
 private:
     Graph* _graph;
