@@ -58,16 +58,6 @@ void MainWindow::on_pushButton_read_clicked()
 
 
     ui->groupBox_algorithems->setEnabled(true);
-
-    Kruskal kruskal(_graph);
-    kruskal.perform_kruskal();
-
-
-}
-
-void MainWindow::on_pushButton_cancel_clicked()
-{
-    QApplication::quit();
 }
 
 void MainWindow::on_pushButton_count_components_clicked()
@@ -95,4 +85,15 @@ void MainWindow::on_pushButton_start_search_clicked()
         break;
     }
     }
+}
+
+void MainWindow::on_pushButton_start_kruskal_clicked()
+{
+    Kruskal kruskal(_graph);
+    kruskal.perform_kruskal();
+}
+
+void MainWindow::on_pushButton_quit_clicked()
+{
+    QApplication::quit();
 }

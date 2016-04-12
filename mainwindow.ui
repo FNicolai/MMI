@@ -162,7 +162,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton_cancel">
+   <widget class="QPushButton" name="pushButton_quit">
     <property name="geometry">
      <rect>
       <x>520</x>
@@ -172,7 +172,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Cancel</string>
+     <string>Quit</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_select_file">

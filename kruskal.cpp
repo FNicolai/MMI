@@ -14,7 +14,6 @@ void Kruskal::perform_kruskal()
 {
     BFS bfs(_graph);
     bfs.perform_iterative_BFS(0);
-    _graph->reset_visited();
 
     vector<Node *> found_nodes = bfs.get_found_nodes();
 
