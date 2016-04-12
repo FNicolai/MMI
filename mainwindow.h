@@ -6,6 +6,8 @@
 #include "dfs.h"
 #include "bfs.h"
 #include "components.h"
+#include "kruskal.h"
+#include "prim.h"
 
 using namespace std;
 

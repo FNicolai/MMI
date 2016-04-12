@@ -2,6 +2,8 @@
 #define KRUSKAL_H
 
 #include "graph.h"
+#include "bfs.h"
+#include <map>
 
 class Kruskal
 {
@@ -13,6 +15,7 @@ public:
 
 private:
     Graph* _graph;
+    map<Edge*,double> _edges;
 };
 
 #endif // KRUSKAL_H

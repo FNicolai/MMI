@@ -25,6 +25,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_select_file_clicked()
 {
+    ui->pushButton_read->setText("Read");
     ui->groupBox_algorithems->setEnabled(false);
     //Start gui to choose graph
     QString filename = QFileDialog::getOpenFileName(
@@ -58,6 +59,9 @@ void MainWindow::on_pushButton_read_clicked()
 
     ui->groupBox_algorithems->setEnabled(true);
 
+    Kruskal kruskal(_graph);
+    kruskal.perform_kruskal();
+
 
 }
 
@@ -70,7 +74,7 @@ void MainWindow::on_pushButton_count_components_clicked()
 {
     Components components(_graph);
     components.perform_connected_compontents(Components::SearchInputType(ui->comboBox_search_type->currentIndex()));
-    _graph->reset_visited();
+    //_graph->reset_visited();
 }
 
 void MainWindow::on_pushButton_start_search_clicked()
@@ -80,14 +84,14 @@ void MainWindow::on_pushButton_start_search_clicked()
     {
         DFS dfs(_graph);
         dfs.perform_recursive_DFS(ui->spinBox_start_node->value());
-        _graph->reset_visited();
+        //_graph->reset_visited();
         break;
     }
     case Components::enum_BFS  :
     {
         BFS bfs(_graph);
         bfs.perform_iterative_BFS(ui->spinBox_start_node->value());
-        _graph->reset_visited();
+        //_graph->reset_visited();
         break;
     }
     }

@@ -57,14 +57,15 @@ Edge* Node::insert_edge_to(Node *target_node, bool directed, double weight) {
     if (retVal == NULL) {
         retVal = new Edge(this, target_node, weight);
         _edges.push_back(retVal);
+
+        if (!directed) {
+            target_node->_edges.push_back(retVal);
+            //target_node->insert_edge_to(this, true, weight);
+        }
     }
 
-    if (!directed) {
-        target_node->insert_edge_to(this, true, weight);
-    }
     return retVal;
 }
-
 
 // ### Other functions
 
