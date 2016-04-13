@@ -1,5 +1,16 @@
 #include "graph.h"
 
+Graph::Graph()
+{
+
+}
+
+Graph::Graph(bool weighted_, bool directed_)
+{
+    _is_weighted = weighted_;
+    _is_directed = directed_;
+}
+
 Graph::Graph(bool weighted_, bool directed_, GraphInputType graph_input_type, QString filename_)
 {
     _is_weighted = weighted_;
@@ -228,7 +239,6 @@ vector<Node *> Graph::get_nodes()
 {
     return nodes;
 }
-
 
 void Graph::print_nodes()
 {

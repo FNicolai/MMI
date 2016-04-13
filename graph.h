@@ -22,16 +22,20 @@ class Graph
 public:
     enum GraphInputType {EDGELIST, ADJACENCY_MATRIX};
     Graph();
-    Graph(bool weighted_, bool directed, GraphInputType graph_input_type, QString filename_);
+    Graph(bool weighted_, bool directed_);
+    Graph(bool weighted_, bool directed_, GraphInputType graph_input_type, QString filename_);
 
     inline bool is_weighted() const;
     inline bool is_directed() const;
     inline bool is_adjacency_matrix() const;
     inline bool is_edgelist() const;
+
     Node* get_node(int value);
     void reset_visited();
 //    unordered_map<double, Node*> get_nodes();
     vector<Node*> get_nodes();
+    Node* insert_node_if_not_exist(int value);
+    bool insert_edge_if_not_exist(Node* start_node, Node* end_node, double weight);
 
 private:
 
@@ -53,9 +57,6 @@ private:
     void read_weighted_edgelist(ifstream &graph_file_);
     void read_unweighted_edgelist(ifstream &graph_file_);
 
-
-    Node* insert_node_if_not_exist(int value);
-    bool insert_edge_if_not_exist(Node* start_node, Node* end_node, double weight);
     void insert_edge(int start_value, int end_value, double weight);
     void insert_n_nodes(int n);
 

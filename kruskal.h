@@ -3,7 +3,10 @@
 
 #include "graph.h"
 #include "bfs.h"
+#include "dfs.h"
 #include <map>
+#include <queue>
+#include <functional>
 
 class Kruskal
 {
@@ -15,7 +18,10 @@ public:
 
 private:
     Graph* _graph;
-    map<Edge*,double> _edges;
+    Graph* _MST_graph;
+    map<Edge *,double> _edges_by_edge;
+    multimap<double,Edge *> _edges_by_weight;
+    priority_queue<Edge *,vector<Edge *>, greater<Edge*> > _edges_priority_queue;
 };
 
 #endif // KRUSKAL_H
