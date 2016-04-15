@@ -19,13 +19,19 @@ void Kruskal::perform_kruskal()
 
     vector<Edge *> curr_edges;
 
+    cout << "Found " << _edges_by_edge.size() << " edges." << endl;
+
+    double group_counter = 0;
+
     for(size_t i=0; i<found_nodes.size(); i++){
+        _group_by_node.insert(pair<Node *, double>(found_nodes[i],group_counter)); //Save Node* and group/color/id
+        group_counter++;
         curr_edges = found_nodes[i]->get_edges();
         for(size_t j=0; j<curr_edges.size() ;j++){
             auto it = _edges_by_edge.find(curr_edges[j]);
             if( it == _edges_by_edge.end() ){   //No edge found
-                _edges_by_edge.insert(pair<Edge*,double>(curr_edges[j],curr_edges[j]->get_weight()));
-                _edges_by_weight.insert(pair<double, Edge *>(curr_edges[j]->get_weight(),curr_edges[j]));
+                _edges_by_edge.insert(pair<Edge*>(curr_edges[j])); // Save Edge*
+                _edges_by_weight.insert(pair<double, Edge *>(curr_edges[j]->get_weight(),curr_edges[j])); // Save weight and Edge*
                 //_edges_priority_queue.push(curr_edges[j]);
             }
         }
@@ -46,13 +52,17 @@ void Kruskal::perform_kruskal()
         _MST_graph->insert_node_if_not_exist(i);
     }
 
-//    auto it_ones = _edges_by_weight.begin();
-//    _MST_graph->insert_edge_if_not_exist(it_ones->second->get_left_node()->get_value,it_ones->second->get_right_node()->get_value,it_ones->first);
-//    _MST_graph->get_node(it_ones->second->get_left_node()->get_value)->set_visited(true);
+    for(auto it = _edges_by_weight.begin(); it != _edges_by_weight.end(); ++it){
+        Edge * curr_edge = it->first;
+        Node * curr_left_node = curr_edge->get_left_node();
+        Node * curr_right_node = curr_edge->get_right_node();
 
-//    for(auto it = _edges_by_weight.begin() + 1; it != _edges_by_weight.end(); ++it){
+        _MST_graph->insert_edge_if_not_exist(curr_left_node,curr_right_node,curr_edge->get_weight());
+        auto it_left_node = _group_by_node.find(curr_left_node);
+        auto it_right_node = _group_by_node.find(curr_right_node);
+        it_left_node->second = it_right_node->second;
 
-//    }
+    }
 
 
 //    for(auto i=0; i < _edges_priority_queue.size(); i++){

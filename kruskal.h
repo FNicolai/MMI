@@ -19,8 +19,9 @@ public:
 private:
     Graph* _graph;
     Graph* _MST_graph;
-    map<Edge *,double> _edges_by_edge;
-    multimap<double,Edge *> _edges_by_weight;
+    multimap<Edge *> _edges_by_edge; // Edge
+    multimap<Node *, double> _group_by_node; // Node and "group"/"color"/"id"
+    multimap<double,Edge *> _edges_by_weight; // Weight and Edge
     priority_queue<Edge *,vector<Edge *>, greater<Edge*> > _edges_priority_queue;
 };
 
