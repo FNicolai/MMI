@@ -46,13 +46,13 @@ void Kruskal::perform_kruskal()
         _MST_graph->insert_node_if_not_exist(i);
     }
 
-    auto it_ones = _edges_by_weight.begin();
-    _MST_graph->insert_edge_if_not_exist(it_ones->second->get_left_node()->get_value,it_ones->second->get_right_node()->get_value,it_ones->first);
-    _MST_graph->get_node(it_ones->second->get_left_node()->get_value)->set_visited(true);
+//    auto it_ones = _edges_by_weight.begin();
+//    _MST_graph->insert_edge_if_not_exist(it_ones->second->get_left_node()->get_value,it_ones->second->get_right_node()->get_value,it_ones->first);
+//    _MST_graph->get_node(it_ones->second->get_left_node()->get_value)->set_visited(true);
 
-    for(auto it = _edges_by_weight.begin() + 1; it != _edges_by_weight.end(); ++it){
+//    for(auto it = _edges_by_weight.begin() + 1; it != _edges_by_weight.end(); ++it){
 
-    }
+//    }
 
 
 //    for(auto i=0; i < _edges_priority_queue.size(); i++){

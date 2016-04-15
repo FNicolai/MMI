@@ -77,9 +77,7 @@ void Graph::read_graph(QString _filename)
         }else{
             read_unweighted_edgelist(graph_file);
         }
-
     }
-
 }
 
 void Graph::read_quantity(ifstream &graph_file_, int &quantity)
@@ -92,6 +90,8 @@ void Graph::read_quantity(ifstream &graph_file_, int &quantity)
         for (double i = 0; i < quantity; i++) {
             insert_node_if_not_exist(i);
         }
+
+        _nodes_visited.resize(quantity,false);
 
         //graph_file.close();
     }else cout << "Error while reading file";
@@ -179,60 +179,34 @@ void Graph::insert_edge(int start_value, int end_value, double weight) {
     Node* start_node = insert_node_if_not_exist(start_value);
     Node* end_node = insert_node_if_not_exist(end_value);
 
-//    // Insert nodes if they don't exist
-//    if (nodes[start_value] == NULL) {
-//        nodes[start_value] = new Node();
-//    }
-//    if (nodes[end_value] == NULL) {
-//        nodes[end_value] = new Node();
-//    }
-
     insert_edge_if_not_exist(start_node, end_node, weight);
-
-//    vector<Edge*> start_edges = nodes_to_edges[nodes[start_value]];
-//    vector<Edge*> end_edges = nodes_to_edges[nodes[end_value]];
-
-//    if (start_edges.size() == 0) {
-//        Edge* cur_edge = new Edge(nodes[start_value], nodes[end_value], 0);
-//        start_edges.push_back(cur_edge);
-
-//    } else {
-//        bool found = false;
-
-//        for (int iS = 0; iS < start_edges.size(); iS++) {
-//            Edge* cur_edge = start_edges.get(iS);
-//            if (
-//                    cur_edge->left_node == nodes[start_value] ||
-//                    cur_edge->left_node == nodes[end_value]) {
-
-//            }
-//        }
-//    }
-
-//    // Check if start node has edges
-//    if (nodes_to_edges[nodes[start_value]].size() == 0) {
-//        nodes_to_edges[nodes[start_value]] = vector<Node*>();
-//    }
-
-//    // Check if end node has edges
-//    if (nodes_to_edges[nodes[end_value]].size() == 0) {
-
-    //    }
 }
 
 bool Graph::insert_edge_if_not_exist(Node* start_node, Node* end_node, double weight) {
     start_node->insert_edge_to(end_node, is_directed(), weight);
 }
 
-Node* Graph::get_node(int value) {
-    return nodes[value];
+Node* Graph::get_node(int value_) {
+    return nodes[value_];
+}
+
+bool Graph::get_node_visited(Node *node_)
+{
+
+    return _nodes_visited[node_->get_value()];
+}
+
+void Graph::set_node_visited(Node *node_, bool status_)
+{
+    _nodes_visited[node_->get_value()] = status_;
 }
 
 void Graph::reset_visited() {
-    for (size_t i; i < nodes.size(); i++)
-    {
-        nodes[i]->set_visited(false);
-    }
+    fill(_nodes_visited.begin(), _nodes_visited.end(), false);
+//    for (size_t i; i < nodes.size(); i++)
+//    {
+//        nodes[i]->set_visited(false);
+//    }
 }
 
 vector<Node *> Graph::get_nodes()

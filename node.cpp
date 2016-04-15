@@ -17,15 +17,15 @@ int Node::get_value()
     return _value;
 }
 
-bool Node::get_visited() const
-{
-    return _visited;
-}
+//bool Node::get_visited() const
+//{
+//    return _visited;
+//}
 
-void Node::set_visited(bool visited_)
-{
-    _visited = visited_;
-}
+//void Node::set_visited(bool visited_)
+//{
+//    _visited = visited_;
+//}
 
 vector<Edge *> Node::get_edges() const
 {

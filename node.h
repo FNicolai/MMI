@@ -17,8 +17,8 @@ public:
     Node();
     Node(int value);
 
-    bool get_visited() const;
-    void set_visited(bool visited_);
+    //bool get_visited() const;
+    //void set_visited(bool visited_);
 
     bool has_edge_to(Node* target_node);
     Edge* get_edge_to(Node* target_node);
@@ -33,7 +33,7 @@ public:
 
 private:
     double _value;
-    bool _visited = false;   //Alread visited?
+    //bool _visited = false;   //Already visited?
 
     vector<Edge*> _edges;
 };

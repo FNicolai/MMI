@@ -5,6 +5,7 @@
 #include "edge.h"
 
 #include <vector>
+#include <map>
 #include <iostream>
 
 #include <QString>
@@ -30,7 +31,9 @@ public:
     inline bool is_adjacency_matrix() const;
     inline bool is_edgelist() const;
 
-    Node* get_node(int value);
+    Node* get_node(int value_);
+    bool get_node_visited(Node * node_);
+    void set_node_visited(Node *node_, bool status_);
     void reset_visited();
 //    unordered_map<double, Node*> get_nodes();
     vector<Node*> get_nodes();
@@ -44,11 +47,15 @@ private:
     GraphInputType _input_type;    //In what kind of matrixtype has the given graph
     QString _filename;          //Where is the given graph located
 
-//    std::unordered_map<double, Node*> nodes;
+    //std::unordered_map<double, Node*> nodes;
     vector<Node*> nodes;
+    vector<bool> _nodes_visited;
 
-//    std::unordered_map<Edge*, std::vector<Node*> > edges_to_nodes;
-    std::unordered_map<Node*, std::vector<Edge*> > nodes_to_edges;
+    //multimap<Edge *> _edges_by_edge;
+    //multimap<double, Edge *> _edges_by_weight;
+
+    //std::unordered_map<Edge*, std::vector<Node*> > edges_to_nodes;
+    //std::unordered_map<Node*, std::vector<Edge*> > nodes_to_edges;
 
     void read_graph(QString _filename);             // Read graph from given file
     void read_quantity(ifstream& graph_file_, int &quantity);
