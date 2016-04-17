@@ -17,6 +17,21 @@ int Node::get_value()
     return _value;
 }
 
+double Node::get_group()
+{
+    return _group;
+}
+
+void Node::set_group(double group_)
+{
+    _group = group_;
+}
+
+void Node::reset_edges()
+{
+    _edges.clear();
+}
+
 //bool Node::get_visited() const
 //{
 //    return _visited;

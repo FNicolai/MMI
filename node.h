@@ -31,9 +31,15 @@ public:
 
     int get_value();
 
+    double get_group();
+    void set_group(double group_);
+
+    void reset_edges();
+
 private:
     double _value;
     //bool _visited = false;   //Already visited?
+    double _group; // Group ID for Kruskal
 
     vector<Edge*> _edges;
 };

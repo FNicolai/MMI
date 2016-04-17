@@ -90,9 +90,6 @@ void Graph::read_quantity(ifstream &graph_file_, int &quantity)
         for (double i = 0; i < quantity; i++) {
             insert_node_if_not_exist(i);
         }
-
-        _nodes_visited.resize(quantity,false);
-
         //graph_file.close();
     }else cout << "Error while reading file";
 }
@@ -170,6 +167,7 @@ Node* Graph::insert_node_if_not_exist(int value) {
     if (nodes.size() <= value) {
         Node * cur_node = new Node(value);
         nodes.push_back(cur_node);
+        _nodes_visited.push_back(false);
     }
     return nodes[value];
 }
@@ -184,6 +182,13 @@ void Graph::insert_edge(int start_value, int end_value, double weight) {
 
 bool Graph::insert_edge_if_not_exist(Node* start_node, Node* end_node, double weight) {
     start_node->insert_edge_to(end_node, is_directed(), weight);
+}
+
+void Graph::reset_edges()
+{
+    for(auto i=0; i < nodes.size(); i++){
+        nodes[i]->reset_edges();
+    }
 }
 
 Node* Graph::get_node(int value_) {

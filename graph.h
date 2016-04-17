@@ -39,6 +39,7 @@ public:
     vector<Node*> get_nodes();
     Node* insert_node_if_not_exist(int value);
     bool insert_edge_if_not_exist(Node* start_node, Node* end_node, double weight);
+    void reset_edges();
 
 private:
 
