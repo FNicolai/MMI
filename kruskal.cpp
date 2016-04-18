@@ -20,8 +20,6 @@ double Kruskal::perform_kruskal()
     vector<Edge *> curr_edges;
 
     _nodes_by_group.resize(found_nodes.size());  //Same amount of groups as found nodes
-    _nodes_group.resize(found_nodes.size());
-
 
     for(size_t i=0; i<found_nodes.size(); i++){
 

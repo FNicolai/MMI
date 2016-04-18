@@ -16,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->comboBox_search_type->addItem("DFS");
     ui->comboBox_search_type->addItem("BFS");
+
+    _default_directory = "C://";
 }
 
 MainWindow::~MainWindow()
@@ -28,15 +30,21 @@ void MainWindow::on_pushButton_select_file_clicked()
     ui->pushButton_read->setText("Read");
     ui->groupBox_algorithems->setEnabled(false);
     //Start gui to choose graph
-    QString filename = QFileDialog::getOpenFileName(
+    filename = QFileDialog::getOpenFileName(
                 this,
                 tr("Select File"),
-                "C://",
+                _default_directory,
                 "Text File (*.txt);;All Files (*.*)"
                 );
 
+    QDir directory = QFileInfo(filename).absoluteDir();
+
+    cout << "Absolute path: " << directory.absolutePath().toUtf8().constData() << " and filename: " << filename.toUtf8().constData() << endl;
+
+    _default_directory = directory.absolutePath().toUtf8().constData();
+
     //Set label in gui to chosen filename path
-    ui->label_chosen_file->setText(filename);
+    ui->label_chosen_file->setText(QFileInfo(filename).fileName());
     ui->pushButton_read->setEnabled(true);
 }
 
@@ -46,7 +54,7 @@ void MainWindow::on_pushButton_read_clicked()
                 ui->radioButton_weighted_yes->isChecked(),
                 ui->radioButton_directed->isChecked(),
                 ui->radioButton_adjacency_matrix->isChecked() ? Graph::ADJACENCY_MATRIX : Graph::EDGELIST,
-                ui->label_chosen_file->text());
+                filename);
 
     ui->pushButton_read->setText("Done!");
     ui->pushButton_read->setEnabled(false);

@@ -39,6 +39,9 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
+    QString filename;
+    const char * _default_directory;
+
     Graph* _graph;
 
 };
