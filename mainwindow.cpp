@@ -101,6 +101,12 @@ void MainWindow::on_pushButton_start_kruskal_clicked()
     kruskal.perform_kruskal();
 }
 
+void MainWindow::on_pushButton_start_prim_clicked()
+{
+    Prim prim(_graph);
+    prim.perform_prim();
+}
+
 void MainWindow::on_pushButton_quit_clicked()
 {
     QApplication::quit();
