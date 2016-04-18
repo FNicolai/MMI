@@ -45,10 +45,10 @@ public:
 
 private:
 
-    bool _is_weighted;             //Is the given graph weighted?
-    bool _is_directed;             //Is the given graph directed?
-    GraphInputType _input_type;    //In what kind of matrixtype has the given graph
-    QString _filename;          //Where is the given graph located
+    bool _is_weighted;              // Is the given graph weighted?
+    bool _is_directed;              // Is the given graph directed?
+    GraphInputType _input_type;     // In what kind of matrixtype has the given graph
+    QString _filename;              // Where is the given graph located
 
     //std::unordered_map<double, Node*> nodes;
     vector<Node*> nodes;
