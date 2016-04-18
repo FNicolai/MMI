@@ -29,6 +29,10 @@ private:
     multimap<Edge *, double> _edges_by_edge; // Edge
 
     priority_queue<pair<Edge*,double>,vector<pair<Edge*,double>>,compare> _prio_edge_by_weight;
+
+    vector<bool> _nodes_visited;
+    bool get_node_visited(Node * node_);
+    void set_node_visited(Node *node_, bool status_);
 };
 
 #endif // PRIM_H

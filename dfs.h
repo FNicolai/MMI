@@ -21,6 +21,10 @@ private:
     Graph* _graph;
     void visit(Node* node);
     vector<Node*> _found_nodes;
+
+    vector<bool> _nodes_visited;
+    bool get_node_visited(Node * node_);
+    void set_node_visited(Node *node_, bool status_);
 };
 
 #endif // DFS_H

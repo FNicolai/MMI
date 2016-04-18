@@ -21,6 +21,10 @@ private:
     Graph* _graph;
     queue<Node *> _nodes_queue;
     vector<Node *> _found_nodes;
+
+    vector<bool> _nodes_visited;
+    bool get_node_visited(Node * node_);
+    void set_node_visited(Node *node_, bool status_);
 };
 
 #endif // BFS_H

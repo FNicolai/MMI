@@ -167,7 +167,6 @@ Node* Graph::insert_node_if_not_exist(int value) {
     if (nodes.size() <= value) {
         Node * cur_node = new Node(value);
         nodes.push_back(cur_node);
-        _nodes_visited.push_back(false);
     }
     return nodes[value];
 }
@@ -193,25 +192,6 @@ void Graph::reset_edges()
 
 Node* Graph::get_node(int value_) {
     return nodes[value_];
-}
-
-bool Graph::get_node_visited(Node *node_)
-{
-
-    return _nodes_visited[node_->get_value()];
-}
-
-void Graph::set_node_visited(Node *node_, bool status_)
-{
-    _nodes_visited[node_->get_value()] = status_;
-}
-
-void Graph::reset_visited() {
-    fill(_nodes_visited.begin(), _nodes_visited.end(), false);
-//    for (size_t i; i < nodes.size(); i++)
-//    {
-//        nodes[i]->set_visited(false);
-//    }
 }
 
 vector<Node *> Graph::get_nodes()

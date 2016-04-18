@@ -23,6 +23,10 @@ private:
     multimap<double,Edge *> _edges_by_weight; // Weight and Edge
 
     vector<vector<Node *> > _nodes_by_group; // "Group"/"Color"/"ID" and Node with his group membership
+
+    vector<bool> _nodes_visited;
+    bool get_node_visited(Node * node_);
+    void set_node_visited(Node *node_, bool status_);
 };
 
 #endif // KRUSKAL_H

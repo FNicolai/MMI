@@ -34,9 +34,6 @@ public:
     inline bool is_edgelist() const;
 
     Node* get_node(int value_);
-    bool get_node_visited(Node * node_);
-    void set_node_visited(Node *node_, bool status_);
-    void reset_visited();
 //    unordered_map<double, Node*> get_nodes();
     vector<Node*> get_nodes();
     Node* insert_node_if_not_exist(int value);
@@ -52,7 +49,6 @@ private:
 
     //std::unordered_map<double, Node*> nodes;
     vector<Node*> nodes;
-    vector<bool> _nodes_visited;
 
     //multimap<Edge *> _edges_by_edge;
     //multimap<double, Edge *> _edges_by_weight;
