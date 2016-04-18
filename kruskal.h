@@ -14,7 +14,7 @@ public:
     Kruskal();
     Kruskal(Graph* graph_);
 
-    void perform_kruskal();
+    double perform_kruskal();
 
 private:
 //    struct compare_group {

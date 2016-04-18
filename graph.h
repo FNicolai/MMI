@@ -16,6 +16,8 @@
 #include <cmath>
 #include <unordered_map>
 
+#include <ctime>
+
 using namespace std;
 
 class Graph
