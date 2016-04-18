@@ -3,7 +3,6 @@
 
 #include "graph.h"
 #include "unordered_map"
-#include <stack>
 #include "bfs.h"
 #include "dfs.h"
 

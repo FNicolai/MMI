@@ -17,8 +17,8 @@ public:
     Node();
     Node(int value);
 
-    bool get_visited() const;
-    void set_visited(bool visited_);
+    //bool get_visited() const;
+    //void set_visited(bool visited_);
 
     bool has_edge_to(Node* target_node);
     Edge* get_edge_to(Node* target_node);
@@ -31,9 +31,15 @@ public:
 
     int get_value();
 
+    double get_group();
+    void set_group(double group_);
+
+    void reset_edges();
+
 private:
     double _value;
-    bool _visited = false;   //Alread visited?
+    //bool _visited = false;   //Already visited?
+    double _group; // Group ID for Kruskal
 
     vector<Edge*> _edges;
 };

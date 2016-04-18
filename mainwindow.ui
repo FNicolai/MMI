@@ -162,7 +162,7 @@
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton_cancel">
+   <widget class="QPushButton" name="pushButton_quit">
     <property name="geometry">
      <rect>
       <x>520</x>
@@ -172,14 +172,14 @@
      </rect>
     </property>
     <property name="text">
-     <string>Cancel</string>
+     <string>Quit</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_select_file">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>10</y>
+      <y>20</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -191,9 +191,9 @@
    <widget class="QLabel" name="label_chosen_file">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>40</y>
-      <width>571</width>
+      <x>130</x>
+      <y>20</y>
+      <width>151</width>
       <height>21</height>
      </rect>
     </property>

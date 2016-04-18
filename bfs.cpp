@@ -13,7 +13,8 @@ void BFS::perform_iterative_BFS(int start_node_value) {
 
     Node * cur_node = _graph->get_node(start_node_value);
     _nodes_queue.push(cur_node);
-    cur_node->set_visited(true);
+    _graph->set_node_visited(cur_node,true);
+    //cur_node->set_visited(true);
 
     cout << endl << "iterative BFS:" << endl;
 
@@ -32,14 +33,18 @@ void BFS::perform_iterative_BFS(int start_node_value) {
 
         for (uint iE = 0; iE < cur_edges.size(); iE++) {
             next_node = cur_edges[iE]->get_right_node();
-            if (!next_node->get_visited()) {
-                next_node->set_visited(true);
+            //if (!next_node->get_visited()) {
+            if (!_graph->get_node_visited(next_node)) {
+                _graph->set_node_visited(next_node,true);
+                //next_node->set_visited(true);
                 _nodes_queue.push(next_node);
             }
             if(!_graph->is_directed()){
                 next_node = cur_edges[iE]->get_left_node();
-                if (!next_node->get_visited()) {
-                    next_node->set_visited(true);
+                //if (!next_node->get_visited()) {
+                if (!_graph->get_node_visited(next_node)) {
+                    //next_node->set_visited(true);
+                    _graph->set_node_visited(next_node,true);
                     _nodes_queue.push(next_node);
                 }
             }

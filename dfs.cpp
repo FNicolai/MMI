@@ -28,13 +28,15 @@ void DFS::visit(Node* node) {
     cout << node->get_value();
     _found_nodes.push_back(node);
 
-    node->set_visited(true);
+    _graph->set_node_visited(node,true);
+    //node->set_visited(true);
     vector<Edge*> cur_edges = node->get_edges();
     Node* next_node;
 
     for (uint iE = 0; iE < cur_edges.size(); iE++) {
         next_node = cur_edges[iE]->get_right_node();
-        if (!next_node->get_visited()) {
+        //if (!next_node->get_visited()) {
+        if (!_graph->get_node_visited(next_node)) {
             cout << " -> ";
             visit(next_node);
         } else {
@@ -44,7 +46,8 @@ void DFS::visit(Node* node) {
         }
         if(!_graph->is_directed()){
             next_node = cur_edges[iE]->get_left_node();
-            if (!next_node->get_visited()) {
+            //if (!next_node->get_visited()) {
+            if (!_graph->get_node_visited(next_node)) {
                 cout << " -> ";
                 visit(next_node);
             }
