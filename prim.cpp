@@ -10,7 +10,7 @@ Prim::Prim(Graph *graph_)
     _graph = graph_;
 }
 
-double Prim::perform_prim()
+double Prim::perform_prim(double start_node_)
 {
     clock_t time_begin = clock();
 
@@ -26,7 +26,7 @@ double Prim::perform_prim()
 //        _MST_graph->insert_node_if_not_exist(i);
 //    }
 
-    Node * curr_node = _graph->get_node(0); // Start node
+    Node * curr_node = _graph->get_node(start_node_); // Start node
     set_node_visited(curr_node,true);
     vector <Edge *> curr_edges = curr_node->get_edges();
     nodes_counter--;

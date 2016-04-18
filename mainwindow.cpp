@@ -98,13 +98,13 @@ void MainWindow::on_pushButton_start_search_clicked()
 void MainWindow::on_pushButton_start_kruskal_clicked()
 {
     Kruskal kruskal(_graph);
-    kruskal.perform_kruskal();
+    kruskal.perform_kruskal(ui->spinBox_start_node->value());
 }
 
 void MainWindow::on_pushButton_start_prim_clicked()
 {
     Prim prim(_graph);
-    prim.perform_prim();
+    prim.perform_prim(ui->spinBox_start_node->value());
 }
 
 void MainWindow::on_pushButton_quit_clicked()

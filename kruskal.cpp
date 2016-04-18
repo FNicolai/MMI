@@ -10,12 +10,12 @@ Kruskal::Kruskal(Graph *graph_)
     _graph = graph_;
 }
 
-double Kruskal::perform_kruskal()
+double Kruskal::perform_kruskal(double start_node_)
 {
     _nodes_visited.resize(_graph->get_nodes().size(),false);
 
     DFS dfs(_graph);
-    dfs.perform_recursive_DFS(0);
+    dfs.perform_recursive_DFS(start_node_);
 
     vector<Node *> found_nodes = dfs.get_found_nodes();
 
