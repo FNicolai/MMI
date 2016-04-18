@@ -53,13 +53,16 @@ double Prim::perform_prim()
             nodes_counter--;
         }
 
-
     }
 
     clock_t time_end = clock();
 
     double elapsed_secs = double(time_end - time_begin) / CLOCKS_PER_SEC;
     cout << "The MST has a total weight of " << total_MST_weight << ". That was calculated in " << elapsed_secs << " seconds." << endl;
+
+    _graph->reset_visited();
+
+    return total_MST_weight;
 
 }
 
