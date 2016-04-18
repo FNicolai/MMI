@@ -12,7 +12,7 @@ public:
     Prim();
     Prim(Graph* graph_);
 
-    double perform_prim();
+    double perform_prim(double start_node_);
 private:
     struct compare
     {

@@ -14,7 +14,7 @@ public:
     Kruskal();
     Kruskal(Graph* graph_);
 
-    double perform_kruskal();
+    double perform_kruskal(double start_node_);
 
 private:
     Graph* _graph;
