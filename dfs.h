@@ -15,10 +15,16 @@ public:
 
     void perform_recursive_DFS(double start_node_value);
 
+    vector<Node *> get_found_nodes();
+
 private:
     Graph* _graph;
-    stack<Node*> nodes_queue;
     void visit(Node* node);
+    vector<Node*> _found_nodes;
+
+    vector<bool> _nodes_visited;
+    bool get_node_visited(Node * node_);
+    void set_node_visited(Node *node_, bool status_);
 };
 
 #endif // DFS_H

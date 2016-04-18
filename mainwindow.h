@@ -6,6 +6,8 @@
 #include "dfs.h"
 #include "bfs.h"
 #include "components.h"
+#include "kruskal.h"
+#include "prim.h"
 
 using namespace std;
 
@@ -26,14 +28,21 @@ private slots:
 
     void on_pushButton_read_clicked();
 
-    void on_pushButton_cancel_clicked();
-
     void on_pushButton_count_components_clicked();
 
     void on_pushButton_start_search_clicked();
 
+    void on_pushButton_start_kruskal_clicked();
+
+    void on_pushButton_quit_clicked();
+
+    void on_pushButton_start_prim_clicked();
+
 private:
     Ui::MainWindow *ui;
+
+    QString filename;
+    const char * _default_directory;
 
     Graph* _graph;
 

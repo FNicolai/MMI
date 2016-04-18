@@ -20,28 +20,36 @@ double Components::perform_connected_compontents(SearchInputType search_input_ty
     BFS * bfs;
 
     switch(search_input_type_){
-        case enum_DFS  :
-           dfs = new DFS (_graph);
-           cout << "with DFS." << endl;
-           break;
-        case enum_BFS  :
-           bfs = new BFS (_graph);
-           cout << "with BFS." << endl;
-           break;
+    case enum_DFS  :
+        dfs = new DFS (_graph);
+        cout << "with DFS." << endl;
+        break;
+    case enum_BFS  :
+        bfs = new BFS (_graph);
+        cout << "with BFS." << endl;
+        break;
     }
 
-    vector<Node*> nodes = _graph->get_nodes();
+    vector<Node *> nodes = _graph->get_nodes();
+    vector<Node *> visited_nodes;
+    vector<Node *> found_nodes;
+
     for (size_t i = 0; i < nodes.size(); i++) {
-        if(!nodes[i]->get_visited()){
+        vector<Node *>::iterator it;
+        it = find (visited_nodes.begin(), visited_nodes.end(), nodes[i]);
+        if(it == visited_nodes.end()){ //No node found => not visited yet
             components++;
             switch(search_input_type_){
-                case enum_DFS  :
-                   dfs->perform_recursive_DFS(i);
-                   break;
-                case enum_BFS  :
-                   bfs->perform_iterative_BFS(i);
-                   break;
+            case enum_DFS  :
+                dfs->perform_recursive_DFS(i);
+                found_nodes = dfs->get_found_nodes();
+                break;
+            case enum_BFS  :
+                bfs->perform_iterative_BFS(i);
+                found_nodes = bfs->get_found_nodes();
+                break;
             }
+            visited_nodes.insert(visited_nodes.end(),found_nodes.begin(),found_nodes.end());
 
         }
     }

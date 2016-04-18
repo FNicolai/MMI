@@ -17,15 +17,30 @@ int Node::get_value()
     return _value;
 }
 
-bool Node::get_visited() const
+double Node::get_group()
 {
-    return _visited;
+    return _group;
 }
 
-void Node::set_visited(bool visited_)
+void Node::set_group(double group_)
 {
-    _visited = visited_;
+    _group = group_;
 }
+
+void Node::reset_edges()
+{
+    _edges.clear();
+}
+
+//bool Node::get_visited() const
+//{
+//    return _visited;
+//}
+
+//void Node::set_visited(bool visited_)
+//{
+//    _visited = visited_;
+//}
 
 vector<Edge *> Node::get_edges() const
 {
@@ -57,14 +72,15 @@ Edge* Node::insert_edge_to(Node *target_node, bool directed, double weight) {
     if (retVal == NULL) {
         retVal = new Edge(this, target_node, weight);
         _edges.push_back(retVal);
+
+        if (!directed) {
+            target_node->_edges.push_back(retVal);
+            //target_node->insert_edge_to(this, true, weight);
+        }
     }
 
-    if (!directed) {
-        target_node->insert_edge_to(this, true, weight);
-    }
     return retVal;
 }
-
 
 // ### Other functions
 
