@@ -12,7 +12,7 @@ public:
     Prim();
     Prim(Graph* graph_);
 
-    double perform_prim(double start_node_);
+    multimap<Edge *, double> perform_prim(double start_node_);
 private:
     struct compare
     {
@@ -24,7 +24,9 @@ private:
     void insert_edges(vector<Edge *> edges_);
 
     Graph* _graph;
-    Graph* _MST_graph;
+
+    multimap<Edge *, double> _MST_edges;        // To return all found edges that build the MST
+    //Graph* _MST_graph;
 
     multimap<Edge *, double> _edges_by_edge; // Edge
 

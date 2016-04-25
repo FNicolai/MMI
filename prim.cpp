@@ -10,7 +10,7 @@ Prim::Prim(Graph *graph_)
     _graph = graph_;
 }
 
-double Prim::perform_prim(double start_node_)
+multimap<Edge *, double> Prim::perform_prim(double start_node_)
 {
     clock_t time_begin = clock();
 
@@ -31,18 +31,19 @@ double Prim::perform_prim(double start_node_)
     vector <Edge *> curr_edges = curr_node->get_edges();
     nodes_counter--;
 
-    insert_edges(curr_edges);                                   // Insert starting edges
+    insert_edges(curr_edges);                                           // Insert starting edges
 
     while(nodes_counter != 0){
-        Edge * curr_edge = _prio_edge_by_weight.top().first;          // Get Edge with minimal weight (original graph)
+        Edge * curr_edge = _prio_edge_by_weight.top().first;            // Get Edge with minimal weight (original graph)
         _prio_edge_by_weight.pop();
-        Node * curr_left_node = curr_edge->get_left_node();     // Get left node (original graph)
-        Node * curr_right_node = curr_edge->get_right_node();   // Get right node (original graph)
+        Node * curr_left_node = curr_edge->get_left_node();             // Get left node (original graph)
+        Node * curr_right_node = curr_edge->get_right_node();           // Get right node (original graph)
 
         if(!get_node_visited(curr_left_node)){
             insert_edges(curr_left_node->get_edges());
             set_node_visited(curr_left_node,true);
             //_MST_graph->insert_edge_if_not_exist(curr_left_node,curr_right_node,curr_edge->get_weight());
+            _MST_edges.insert(pair<Edge*, double>(curr_edge, NAN));     // Add Edge* to MST, second is placeholder.
             total_MST_weight += curr_edge->get_weight();
             nodes_counter--;
         }
@@ -51,6 +52,7 @@ double Prim::perform_prim(double start_node_)
             insert_edges(curr_right_node->get_edges());
             set_node_visited(curr_right_node,true);
             //_MST_graph->insert_edge_if_not_exist(curr_left_node,curr_right_node,curr_edge->get_weight());
+            _MST_edges.insert(pair<Edge*, double>(curr_edge, NAN));     // Add Edge* to MST, second is placeholder.
             total_MST_weight += curr_edge->get_weight();
             nodes_counter--;
         }
@@ -62,7 +64,7 @@ double Prim::perform_prim(double start_node_)
     double elapsed_secs = double(time_end - time_begin) / CLOCKS_PER_SEC;
     cout << "The MST calculated by PRIM has a total weight of " << total_MST_weight << ". That was calculated in " << elapsed_secs << " seconds." << endl;
 
-    return total_MST_weight;
+    return _MST_edges;
 
 }
 

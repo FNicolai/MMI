@@ -10,7 +10,7 @@ Kruskal::Kruskal(Graph *graph_)
     _graph = graph_;
 }
 
-double Kruskal::perform_kruskal(double start_node_)
+multimap<Edge *, double> Kruskal::perform_kruskal(double start_node_)
 {
     _nodes_visited.resize(_graph->get_nodes().size(),false);
 
@@ -94,7 +94,8 @@ double Kruskal::perform_kruskal(double start_node_)
                 _nodes_by_group[curr_right_node_group].clear();                                                     // remove nodes from origin (right) group (original graph)
             }
 
-            //_MST_graph->insert_edge_if_not_exist(curr_left_node,curr_right_node,curr_edge->get_weight());           // Insert new Edge in _MST_graph
+            //_MST_graph->insert_edge_if_not_exist(curr_left_node,curr_right_node,curr_edge->get_weight());         // Insert new Edge in _MST_graph
+            _MST_edges.insert(pair<Edge*, double>(curr_edge, NAN));                                                 // Add Edge* to MST, second is placeholder.
             total_MST_weight += curr_edge->get_weight();
         }
 
@@ -106,7 +107,7 @@ double Kruskal::perform_kruskal(double start_node_)
 
     cout << "The MST calculated by KRUSKAL has a total weight of " << total_MST_weight << ". That was calculated in " << elapsed_secs << " seconds." << endl;
 
-    return total_MST_weight;
+    return _MST_edges;
 }
 
 bool Kruskal::get_node_visited(Node *node_)
