@@ -34,8 +34,8 @@ multimap<Edge *, double> Prim::perform_prim(double start_node_)
     insert_edges(curr_edges);                                           // Insert starting edges
 
     while(nodes_counter != 0){
-        Edge * curr_edge = _prio_edge_by_weight.top().first;            // Get Edge with minimal weight (original graph)
-        _prio_edge_by_weight.pop();
+        Edge * curr_edge = _sorted_edges.top().first;                   // Get Edge with minimal weight (original graph)
+        _sorted_edges.pop();
         Node * curr_left_node = curr_edge->get_left_node();             // Get left node (original graph)
         Node * curr_right_node = curr_edge->get_right_node();           // Get right node (original graph)
 
@@ -74,10 +74,10 @@ void Prim::insert_edges(vector<Edge *> edges_)
         // For all edges of the node
         // Insert to map to check if edge is already inserted
         // If NOT, insert it into map and priority qeue
-        auto it = _edges_by_edge.find(edges_[i]);
-        if( it == _edges_by_edge.end() ){   //No edge found
-            _edges_by_edge.insert(pair<Edge*, double>(edges_[i], NAN)); // Save Edge*, second is placeholder
-            _prio_edge_by_weight.push(pair<Edge *,double>(edges_[i],edges_[i]->get_weight()));
+        auto it = _edges.find(edges_[i]);
+        if( it == _edges.end() ){   //No edge found
+            _edges.insert(pair<Edge*, double>(edges_[i], NAN)); // Save Edge*, second is placeholder
+            _sorted_edges.push(pair<Edge *,double>(edges_[i],edges_[i]->get_weight()));
         }
     }
 }
