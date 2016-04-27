@@ -111,3 +111,9 @@ void MainWindow::on_pushButton_quit_clicked()
 {
     QApplication::quit();
 }
+
+void MainWindow::on_pushButton_start_double_tree_clicked()
+{
+    DoubleTree myTree(_graph);
+    myTree.perform_doubleTree(ui->spinBox_start_node->value());
+}
