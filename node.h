@@ -37,7 +37,7 @@ public:
     void reset_edges();
 
 private:
-    double _value;
+    int _value;
     //bool _visited = false;   //Already visited?
     double _group; // Group ID for Kruskal
 
