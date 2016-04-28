@@ -333,6 +333,19 @@
       <string>Nearest Neighbor</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="pushButton_start_double_tree">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>170</y>
+       <width>141</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Start Double Tree</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>

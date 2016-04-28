@@ -117,3 +117,9 @@ void MainWindow::on_pushButton_neares_neighbor_clicked()
     Nearest_Neighbor nearest_neighbor(_graph);
     nearest_neighbor.perform_nearest_neighbor(ui->spinBox_start_node->value());
 }
+
+void MainWindow::on_pushButton_start_double_tree_clicked()
+{
+    DoubleTree myTree(_graph);
+    myTree.perform_doubleTree(ui->spinBox_start_node->value());
+}

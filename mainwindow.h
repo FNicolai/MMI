@@ -9,6 +9,7 @@
 #include "kruskal.h"
 #include "prim.h"
 #include "nearest_neighbor.h"
+#include "double_tree.h"
 
 using namespace std;
 
@@ -40,6 +41,8 @@ private slots:
     void on_pushButton_start_prim_clicked();
 
     void on_pushButton_neares_neighbor_clicked();
+
+    void on_pushButton_start_double_tree_clicked();
 
 private:
     Ui::MainWindow *ui;

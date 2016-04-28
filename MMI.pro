@@ -24,7 +24,8 @@ SOURCES += main.cpp\
     components.cpp \
     kruskal.cpp \
     prim.cpp \
-    nearest_neighbor.cpp
+    nearest_neighbor.cpp \
+    double_tree.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -36,7 +37,8 @@ HEADERS  += \
     components.h \
     kruskal.h \
     prim.h \
-    nearest_neighbor.h
+    nearest_neighbor.h \
+    double_tree.h
 
 FORMS    += \
     mainwindow.ui
