@@ -10,7 +10,7 @@ Kruskal::Kruskal(Graph *graph_)
     _graph = graph_;
 }
 
-double Kruskal::perform_kruskal(double start_node_)
+multimap<Edge *, double> Kruskal::perform_kruskal(double start_node_)
 {
     _nodes_visited.resize(_graph->get_nodes().size(),false);
 
@@ -21,26 +21,26 @@ double Kruskal::perform_kruskal(double start_node_)
 
     vector<Edge *> curr_edges;
 
-    _nodes_by_group.resize(found_nodes.size());  //Same amount of groups as found nodes
+    _groups.resize(found_nodes.size());  //Same amount of groups as found nodes
 
     for(size_t i=0; i<found_nodes.size(); i++){
 
 
         found_nodes[i]->set_group((double)i);
 
-        _nodes_by_group[i].push_back(found_nodes[i]);
+        _groups[i].push_back(found_nodes[i]);
 
         curr_edges = found_nodes[i]->get_edges();
         for(size_t j=0; j<curr_edges.size() ;j++){
-            auto it = _edges_by_edge.find(curr_edges[j]);
-            if( it == _edges_by_edge.end() ){   //No edge found
-                _edges_by_edge.insert(pair<Edge*, double>(curr_edges[j], NAN)); // Save Edge*, second is placeholder
-                _edges_by_weight.insert(pair<double, Edge *>(curr_edges[j]->get_weight(),curr_edges[j])); // Save weight and Edge*
+            auto it = _edges.find(curr_edges[j]);
+            if( it == _edges.end() ){   //No edge found
+                _edges.insert(pair<Edge*, double>(curr_edges[j], NAN));                                     // Save Edge*, second is placeholder
+                _sorted_edges.insert(pair<double, Edge *>(curr_edges[j]->get_weight(),curr_edges[j]));      // Save weight and Edge*
             }
         }
     }
 
-    cout << "Found " << _edges_by_edge.size() << " edges." << endl;
+    cout << "Found " << _edges.size() << " edges." << endl;
 
 //    for(auto it = _edges_by_weight.begin(); it != _edges_by_weight.end(); ++it){
 //        cout << "Weight: " << it->first << " from Edge " << it->second->get_left_node()->get_value() << " to " << it->second->get_right_node()->get_value() << endl;
@@ -59,7 +59,7 @@ double Kruskal::perform_kruskal(double start_node_)
 
     double total_MST_weight = 0.;
 
-    for(auto it = _edges_by_weight.begin(); it != _edges_by_weight.end(); ++it){
+    for(auto it = _sorted_edges.begin(); it != _sorted_edges.end(); ++it){
 
         Edge * curr_edge = it->second;                                              // Get edge with smalles weight (original graph)
         Node * curr_left_node = curr_edge->get_left_node();                         // Get left node (original graph)
@@ -67,8 +67,8 @@ double Kruskal::perform_kruskal(double start_node_)
 
         auto curr_left_node_group = curr_left_node->get_group();                    // Get the group the left node belongs to (original graph)
         auto curr_right_node_group = curr_right_node->get_group();                  // Get the group the right node belongs to (original graph)
-        auto group_size_left_node = _nodes_by_group[curr_left_node_group].size();   // Get the groupsize the left node belongs to (original graph)
-        auto group_size_right_node = _nodes_by_group[curr_right_node_group].size(); // Get the groupsize the right node belongs to (original graph)
+        auto group_size_left_node = _groups[curr_left_node_group].size();           // Get the groupsize the left node belongs to (original graph)
+        auto group_size_right_node = _groups[curr_right_node_group].size();         // Get the groupsize the right node belongs to (original graph)
 
         if( (curr_left_node_group == curr_right_node_group) && (get_node_visited(curr_left_node) == true && get_node_visited(curr_right_node) == true) ){
             // Both are in the same group and already visited => loop => do nothing
@@ -77,24 +77,25 @@ double Kruskal::perform_kruskal(double start_node_)
                 //left group => right group
                 set_node_visited(curr_right_node,true);
                 for(auto i = 0; i < group_size_left_node; i++){
-                    _nodes_by_group[curr_left_node_group][i]->set_group(curr_right_node_group);                     // Set left group node(s) group to right group (original graph)
+                    _groups[curr_left_node_group][i]->set_group(curr_right_node_group);                             // Set left group node(s) group to right group (original graph)
                     set_node_visited(curr_left_node,true);
-                    _nodes_by_group[curr_right_node_group].push_back(_nodes_by_group[curr_left_node_group][i]);     // Move (copy) left group node(s) to right node group (original graph)
+                    _groups[curr_right_node_group].push_back(_groups[curr_left_node_group][i]);                     // Move (copy) left group node(s) to right node group (original graph)
                 }
-                _nodes_by_group[curr_left_node_group].clear();                                                      // remove nodes from origin (left) group (original graph)
+                _groups[curr_left_node_group].clear();                                                              // remove nodes from origin (left) group (original graph)
 
             }else{
                 //right group => left group
                 set_node_visited(curr_left_node,true);
                 for(auto i = 0; i < group_size_right_node; i++){
-                    _nodes_by_group[curr_right_node_group][i]->set_group(curr_left_node_group);                     // Set right group node(s) group to left group (original graph)
+                    _groups[curr_right_node_group][i]->set_group(curr_left_node_group);                             // Set right group node(s) group to left group (original graph)
                     set_node_visited(curr_right_node,true);
-                    _nodes_by_group[curr_left_node_group].push_back(_nodes_by_group[curr_right_node_group][i]);     // Move (copy) right group node(s) to left node group (original graph)
+                    _groups[curr_left_node_group].push_back(_groups[curr_right_node_group][i]);                     // Move (copy) right group node(s) to left node group (original graph)
                 }
-                _nodes_by_group[curr_right_node_group].clear();                                                     // remove nodes from origin (right) group (original graph)
+                _groups[curr_right_node_group].clear();                                                             // remove nodes from origin (right) group (original graph)
             }
 
-            //_MST_graph->insert_edge_if_not_exist(curr_left_node,curr_right_node,curr_edge->get_weight());           // Insert new Edge in _MST_graph
+            //_MST_graph->insert_edge_if_not_exist(curr_left_node,curr_right_node,curr_edge->get_weight());         // Insert new Edge in _MST_graph
+            _MST_edges.insert(pair<Edge*, double>(curr_edge, NAN));                                                 // Add Edge* to MST, second is placeholder.
             total_MST_weight += curr_edge->get_weight();
         }
 
@@ -106,7 +107,7 @@ double Kruskal::perform_kruskal(double start_node_)
 
     cout << "The MST calculated by KRUSKAL has a total weight of " << total_MST_weight << ". That was calculated in " << elapsed_secs << " seconds." << endl;
 
-    return total_MST_weight;
+    return _MST_edges;
 }
 
 bool Kruskal::get_node_visited(Node *node_)

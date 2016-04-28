@@ -12,7 +12,7 @@ public:
     Prim();
     Prim(Graph* graph_);
 
-    double perform_prim(double start_node_);
+    multimap<Edge *, double> perform_prim(double start_node_);
 private:
     struct compare
     {
@@ -24,15 +24,17 @@ private:
     void insert_edges(vector<Edge *> edges_);
 
     Graph* _graph;
-    Graph* _MST_graph;
+    //Graph* _MST_graph;
 
-    multimap<Edge *, double> _edges_by_edge; // Edge
+    multimap<Edge *, double> _edges;        // Edges sorted by pointer-value. Double is placeholder
 
-    priority_queue<pair<Edge*,double>,vector<pair<Edge*,double>>,compare> _prio_edge_by_weight;
+    priority_queue<pair<Edge*,double>,vector<pair<Edge*,double>>,compare> _sorted_edges;
 
     vector<bool> _nodes_visited;
     bool get_node_visited(Node * node_);
     void set_node_visited(Node *node_, bool status_);
+
+    multimap<Edge *, double> _MST_edges;    // To return all found edges that build the MST
 };
 
 #endif // PRIM_H

@@ -14,19 +14,22 @@ public:
     Kruskal();
     Kruskal(Graph* graph_);
 
-    double perform_kruskal(double start_node_);
+    multimap<Edge *, double> perform_kruskal(double start_node_);
 
 private:
     Graph* _graph;
-    Graph* _MST_graph;
-    multimap<Edge *, double> _edges_by_edge; // Edge
-    multimap<double,Edge *> _edges_by_weight; // Weight and Edge
 
-    vector<vector<Node *> > _nodes_by_group; // "Group"/"Color"/"ID" and Node with his group membership
+    multimap<Edge *, double> _edges;            // Edges sorted by pointer-value. Double is placeholder
+    multimap<double,Edge *> _sorted_edges;      // Edges sorted by their weight.
+
+    vector<vector<Node *> > _groups;            // "Group"/"Color"/"ID" and Node with his group membership
 
     vector<bool> _nodes_visited;
     bool get_node_visited(Node * node_);
     void set_node_visited(Node *node_, bool status_);
+
+    //Graph* _MST_graph;
+    multimap<Edge *, double> _MST_edges;        // To return all found edges that build the MST
 };
 
 #endif // KRUSKAL_H

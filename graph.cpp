@@ -11,16 +11,16 @@ Graph::Graph(bool weighted_, bool directed_)
     _is_directed = directed_;
 }
 
-Graph::Graph(bool weighted_, bool directed_, GraphInputType graph_input_type, QString filename_)
+Graph::Graph(bool weighted_, bool directed_, GraphInputType graph_input_type_, QString filename_)
 {
     _is_weighted = weighted_;
     _is_directed = directed_;
     _filename = filename_;
-    _input_type = graph_input_type;
+    _input_type = graph_input_type_;
 
     cout << _is_weighted << " " << _is_directed << " " << is_adjacency_matrix() << " " << _filename.toUtf8().constData() << endl;
 
-    read_graph(_filename);
+    read_graph();
 }
 
 // ### GET and SET methods
@@ -45,7 +45,7 @@ bool Graph::is_edgelist() const {
 
 // ### Other functions
 
-void Graph::read_graph(QString _filename)
+void Graph::read_graph()
 {
     ifstream graph_file (_filename.toUtf8().constData());
 
@@ -163,52 +163,52 @@ void Graph::insert_n_nodes(int n) {
     }
 }
 
-Node* Graph::insert_node_if_not_exist(int value) {
-    if (nodes.size() <= value) {
-        Node * cur_node = new Node(value);
-        nodes.push_back(cur_node);
+Node* Graph::insert_node_if_not_exist(int value_) {
+    if (_nodes.size() <= value_) {
+        Node * cur_node = new Node(value_);
+        _nodes.push_back(cur_node);
     }
-    return nodes[value];
+    return _nodes[value_];
 }
 
-void Graph::insert_edge(int start_value, int end_value, double weight) {
+void Graph::insert_edge(int start_value_, int end_value_, double weight_) {
 
-    Node* start_node = insert_node_if_not_exist(start_value);
-    Node* end_node = insert_node_if_not_exist(end_value);
+    Node* start_node = insert_node_if_not_exist(start_value_);
+    Node* end_node = insert_node_if_not_exist(end_value_);
 
-    insert_edge_if_not_exist(start_node, end_node, weight);
+    insert_edge_if_not_exist(start_node, end_node, weight_);
 }
 
-bool Graph::insert_edge_if_not_exist(Node* start_node, Node* end_node, double weight) {
-    start_node->insert_edge_to(end_node, is_directed(), weight);
+bool Graph::insert_edge_if_not_exist(Node* start_node_, Node* end_node_, double weight_) {
+    start_node_->insert_edge_to(end_node_, is_directed(), weight_);
 }
 
 void Graph::reset_edges()
 {
-    for(auto i=0; i < nodes.size(); i++){
-        nodes[i]->reset_edges();
+    for(auto i=0; i < _nodes.size(); i++){
+        _nodes[i]->reset_edges();
     }
 }
 
 Node* Graph::get_node(int value_) {
-    return nodes[value_];
+    return _nodes[value_];
 }
 
 vector<Node *> Graph::get_nodes()
 {
-    return nodes;
+    return _nodes;
 }
 
 void Graph::print_nodes()
 {
     cout << "DEBUG:\nNode\t#Edges\tadjacent_nodes" << endl;
 
-    for (size_t i = 0; i < nodes.size(); i++) {
-        vector<Edge*> cur_edges = nodes[i]->get_edges();
+    for (size_t i = 0; i < _nodes.size(); i++) {
+        vector<Edge*> cur_edges = _nodes[i]->get_edges();
         cout << i << "\t" << cur_edges.size() << "\t";
 
         for (int j = 0; j < cur_edges.size(); j++) {
-            if (cur_edges[j]->get_right_node()->get_value() == nodes[i]->get_value()){
+            if (cur_edges[j]->get_right_node()->get_value() == _nodes[i]->get_value()){
                 cout << cur_edges[j]->get_left_node()->get_value();
             }else{
                 cout << cur_edges[j]->get_right_node()->get_value();
@@ -220,5 +220,5 @@ void Graph::print_nodes()
         }
         cout << endl;
     }
-    cout << "There are " << nodes.size() << " Nodes at the moment." << endl;
+    cout << "There are " << _nodes.size() << " Nodes at the moment." << endl;
 }
