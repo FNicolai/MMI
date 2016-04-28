@@ -111,3 +111,9 @@ void MainWindow::on_pushButton_quit_clicked()
 {
     QApplication::quit();
 }
+
+void MainWindow::on_pushButton_neares_neighbor_clicked()
+{
+    Nearest_Neighbor nearest_neighbor(_graph);
+    nearest_neighbor.perform_nearest_neighbor(ui->spinBox_start_node->value());
+}

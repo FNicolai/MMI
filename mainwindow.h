@@ -8,6 +8,7 @@
 #include "components.h"
 #include "kruskal.h"
 #include "prim.h"
+#include "nearest_neighbor.h"
 
 using namespace std;
 
@@ -37,6 +38,8 @@ private slots:
     void on_pushButton_quit_clicked();
 
     void on_pushButton_start_prim_clicked();
+
+    void on_pushButton_neares_neighbor_clicked();
 
 private:
     Ui::MainWindow *ui;

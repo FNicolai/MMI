@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     bfs.cpp \
     components.cpp \
     kruskal.cpp \
-    prim.cpp
+    prim.cpp \
+    nearest_neighbor.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -34,7 +35,8 @@ HEADERS  += \
     bfs.h \
     components.h \
     kruskal.h \
-    prim.h
+    prim.h \
+    nearest_neighbor.h
 
 FORMS    += \
     mainwindow.ui
