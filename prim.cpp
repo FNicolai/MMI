@@ -18,7 +18,7 @@ multimap<Edge *, double> Prim::perform_prim(double start_node_)
 
     double total_MST_weight = 0.;
 
-    double nodes_counter = _graph->get_nodes().size();
+    int nodes_counter = _graph->get_nodes().size();
 
 //    _MST_graph = new Graph (_graph->is_weighted(),_graph->is_directed());
 
