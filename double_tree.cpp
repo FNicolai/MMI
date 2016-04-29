@@ -16,7 +16,9 @@ void DoubleTree::perform_doubleTree(int start_node_value) {
     Graph graph_for_search(true, false);
     Graph double_tree_graph(true, false);
 
-    bool my_nodes_visited[_graph->get_nodes().size()] = { 0 };
+    bool my_nodes_visited[_graph->get_nodes().size()];// = { 0 };
+    for(auto i = 0; i < _graph->get_nodes().size(); i++)
+        my_nodes_visited[i] = false;
 
     for(auto i = 0; i < _graph->get_nodes().size(); i++){
         graph_for_search.insert_node_if_not_exist(i);
