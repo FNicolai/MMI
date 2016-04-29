@@ -39,6 +39,8 @@ void DoubleTree::perform_doubleTree(int start_node_value) {
     Node* previous_node = NULL;
     Node* cur_node_in_traversing_edge;
 
+    clock_t time_begin = clock();
+
     _nodes_queue.push(graph_for_search.get_node(start_node_value));
 
     while (!_nodes_queue.empty()) {
@@ -102,7 +104,11 @@ void DoubleTree::perform_doubleTree(int start_node_value) {
 
     total_weight += edge_of_orig_graph->get_weight();
 
-    cout << endl << total_weight << endl;
+    clock_t time_end = clock();
+
+    double elapsed_secs = double(time_end - time_begin) / CLOCKS_PER_SEC;
+
+    cout << endl << "Total weight gathered by Double Tree: " << total_weight << " this took " << elapsed_secs << " seconds" << endl;
 }
 
 Edge* DoubleTree::locate_edge_in_orig_graph(int start_node, int end_node) {
