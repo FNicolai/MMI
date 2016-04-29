@@ -43,6 +43,8 @@ void Double_Tree::perform_doubleTree(int start_node_value) {
 
     _nodes_queue.push(graph_for_search.get_node(start_node_value));
 
+    cout << "Tour of Double-Tree:" << endl;
+
     while (!_nodes_queue.empty()) {
         cur_node = _nodes_queue.front();
         int num_edges = cur_node->get_edges().size();
@@ -88,11 +90,14 @@ void Double_Tree::perform_doubleTree(int start_node_value) {
                         double_tree_graph.get_node(cur_node->get_value()),
                         edge_of_orig_graph->get_weight());
             total_weight += edge_of_orig_graph->get_weight();
+
+            cout << previous_node->get_value() << " -> ";
         }
         previous_node = cur_node;
         _nodes_queue.pop();
     }
 
+    cout << previous_node->get_value() << endl;
 
     // Insert last edge from last node to start_node
     Edge* edge_of_orig_graph = locate_edge_in_orig_graph(cur_node->get_value(), start_node_value);
