@@ -5,10 +5,10 @@ Double_Tree::Double_Tree(Graph* graph)
     _graph = graph;
 }
 
-void Double_Tree::perform_doubleTree(int start_node_value) {
+void Double_Tree::perform_double_tree(int start_node_value_) {
 
-    my_kruskal = Kruskal(_graph);
-    multimap<Edge *, double> kruskal_edges = my_kruskal.perform_kruskal(start_node_value);
+    _kruskal = Kruskal(_graph);
+    multimap<Edge *, double> kruskal_edges = _kruskal.perform_kruskal(start_node_value_);
 
     double total_weight = 0.;
 
@@ -16,9 +16,9 @@ void Double_Tree::perform_doubleTree(int start_node_value) {
     Graph graph_for_search(true, false);
     Graph double_tree_graph(true, false);
 
-    bool my_nodes_visited[_graph->get_nodes().size()];// = { 0 };
+    bool nodes_visited[_graph->get_nodes().size()];// = { 0 };
     for(auto i = 0; i < _graph->get_nodes().size(); i++)
-        my_nodes_visited[i] = false;
+        nodes_visited[i] = false;
 
     for(auto i = 0; i < _graph->get_nodes().size(); i++){
         graph_for_search.insert_node_if_not_exist(i);
@@ -41,24 +41,24 @@ void Double_Tree::perform_doubleTree(int start_node_value) {
 
     clock_t time_begin = clock();
 
-    _nodes_queue.push(graph_for_search.get_node(start_node_value));
+    _nodes_queue.push(graph_for_search.get_node(start_node_value_));
 
     cout << "Tour of Double-Tree:" << endl;
 
     while (!_nodes_queue.empty()) {
         cur_node = _nodes_queue.front();
         int num_edges = cur_node->get_edges().size();
-        my_nodes_visited[cur_node->get_value()] = true;
+        nodes_visited[cur_node->get_value()] = true;
 
         for (int i = 0; i < num_edges; i++) {
             cur_node_in_traversing_edge = cur_node->get_edges()[i]->get_right_node();
-            if (!my_nodes_visited[cur_node_in_traversing_edge->get_value()]) {
+            if (!nodes_visited[cur_node_in_traversing_edge->get_value()]) {
                 _nodes_queue.push(cur_node_in_traversing_edge);
 //                cout << "right ";
             }
 
             cur_node_in_traversing_edge = cur_node->get_edges()[i]->get_left_node();
-            if (!my_nodes_visited[cur_node_in_traversing_edge->get_value()]) {
+            if (!nodes_visited[cur_node_in_traversing_edge->get_value()]) {
                 _nodes_queue.push(cur_node_in_traversing_edge);
 //                cout << "left ";
             }
@@ -100,11 +100,11 @@ void Double_Tree::perform_doubleTree(int start_node_value) {
     cout << previous_node->get_value() << endl;
 
     // Insert last edge from last node to start_node
-    Edge* edge_of_orig_graph = locate_edge_in_orig_graph(cur_node->get_value(), start_node_value);
+    Edge* edge_of_orig_graph = locate_edge_in_orig_graph(cur_node->get_value(), start_node_value_);
 
     double_tree_graph.insert_edge_if_not_exist(
                 double_tree_graph.get_node(cur_node->get_value()),
-                double_tree_graph.get_node(start_node_value),
+                double_tree_graph.get_node(start_node_value_),
                 edge_of_orig_graph->get_weight());
 
     total_weight += edge_of_orig_graph->get_weight();

@@ -12,7 +12,7 @@ class Double_Tree
 public:
     Double_Tree(Graph * graph);
 
-    void perform_doubleTree(int start_node_value);
+    void perform_double_tree(int start_node_value);
 
     vector<Node *> get_found_nodes();
 
@@ -20,7 +20,7 @@ public:
 
     void print_tree();
 
-    Kruskal my_kruskal;
+    Kruskal _kruskal;
 
 private:
     Graph* _graph;
