@@ -70,9 +70,8 @@ multimap<Edge *, double> Kruskal::perform_kruskal(double start_node_)
         auto group_size_left_node = _groups[curr_left_node_group].size();           // Get the groupsize the left node belongs to (original graph)
         auto group_size_right_node = _groups[curr_right_node_group].size();         // Get the groupsize the right node belongs to (original graph)
 
-        if( (curr_left_node_group == curr_right_node_group) && (get_node_visited(curr_left_node) == true && get_node_visited(curr_right_node) == true) ){
-            // Both are in the same group and already visited => loop => do nothing
-        }else{
+        // Both are NOT in the same group => NO loop => do something
+        if( curr_left_node_group != curr_right_node_group ){
             if(group_size_left_node < group_size_right_node){
                 //left group => right group
                 set_node_visited(curr_right_node,true);
