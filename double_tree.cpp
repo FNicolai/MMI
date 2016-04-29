@@ -1,11 +1,11 @@
 #include "double_tree.h"
 
-DoubleTree::DoubleTree(Graph* graph)
+Double_Tree::Double_Tree(Graph* graph)
 {
     _graph = graph;
 }
 
-void DoubleTree::perform_doubleTree(int start_node_value) {
+void Double_Tree::perform_doubleTree(int start_node_value) {
 
     my_kruskal = Kruskal(_graph);
     multimap<Edge *, double> kruskal_edges = my_kruskal.perform_kruskal(start_node_value);
@@ -111,7 +111,7 @@ void DoubleTree::perform_doubleTree(int start_node_value) {
     cout << endl << "Total weight gathered by Double Tree: " << total_weight << " this took " << elapsed_secs << " seconds" << endl;
 }
 
-Edge* DoubleTree::locate_edge_in_orig_graph(int start_node, int end_node) {
+Edge* Double_Tree::locate_edge_in_orig_graph(int start_node, int end_node) {
     Node* previous_node_in_orig_graph = _graph->get_node(start_node);
 
     // locate edge pointing to "end_node" in _graph (original graph
@@ -133,7 +133,7 @@ Edge* DoubleTree::locate_edge_in_orig_graph(int start_node, int end_node) {
     return NULL;
 }
 
-void DoubleTree::print_tree() {
+void Double_Tree::print_tree() {
 //    cout << "Double tree with " << double_tree_edges.size() << " edges" << endl;
 
 }

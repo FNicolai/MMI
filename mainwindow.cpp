@@ -120,6 +120,6 @@ void MainWindow::on_pushButton_neares_neighbor_clicked()
 
 void MainWindow::on_pushButton_start_double_tree_clicked()
 {
-    DoubleTree myTree(_graph);
+    Double_Tree myTree(_graph);
     myTree.perform_doubleTree(ui->spinBox_start_node->value());
 }

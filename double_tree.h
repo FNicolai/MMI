@@ -7,10 +7,10 @@
 
 // Iterative BFS
 
-class DoubleTree
+class Double_Tree
 {
 public:
-    DoubleTree(Graph * graph);
+    Double_Tree(Graph * graph);
 
     void perform_doubleTree(int start_node_value);
 
