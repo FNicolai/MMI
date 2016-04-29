@@ -26,7 +26,7 @@ void DoubleTree::perform_doubleTree(int start_node_value) {
     }
 
     for(multimap<Edge *, double>::iterator ii=kruskal_edges.begin(); ii!=kruskal_edges.end(); ++ii) {
-        std::cout << "From: " << ii->first->get_left_node()->get_value() << " To: " << ii->first->get_right_node()->get_value() << " Weight: " << ii->first->get_weight() << " " << ii->second << std::endl;
+//        std::cout << "From: " << ii->first->get_left_node()->get_value() << " To: " << ii->first->get_right_node()->get_value() << " Weight: " << ii->first->get_weight() << std::endl;
 
         // We have to make sure that we are using the pointers of the graph_for_search
         graph_for_search.insert_edge_if_not_exist(
