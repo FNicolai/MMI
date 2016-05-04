@@ -16,9 +16,12 @@ void Double_Tree::perform_double_tree(int start_node_value_) {
     Graph graph_for_search(true, false);
     Graph double_tree_graph(true, false);
 
-    bool nodes_visited[_graph->get_nodes().size()];// = { 0 };
-    for(auto i = 0; i < _graph->get_nodes().size(); i++)
-        nodes_visited[i] = false;
+    bool my_nodes_visited[_graph->get_nodes().size()];// = { 0 };
+    bool nodes_in_queue[_graph->get_nodes().size()];
+    for(auto i = 0; i < _graph->get_nodes().size(); i++) {
+        my_nodes_visited[i] = false;
+        nodes_in_queue[i] = false;
+    }
 
     for(auto i = 0; i < _graph->get_nodes().size(); i++){
         graph_for_search.insert_node_if_not_exist(i);
@@ -33,6 +36,8 @@ void Double_Tree::perform_double_tree(int start_node_value_) {
                     graph_for_search.get_node(ii->first->get_left_node()->get_value()),
                     graph_for_search.get_node(ii->first->get_right_node()->get_value()),
                     ii->first->get_weight());
+
+        cout << "insert: " << ii->first->get_left_node()->get_value() << " -> " << ii->first->get_right_node()->get_value() << ": " << ii->first->get_weight() << endl;
     }
 
     Node* cur_node = NULL;
@@ -52,14 +57,18 @@ void Double_Tree::perform_double_tree(int start_node_value_) {
 
         for (int i = 0; i < num_edges; i++) {
             cur_node_in_traversing_edge = cur_node->get_edges()[i]->get_right_node();
-            if (!nodes_visited[cur_node_in_traversing_edge->get_value()]) {
+            int cur_node_value = cur_node_in_traversing_edge->get_value();
+            if (!my_nodes_visited[cur_node_value] && !nodes_in_queue[cur_node_value]) {
                 _nodes_queue.push(cur_node_in_traversing_edge);
+                nodes_in_queue[cur_node_value] = true;
 //                cout << "right ";
             }
 
             cur_node_in_traversing_edge = cur_node->get_edges()[i]->get_left_node();
-            if (!nodes_visited[cur_node_in_traversing_edge->get_value()]) {
+            cur_node_value = cur_node_in_traversing_edge->get_value();
+            if (!my_nodes_visited[cur_node_value] && !nodes_in_queue[cur_node_value]) {
                 _nodes_queue.push(cur_node_in_traversing_edge);
+                nodes_in_queue[cur_node_value] = true;
 //                cout << "left ";
             }
         }
@@ -67,29 +76,13 @@ void Double_Tree::perform_double_tree(int start_node_value_) {
         if (previous_node != NULL) {
             Edge* edge_of_orig_graph = locate_edge_in_orig_graph(previous_node->get_value(), cur_node->get_value());
 
-//            Node* previous_node_in_orig_graph = _graph->get_node(previous_node->get_value());
-
-//            // locate edge pointing to "cur_node" in _graph (original graph
-//            // we need this to determine the weight of this edge
-//            Edge* edge_in_orig_graph_from_prev_to_cur;
-//            for (int i = 0; i < previous_node_in_orig_graph->get_edges().size(); i++) {
-//                edge_in_orig_graph_from_prev_to_cur = previous_node_in_orig_graph->get_edges()[i];
-
-//                // This can either be the right or the left node of the edge
-//                if (
-//                        edge_in_orig_graph_from_prev_to_cur->get_right_node()->get_value() == cur_node->get_value() ||
-//                        edge_in_orig_graph_from_prev_to_cur->get_left_node()->get_value() == cur_node->get_value()
-//                        )
-//                {
-//                    break;
-//                }
-//            }
-
             double_tree_graph.insert_edge_if_not_exist(
                         double_tree_graph.get_node(previous_node->get_value()),
                         double_tree_graph.get_node(cur_node->get_value()),
                         edge_of_orig_graph->get_weight());
             total_weight += edge_of_orig_graph->get_weight();
+
+//            cout << previous_node->get_value() << " -> " << cur_node->get_value() << ": " << edge_of_orig_graph->get_weight() << endl;
 
             cout << previous_node->get_value() << " -> ";
         }
