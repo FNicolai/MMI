@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>641</width>
-    <height>358</height>
+    <width>647</width>
+    <height>357</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -219,9 +219,9 @@
     <widget class="QPushButton" name="pushButton_start_search">
      <property name="geometry">
       <rect>
-       <x>100</x>
+       <x>90</x>
        <y>50</y>
-       <width>91</width>
+       <width>101</width>
        <height>31</height>
       </rect>
      </property>
@@ -232,7 +232,7 @@
     <widget class="QSpinBox" name="spinBox_start_node">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>90</x>
        <y>20</y>
        <width>71</width>
        <height>21</height>
@@ -248,7 +248,7 @@
     <widget class="QLabel" name="label_start_node">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>10</x>
        <y>20</y>
        <width>81</width>
        <height>21</height>
@@ -261,7 +261,7 @@
     <widget class="QLabel" name="label_max_node">
      <property name="geometry">
       <rect>
-       <x>160</x>
+       <x>180</x>
        <y>20</y>
        <width>111</width>
        <height>21</height>
@@ -287,7 +287,7 @@
     <widget class="QComboBox" name="comboBox_search_type">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>10</x>
        <y>50</y>
        <width>71</width>
        <height>31</height>
@@ -310,9 +310,9 @@
     <widget class="QPushButton" name="pushButton_start_prim">
      <property name="geometry">
       <rect>
-       <x>100</x>
+       <x>90</x>
        <y>90</y>
-       <width>91</width>
+       <width>101</width>
        <height>31</height>
       </rect>
      </property>
@@ -326,19 +326,19 @@
        <x>200</x>
        <y>130</y>
        <width>141</width>
-       <height>27</height>
+       <height>31</height>
       </rect>
      </property>
      <property name="text">
-      <string>Nearest Neighbor</string>
+      <string>Start Nearest Neighbor</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_start_double_tree">
      <property name="geometry">
       <rect>
-       <x>200</x>
-       <y>170</y>
-       <width>141</width>
+       <x>90</x>
+       <y>130</y>
+       <width>101</width>
        <height>31</height>
       </rect>
      </property>
