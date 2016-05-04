@@ -53,7 +53,7 @@ void Double_Tree::perform_double_tree(int start_node_value_) {
     while (!_nodes_queue.empty()) {
         cur_node = _nodes_queue.front();
         int num_edges = cur_node->get_edges().size();
-        nodes_visited[cur_node->get_value()] = true;
+        my_nodes_visited[cur_node->get_value()] = true;
 
         for (int i = 0; i < num_edges; i++) {
             cur_node_in_traversing_edge = cur_node->get_edges()[i]->get_right_node();
@@ -61,7 +61,6 @@ void Double_Tree::perform_double_tree(int start_node_value_) {
             if (!my_nodes_visited[cur_node_value] && !nodes_in_queue[cur_node_value]) {
                 _nodes_queue.push(cur_node_in_traversing_edge);
                 nodes_in_queue[cur_node_value] = true;
-//                cout << "right ";
             }
 
             cur_node_in_traversing_edge = cur_node->get_edges()[i]->get_left_node();
@@ -69,7 +68,6 @@ void Double_Tree::perform_double_tree(int start_node_value_) {
             if (!my_nodes_visited[cur_node_value] && !nodes_in_queue[cur_node_value]) {
                 _nodes_queue.push(cur_node_in_traversing_edge);
                 nodes_in_queue[cur_node_value] = true;
-//                cout << "left ";
             }
         }
 
@@ -90,7 +88,7 @@ void Double_Tree::perform_double_tree(int start_node_value_) {
         _nodes_queue.pop();
     }
 
-    cout << previous_node->get_value() << endl;
+    cout << previous_node->get_value() << " -> " << start_node_value_ << endl;
 
     // Insert last edge from last node to start_node
     Edge* edge_of_orig_graph = locate_edge_in_orig_graph(cur_node->get_value(), start_node_value_);
