@@ -26,7 +26,8 @@ SOURCES += main.cpp\
     prim.cpp \
     nearest_neighbor.cpp \
     double_tree.cpp \
-    branch_and_bound.cpp
+    branch_and_bound.cpp \
+    tsp_bruteforce.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -40,7 +41,9 @@ HEADERS  += \
     prim.h \
     nearest_neighbor.h \
     double_tree.h \
-    branch_and_bound.h
+    branch_and_bound.h \
+    tsp_bruteforce.h \
+    debug.h
 
 FORMS    += \
     mainwindow.ui

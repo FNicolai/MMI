@@ -11,6 +11,7 @@
 #include "nearest_neighbor.h"
 #include "double_tree.h"
 #include "branch_and_bound.h"
+#include "tsp_bruteforce.h"
 
 using namespace std;
 
@@ -46,6 +47,8 @@ private slots:
     void on_pushButton_start_double_tree_clicked();
 
     void on_pushButton_start_branch_and_bound_clicked();
+
+    void on_pushButton_start_tsp_bruteforce_clicked();
 
 private:
     Ui::MainWindow *ui;

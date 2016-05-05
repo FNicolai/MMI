@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->comboBox_search_type->addItem("DFS");
     ui->comboBox_search_type->addItem("BFS");
 
+    bool debug = ui->radioButton_debug_on->isChecked();
+
     _default_directory = "C://";
 }
 
@@ -128,4 +130,10 @@ void MainWindow::on_pushButton_start_branch_and_bound_clicked()
 {
     Branch_and_Bound branch_and_bound(_graph);
     branch_and_bound.perform_brand_and_bound();
+}
+
+void MainWindow::on_pushButton_start_tsp_bruteforce_clicked()
+{
+    TSP_Bruteforce tsp_bruteforce(_graph);
+    tsp_bruteforce.perform_tsp_bruteforce();
 }
