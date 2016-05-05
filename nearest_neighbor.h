@@ -24,9 +24,9 @@ private:
     Graph* _graph;
     Graph* _MST_graph;
 
-    multimap<Edge *, double> _edges_by_edge; // Edge
+    multimap<Edge *, double> _edges; // Edge
 
-    priority_queue<pair<Edge*,double>,vector<pair<Edge*,double>>,compare> _prio_edge_by_weight;
+    priority_queue<pair<Edge*,double>,vector<pair<Edge*,double>>,compare> _sorted_edges;
 
     vector<bool> _nodes_visited;
     bool get_node_visited(Node * node_);

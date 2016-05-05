@@ -10,6 +10,7 @@
 #include "prim.h"
 #include "nearest_neighbor.h"
 #include "double_tree.h"
+#include "branch_and_bound.h"
 
 using namespace std;
 
@@ -43,6 +44,8 @@ private slots:
     void on_pushButton_neares_neighbor_clicked();
 
     void on_pushButton_start_double_tree_clicked();
+
+    void on_pushButton_start_branch_and_bound_clicked();
 
 private:
     Ui::MainWindow *ui;

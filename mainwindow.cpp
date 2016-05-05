@@ -123,3 +123,9 @@ void MainWindow::on_pushButton_start_double_tree_clicked()
     Double_Tree double_tree (_graph);
     double_tree.perform_double_tree(ui->spinBox_start_node->value());
 }
+
+void MainWindow::on_pushButton_start_branch_and_bound_clicked()
+{
+    Branch_and_Bound branch_and_bound(_graph);
+    branch_and_bound.perform_brand_and_bound();
+}

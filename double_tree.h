@@ -12,7 +12,7 @@ class Double_Tree
 public:
     Double_Tree(Graph * graph);
 
-    void perform_double_tree(int start_node_value);
+    double perform_double_tree(int start_node_value);
 
     vector<Node *> get_found_nodes();
 

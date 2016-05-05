@@ -5,7 +5,7 @@ Double_Tree::Double_Tree(Graph* graph)
     _graph = graph;
 }
 
-void Double_Tree::perform_double_tree(int start_node_value_) {
+double Double_Tree::perform_double_tree(int start_node_value_) {
 
     _kruskal = Kruskal(_graph);
     multimap<Edge *, double> kruskal_edges = _kruskal.perform_kruskal(start_node_value_);
@@ -105,6 +105,8 @@ void Double_Tree::perform_double_tree(int start_node_value_) {
     double elapsed_secs = double(time_end - time_begin) / CLOCKS_PER_SEC;
 
     cout << endl << "Total weight gathered by Double Tree is " << total_weight << ". This took " << elapsed_secs << " seconds." << endl;
+
+    return total_weight;
 }
 
 Edge* Double_Tree::locate_edge_in_orig_graph(int start_node, int end_node) {
