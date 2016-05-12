@@ -14,8 +14,6 @@ public:
     double perform_tsp_bruteforce();
 private:
     Graph* _graph;
-
-    int factorial(int x);
 };
 
 #endif // TSP_BRUTEFORCE_H

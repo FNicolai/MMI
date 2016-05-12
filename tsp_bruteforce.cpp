@@ -30,34 +30,21 @@ double TSP_Bruteforce::perform_tsp_bruteforce()
         for (auto i = 0; i < nodes.size()-1; i++){
             int curr_node = nodes.at(i);
             int next_node = nodes.at(i+1);
-            if(debug){
-                cout << _graph->get_node(curr_node)->get_value() << " -";
-            }
+
             total_weight += _graph->get_node(curr_node)->get_edge_to(_graph->get_node(next_node))->get_weight();
 
-            //###################### BUG HERE ############################
-            //        Prints node value twice! Don't know why!
             if(debug){
-                cout << total_weight << "-> " << _graph->get_node(next_node)->get_value();
+                cout << _graph->get_node(curr_node)->get_value() << " -" << total_weight << "-> ";
             }
         }
         total_weight += _graph->get_node(nodes.at(nodes.size()-1))->get_edge_to(_graph->get_node(nodes.at(0)))->get_weight();
         if(debug){
-            cout << " -" << total_weight << "-> " << _graph->get_node(nodes.at(0))->get_value() << endl;
+            cout << _graph->get_node(nodes.at(nodes.size()-1))->get_value() << " -" << total_weight << "-> " << _graph->get_node(nodes.at(0))->get_value() << endl;
         }
         if(total_weight < best_weight){
             best_weight = total_weight;
         }
     }while (next_permutation(nodes.begin(), nodes.end()));
-
-//    for (auto j: tours){
-//        for (auto i: j){
-//            std::cout << i << ' ';
-//        }
-//        cout << endl;
-//    }
-
-//    cout << "size: " << tours.size() << endl;
 
 
     clock_t time_end = clock();
@@ -66,8 +53,4 @@ double TSP_Bruteforce::perform_tsp_bruteforce()
     cout << "The TSP Bruteforce algorithm obtained a hamiltonian circle with a total weight of " << best_weight << " in " << elapsed_secs << " seconds." << endl;
 
     return best_weight;
-}
-
-int TSP_Bruteforce::factorial(int x) {
-  return (x == 1 ? x : x * factorial(x - 1));
 }

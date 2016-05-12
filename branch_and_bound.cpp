@@ -32,15 +32,11 @@ double Branch_and_Bound::perform_brand_and_bound()
         for (auto i = 0; i < nodes.size()-1; i++){
             int curr_node = nodes.at(i);
             int next_node = nodes.at(i+1);
-            if(debug){
-                cout << _graph->get_node(curr_node)->get_value();
-            }
+
             total_weight += _graph->get_node(curr_node)->get_edge_to(_graph->get_node(next_node))->get_weight();
 
-            //###################### BUG HERE ############################
-            //        Prints node value twice! Don't know why!
             if(debug){
-                cout << " -" << total_weight << "-> " << _graph->get_node(next_node)->get_value();
+                cout << _graph->get_node(curr_node)->get_value() << " -" << total_weight << "-> ";
             }
 
             if(total_weight > best_weight){
@@ -58,7 +54,7 @@ double Branch_and_Bound::perform_brand_and_bound()
         }
         total_weight += _graph->get_node(nodes.at(nodes.size()-1))->get_edge_to(_graph->get_node(nodes.at(0)))->get_weight();
         if(debug){
-            cout << " -" << total_weight << "-> " << _graph->get_node(nodes.at(0))->get_value() << endl;
+            cout << _graph->get_node(nodes.at(nodes.size()-1))->get_value() << " -" << total_weight << "-> " << _graph->get_node(nodes.at(0))->get_value() << endl;
         }
 
         if(total_weight < best_weight){
