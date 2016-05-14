@@ -137,3 +137,9 @@ void MainWindow::on_pushButton_start_tsp_bruteforce_clicked()
     TSP_Bruteforce tsp_bruteforce(_graph);
     tsp_bruteforce.perform_tsp_bruteforce();
 }
+
+void MainWindow::on_pushButton_start_bellman_ford_clicked()
+{
+    Bellman_Ford bellman_ford(_graph);
+    bellman_ford.perform_bellman_ford(ui->spinBox_start_node->value());
+}
