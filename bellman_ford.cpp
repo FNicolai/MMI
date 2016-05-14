@@ -46,6 +46,21 @@ double Bellman_Ford::perform_bellman_ford(int start_node_)
                 // Prev(v) := u
                 prev_node[v->get_value()] = u;
             }
+
+            // If graph is undirected, look at E the other way round too
+            if(!_graph->is_directed()){
+
+                Node * v = curr_edge->get_left_node();  // Start node
+                Node * u = curr_edge->get_right_node(); // Goal node
+
+                // IF (Distance(u) + Weight(u,v)) < Distance(v)
+                if ( (distance[u->get_value()] + u->get_edge_to(v)->get_weight() ) < distance[v->get_value()] ){
+                    // Distance(v) := Distance(u) + Weight(u,v)
+                    distance[v->get_value()] = distance[u->get_value()] + u->get_edge_to(v)->get_weight();
+                    // Prev(v) := u
+                    prev_node[v->get_value()] = u;
+                }
+            }
         }
     }
 
