@@ -53,6 +53,10 @@ private slots:
 
     void on_pushButton_start_bellman_ford_clicked();
 
+    void on_radioButton_directed_clicked();
+
+    void on_radioButton_undirected_clicked();
+
 private:
     Ui::MainWindow *ui;
 
