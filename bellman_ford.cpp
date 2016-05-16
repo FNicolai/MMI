@@ -12,6 +12,9 @@ Bellman_Ford::Bellman_Ford(Graph *graph_)
 
 double Bellman_Ford::perform_bellman_ford(int start_node_)
 {
+    // Initializations
+    clock_t time_begin = clock();
+
     double distance[_graph->get_nodes().size()];    // Distance to Node [i]
     Node * prev_node[_graph->get_nodes().size()];   // Previus node from Node [i]
 
@@ -79,6 +82,10 @@ double Bellman_Ford::perform_bellman_ford(int start_node_)
         }
     }
 
+    clock_t time_end = clock();
+
+    double elapsed_secs = double(time_end - time_begin) / CLOCKS_PER_SEC;
+
     if(_debug){
         cout << "Node\tDistance\tPrevious Node" << endl;
         for(int i = 0; i < _graph->get_nodes().size(); i++){
@@ -91,6 +98,8 @@ double Bellman_Ford::perform_bellman_ford(int start_node_)
             }
         }
     }
+
+    cout << "The Moore-Bellman-Ford algorithm obtained a spanning tree in " << elapsed_secs << " seconds." << endl;
 }
 
 void Bellman_Ford::get_edgelist(int start_node_)
