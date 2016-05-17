@@ -70,6 +70,3 @@ double Branch_and_Bound::perform_brand_and_bound()
     return best_weight;
 }
 
-int Branch_and_Bound::factorial(int x) {
-  return (x == 1 ? x : x * factorial(x - 1));
-}

@@ -27,7 +27,8 @@ SOURCES += main.cpp\
     nearest_neighbor.cpp \
     double_tree.cpp \
     branch_and_bound.cpp \
-    tsp_bruteforce.cpp
+    tsp_bruteforce.cpp \
+    bellman_ford.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -43,7 +44,8 @@ HEADERS  += \
     double_tree.h \
     branch_and_bound.h \
     tsp_bruteforce.h \
-    debug.h
+    debug.h \
+    bellman_ford.h
 
 FORMS    += \
     mainwindow.ui

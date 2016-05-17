@@ -15,7 +15,6 @@ public:
 private:
     Graph* _graph;
 
-    int factorial(int x);
 };
 
 #endif // BRANCH_AND_BOUND_H

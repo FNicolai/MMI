@@ -12,6 +12,7 @@
 #include "double_tree.h"
 #include "branch_and_bound.h"
 #include "tsp_bruteforce.h"
+#include "bellman_ford.h"
 
 using namespace std;
 
@@ -49,6 +50,12 @@ private slots:
     void on_pushButton_start_branch_and_bound_clicked();
 
     void on_pushButton_start_tsp_bruteforce_clicked();
+
+    void on_pushButton_start_bellman_ford_clicked();
+
+    void on_radioButton_directed_clicked();
+
+    void on_radioButton_undirected_clicked();
 
 private:
     Ui::MainWindow *ui;
