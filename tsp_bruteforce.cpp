@@ -15,7 +15,7 @@ double TSP_Bruteforce::perform_tsp_bruteforce()
     // Initializations
     clock_t time_begin = clock();
 
-    vector<double> nodes(_graph->get_nodes().size());
+    vector<int> nodes(_graph->get_nodes().size());
 
     //Save 0 to nodes.size in vector<double> nodes
     iota (nodes.begin(), nodes.end(), 0);

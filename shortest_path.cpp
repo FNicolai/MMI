@@ -31,8 +31,7 @@ void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
     {
         int cur_node_value = get_unvisited_node_with_least_dist();
         if(cur_node_value == -1)
-            // Occurs when a node is not reachable
-            break;   
+            break; // Occurs when a node is not reachable
 
         // Shortest path to end_node_ found
         if(cur_node_value == end_node_)
@@ -53,8 +52,7 @@ void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
         {
             Node* cur_left_node = edges[i]->get_left_node();
             Node* cur_right_node = edges[i]->get_right_node();
-            //corresponding node
-            Node* crp_node;
+            Node* crp_node; // Corresponding node
 
             // Get corresponding node to cur_node
             if(edges[i]->get_left_node() != cur_node)
@@ -70,9 +68,8 @@ void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
             }
         }
 
-        if(debug){
+        if(debug)
             print_table();
-        }
     }
 
     clock_t time_end = clock();

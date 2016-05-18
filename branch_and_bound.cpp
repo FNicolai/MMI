@@ -15,7 +15,7 @@ double Branch_and_Bound::perform_brand_and_bound()
     // Initializations
     clock_t time_begin = clock();
 
-    vector<double> nodes(_graph->get_nodes().size());
+    vector<int> nodes(_graph->get_nodes().size());
 
     //Save 0 to nodes.size in vector<double> nodes
     iota (nodes.begin(), nodes.end(), 0);
