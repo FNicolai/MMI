@@ -70,6 +70,7 @@ void MainWindow::on_pushButton_read_clicked()
     ui->pushButton_read->setText("Done!");
     ui->pushButton_read->setEnabled(false);
     ui->spinBox_start_node->setMaximum(_graph->get_nodes().size()-1);
+    ui->spinBox_end_node->setMaximum(_graph->get_nodes().size()-1);
     QString max_node = "(Max. is ";
     max_node.append(QString::number(_graph->get_nodes().size()-1));
     max_node.append(")");
@@ -89,20 +90,20 @@ void MainWindow::on_pushButton_count_components_clicked()
 void MainWindow::on_pushButton_start_search_clicked()
 {
     switch(ui->comboBox_search_type->currentIndex()){
-    case Components::enum_DFS  :
-    {
-        DFS dfs(_graph);
-        dfs.perform_recursive_DFS(ui->spinBox_start_node->value());
-        //_graph->reset_visited();
-        break;
-    }
-    case Components::enum_BFS  :
-    {
-        BFS bfs(_graph);
-        bfs.perform_iterative_BFS(ui->spinBox_start_node->value());
-        //_graph->reset_visited();
-        break;
-    }
+        case Components::enum_DFS  :
+        {
+            DFS dfs(_graph);
+            dfs.perform_recursive_DFS(ui->spinBox_start_node->value());
+            //_graph->reset_visited();
+            break;
+        }
+        case Components::enum_BFS  :
+        {
+            BFS bfs(_graph);
+            bfs.perform_iterative_BFS(ui->spinBox_start_node->value());
+            //_graph->reset_visited();
+            break;
+        }
     }
 }
 
@@ -165,4 +166,22 @@ void MainWindow::on_radioButton_undirected_clicked()
     ui->groupBox_algorithems->setEnabled(false);
     ui->pushButton_read->setText("Read");
     ui->pushButton_read->setEnabled(true);
+}
+
+void MainWindow::on_pushButton_start_dijkstra_clicked()
+{
+    Shortest_Path shortest_path(_graph);
+    if(ui->checkBox_use_end_node->isChecked())
+        shortest_path.perform_dijkstra(ui->spinBox_start_node->value(),ui->spinBox_end_node->value());
+    else
+        shortest_path.perform_dijkstra(ui->spinBox_start_node->value(),INFINITY);
+}
+
+void MainWindow::on_checkBox_use_end_node_clicked()
+{
+    if(ui->checkBox_use_end_node->isChecked()){
+        ui->spinBox_end_node->setEnabled(true);
+    }else{
+        ui->spinBox_end_node->setEnabled(false);
+    }
 }
