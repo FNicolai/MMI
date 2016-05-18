@@ -108,5 +108,5 @@ void Shortest_Path::print_table()
     cout << "visited:  ";
     for(auto i = 0; i < _nodes_count; i++)
         cout << nodes_visited[i] << "\t";
-    cout << endl;
+    cout << endl << endl;
 }
