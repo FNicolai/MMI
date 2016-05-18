@@ -32,7 +32,18 @@ void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
         int cur_node_value = get_unvisited_node_with_least_dist();
         if(cur_node_value == -1)
             // Occurs when a node is not reachable
-            break;
+            break;   
+
+        // Shortest path to end_node_ found
+        if(cur_node_value == end_node_)
+        {
+            cout << "Shortest path from node " << start_node_ << " to node " << end_node_ << " has length " << distances[cur_node_value] << "." << endl;
+
+            clock_t time_end = clock();
+            double elapsed_secs = double(time_end - time_begin) / CLOCKS_PER_SEC;
+            cout << "The Dijkstra algorithm obtained the result in " << elapsed_secs << " seconds." << endl;
+            return;
+        }
 
         cur_node = _graph->get_node(cur_node_value);
         nodes_visited[cur_node_value] = true;
@@ -42,6 +53,7 @@ void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
         {
             Node* cur_left_node = edges[i]->get_left_node();
             Node* cur_right_node = edges[i]->get_right_node();
+            //corresponding node
             Node* crp_node;
 
             // Get corresponding node to cur_node
@@ -50,22 +62,11 @@ void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
             else
                 crp_node = cur_right_node;
 
-            // Update distance (and prev_node) if distance is lower distance is possible when using edges[i] to reach next_node
+            // Update distance (and prev_node) if distance is lower distance is possible when using edges[i] to reach crp_node
             if(distances[cur_node->get_value()] + edges[i]->get_weight() < distances[crp_node->get_value()])
             {
                 distances[crp_node->get_value()] = distances[cur_node->get_value()] + edges[i]->get_weight();
                 prev_nodes[crp_node->get_value()] = cur_node->get_value();
-            }
-
-            // Shortest path to end_node_ found
-            if(crp_node->get_value() == end_node_)
-            {
-                cout << "Shortest path from node " << start_node_ << " to node " << end_node_ << " has length " << distances[crp_node->get_value()] << "." << endl;
-
-                clock_t time_end = clock();
-                double elapsed_secs = double(time_end - time_begin) / CLOCKS_PER_SEC;
-                cout << "The Dijkstra algorithm obtained the result in " << elapsed_secs << " seconds." << endl;
-                return;
             }
         }
 
