@@ -77,8 +77,28 @@ double Bellman_Ford::perform_bellman_ford(int start_node_)
         // IF (Distance(u) + Weight(u,v)) < Distance(v)
         if ( (distance[u->get_value()] + u->get_edge_to(v)->get_weight() ) < distance[v->get_value()] ){
             // STOPP and print out that e cycle with negative weight exists
-            cout << "Negative cycle found at: (" << u->get_value() << "," << v->get_value() << ")." << endl;
+            cout << "Negative cycle found at: (" << u->get_value() << "," << v->get_value() << ")"
+                 << " where distance[" << u->get_value() << "] = " << distance[u->get_value()] << " + "
+                 << u->get_edge_to(v)->get_weight() << " < " << "distance[" << v->get_value() << "] = "
+                 << distance[v->get_value()] <<  endl;
             break;
+        }
+
+        // If graph is undirected, look at E the other way round too
+        if(!_graph->is_directed()){
+
+            Node * v = curr_edge->get_left_node();  // Start node
+            Node * u = curr_edge->get_right_node(); // Goal node
+
+            // IF (Distance(u) + Weight(u,v)) < Distance(v)
+            if ( (distance[u->get_value()] + u->get_edge_to(v)->get_weight() ) < distance[v->get_value()] ){
+                // STOPP and print out that e cycle with negative weight exists
+                cout << "Negative cycle found at: (" << u->get_value() << "," << v->get_value() << ")"
+                     << " where distance[" << u->get_value() << "] = " << distance[u->get_value()] << " + "
+                     << u->get_edge_to(v)->get_weight() << " < " << "distance[" << v->get_value() << "] = "
+                     << distance[v->get_value()] <<  endl;
+                break;
+            }
         }
     }
 
@@ -99,7 +119,7 @@ double Bellman_Ford::perform_bellman_ford(int start_node_)
         }
     }
 
-    cout << "The Moore-Bellman-Ford algorithm obtained a spanning tree in " << elapsed_secs << " seconds." << endl;
+    cout << "The Moore-Bellman-Ford algorithm needed " << elapsed_secs << " seconds to deliver a result." << endl;
 }
 
 void Bellman_Ford::get_edgelist(int start_node_)
