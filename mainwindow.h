@@ -58,6 +58,10 @@ private slots:
 
     void on_checkBox_use_end_node_clicked();
 
+    void on_radioButton_directed_clicked();
+
+    void on_radioButton_undirected_clicked();
+
 private:
     Ui::MainWindow *ui;
 

@@ -154,6 +154,20 @@ void MainWindow::on_pushButton_start_bellman_ford_clicked()
     bellman_ford.perform_bellman_ford(ui->spinBox_start_node->value());
 }
 
+void MainWindow::on_radioButton_directed_clicked()
+{
+    ui->groupBox_algorithems->setEnabled(false);
+    ui->pushButton_read->setText("Read");
+    ui->pushButton_read->setEnabled(true);
+}
+
+void MainWindow::on_radioButton_undirected_clicked()
+{
+    ui->groupBox_algorithems->setEnabled(false);
+    ui->pushButton_read->setText("Read");
+    ui->pushButton_read->setEnabled(true);
+}
+
 void MainWindow::on_pushButton_start_dijkstra_clicked()
 {
     Shortest_Path shortest_path(_graph);
