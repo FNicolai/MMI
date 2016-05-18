@@ -3,7 +3,6 @@
 
 #include "graph.h"
 #include "node.h"
-#include "debug.h"
 #include <queue>
 
 class Shortest_Path
