@@ -47,7 +47,7 @@ void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
             else
                 crp_node = cur_right_node;
 
-            // Update distance (and prev_node) if distance is lower distance is possible when using edges[i] to reach next_node
+            // Update distance (and prev_node) if distance is lower distance is possible when using edges[i] to reach crp_node
             if(distances[cur_node->get_value()] + edges[i]->get_weight() < distances[crp_node->get_value()])
             {
                 distances[crp_node->get_value()] = distances[cur_node->get_value()] + edges[i]->get_weight();
