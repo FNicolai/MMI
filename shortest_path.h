@@ -3,6 +3,7 @@
 
 #include "graph.h"
 #include "node.h"
+#include "debug.h"
 #include <queue>
 
 class Shortest_Path
@@ -16,9 +17,9 @@ private:
     int _nodes_count;
     vector<double> distances;
     vector<int> prev_nodes;
-    vector<bool> nodes_visited;
+    vector<bool> nodes_processed;
 
-    bool every_node_visited();
+    bool every_node_processed();
     int get_unvisited_node_with_least_dist();
     void print_table();
 };

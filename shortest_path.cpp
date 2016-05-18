@@ -1,4 +1,5 @@
 #include "shortest_path.h"
+#include "debug.h"
 
 Shortest_Path::Shortest_Path(Graph* graph_)
 {
@@ -9,25 +10,25 @@ Shortest_Path::Shortest_Path(Graph* graph_)
 void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
 {
     // Initializations
-    bool debug = false;
+    //debug = false;
     clock_t time_begin = clock();
 
     distances.resize(_nodes_count);
     prev_nodes.resize(_nodes_count);
-    nodes_visited.resize(_nodes_count);
+    nodes_processed.resize(_nodes_count);
 
     for(auto i = 0; i < _nodes_count; i++)
     {
         distances[i] = INFINITY;
         prev_nodes[i] = NULL;
-        nodes_visited[i] = false;
+        nodes_processed[i] = false;
     }
 
     distances[start_node_] = 0;
     prev_nodes[start_node_] = start_node_;
 
     Node* cur_node;
-    while(!every_node_visited())
+    while(!every_node_processed())
     {
         int cur_node_value = get_unvisited_node_with_least_dist();
         if(cur_node_value == -1)
@@ -46,7 +47,7 @@ void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
         }
 
         cur_node = _graph->get_node(cur_node_value);
-        nodes_visited[cur_node_value] = true;
+        nodes_processed[cur_node_value] = true;
 
         vector<Edge*> edges = cur_node->get_edges();
         for(auto i = 0; i < edges.size(); i++)
@@ -70,7 +71,7 @@ void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
             }
         }
 
-        if(debug){
+        if(debug::is_debug){
             print_table();
         }
     }
@@ -86,10 +87,10 @@ void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
     cout << "The Dijkstra algorithm obtained the result in " << elapsed_secs << " seconds." << endl;
 }
 
-bool Shortest_Path::every_node_visited()
+bool Shortest_Path::every_node_processed()
 {
     for(auto i = 0; i < _nodes_count; i++)
-        if(!nodes_visited[i])
+        if(!nodes_processed[i])
             return false;
 
     return true;
@@ -100,7 +101,7 @@ int Shortest_Path::get_unvisited_node_with_least_dist()
     double least_dist = INFINITY;
     int unvisited_node_with_least_dist = -1;
     for(auto i = 0; i < _nodes_count; i++)
-        if(!nodes_visited[i] && distances[i] < least_dist)
+        if(!nodes_processed[i] && distances[i] < least_dist)
         {
             least_dist = distances[i];
             unvisited_node_with_least_dist = i;
@@ -123,6 +124,6 @@ void Shortest_Path::print_table()
 
     cout << "visited:  ";
     for(auto i = 0; i < _nodes_count; i++)
-        cout << nodes_visited[i] << "\t";
+        cout << nodes_processed[i] << "\t";
     cout << endl << endl;
 }

@@ -1,6 +1,9 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-extern bool debug;
+namespace debug
+{
+    bool is_debug = true;
+}
 
 #endif // DEBUG_H
