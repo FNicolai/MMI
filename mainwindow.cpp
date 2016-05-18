@@ -20,6 +20,10 @@ MainWindow::MainWindow(QWidget *parent) :
     bool debug = ui->radioButton_debug_on->isChecked();
 
     _default_directory = "C://";
+
+    ui->groupBox_direction->setEnabled(false);
+    ui->groupBox_matrixtyp->setEnabled(false);
+    ui->groupBox_weighted->setEnabled(false);
 }
 
 MainWindow::~MainWindow()
@@ -47,6 +51,11 @@ void MainWindow::on_pushButton_select_file_clicked()
 
     //Set label in gui to chosen filename path
     ui->label_chosen_file->setText(QFileInfo(filename).fileName());
+
+    ui->groupBox_direction->setEnabled(true);
+    ui->groupBox_matrixtyp->setEnabled(true);
+    ui->groupBox_weighted->setEnabled(true);
+
     ui->pushButton_read->setEnabled(true);
 }
 
@@ -61,6 +70,7 @@ void MainWindow::on_pushButton_read_clicked()
     ui->pushButton_read->setText("Done!");
     ui->pushButton_read->setEnabled(false);
     ui->spinBox_start_node->setMaximum(_graph->get_nodes().size()-1);
+    ui->spinBox_end_node->setMaximum(_graph->get_nodes().size()-1);
     QString max_node = "(Max. is ";
     max_node.append(QString::number(_graph->get_nodes().size()-1));
     max_node.append(")");
@@ -147,13 +157,17 @@ void MainWindow::on_pushButton_start_bellman_ford_clicked()
 void MainWindow::on_pushButton_start_dijkstra_clicked()
 {
     Shortest_Path shortest_path(_graph);
-    if(ui->checkBox->isChecked())
+    if(ui->checkBox_use_end_node->isChecked())
         shortest_path.perform_dijkstra(ui->spinBox_start_node->value(),ui->spinBox_end_node->value());
     else
         shortest_path.perform_dijkstra(ui->spinBox_start_node->value(),INFINITY);
 }
 
-void MainWindow::on_checkBox_clicked(bool checked)
+void MainWindow::on_checkBox_use_end_node_clicked()
 {
-    ui->spinBox_end_node->setEnabled(checked);
+    if(ui->checkBox_use_end_node->isChecked()){
+        ui->spinBox_end_node->setEnabled(true);
+    }else{
+        ui->spinBox_end_node->setEnabled(false);
+    }
 }
