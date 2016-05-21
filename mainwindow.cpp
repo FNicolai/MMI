@@ -139,13 +139,13 @@ void MainWindow::on_pushButton_start_double_tree_clicked()
 void MainWindow::on_pushButton_start_branch_and_bound_clicked()
 {
     Branch_and_Bound branch_and_bound(_graph);
-    branch_and_bound.perform_brand_and_bound();
+    branch_and_bound.perform_branch_and_bound(ui->spinBox_start_node->value());
 }
 
 void MainWindow::on_pushButton_start_tsp_bruteforce_clicked()
 {
     TSP_Bruteforce tsp_bruteforce(_graph);
-    tsp_bruteforce.perform_tsp_bruteforce();
+    tsp_bruteforce.perform_tsp_bruteforce(ui->spinBox_start_node->value());
 }
 
 void MainWindow::on_pushButton_start_bellman_ford_clicked()

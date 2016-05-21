@@ -11,9 +11,18 @@ public:
     Branch_and_Bound();
     Branch_and_Bound(Graph *graph_);
 
-    double perform_brand_and_bound();
+    void perform_branch_and_bound(double start_node_value);
+
 private:
     Graph* _graph;
+
+    void visit(Node* node_, vector<bool> nodes_visited_, vector<Node *> tour_, double weight_);
+    vector<Node*> _best_tour;
+    double _best_weight;
+
+    double print_tour(vector<Node*> tour_, bool debug_ = true);
+
+    bool _debug;
 
 };
 
