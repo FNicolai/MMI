@@ -74,8 +74,11 @@ void Nearest_Neighbor::insert_edges(vector<Edge *> edges_)
 {
     _sorted_edges = priority_queue<pair<Edge*,double>,vector<pair<Edge*,double>>,compare>(); // Clear priority queue
 
-    for(auto i=0; i < edges_.size(); i++)
-            _sorted_edges.push(pair<Edge *,double>(edges_[i],edges_[i]->get_weight()));
+    for(auto i=0; i < edges_.size(); i++){
+        // TODO: INSERT ONLY THOSE WHO ARE NOT VISITED
+        // PRIO queue unneeded here, because of O(n log n) - just check linearly O(n)
+        _sorted_edges.push(pair<Edge *,double>(edges_[i],edges_[i]->get_weight()));
+    }
 }
 
 bool Nearest_Neighbor::get_node_visited(Node *node_)

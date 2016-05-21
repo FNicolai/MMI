@@ -6,6 +6,7 @@ Shortest_Path::Shortest_Path(Graph* graph_)
     _nodes_count = _graph->get_nodes().size();
 }
 
+// TODO: Endnode = NULL or -1
 void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
 {
     // Initializations
@@ -27,6 +28,8 @@ void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
     prev_nodes[start_node_] = start_node_;
 
     Node* cur_node;
+
+    // TODO: FOR N NODES
     while(!every_node_processed())
     {
         int cur_node_value = get_unvisited_node_with_least_dist();
@@ -55,6 +58,7 @@ void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
             Node* crp_node; // Corresponding node
 
             // Get corresponding node to cur_node
+            //TODO: METHOD GIVE OTHER NODE OF EDGE
             if(edges[i]->get_left_node() != cur_node)
                 crp_node = cur_left_node;
             else
