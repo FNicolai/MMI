@@ -10,63 +10,108 @@ Branch_and_Bound::Branch_and_Bound(Graph *graph_)
     _graph = graph_;
 }
 
-double Branch_and_Bound::perform_brand_and_bound()
-{
-    // Initializations
+void Branch_and_Bound::perform_branch_and_bound(double start_node_value) {
+
+    _debug = false;
+
+    cout << endl << "recursive TSP Branch and Bound:" << endl;
     clock_t time_begin = clock();
 
-    vector<int> nodes(_graph->get_nodes().size());
+    _best_weight = INFINITY;
 
-    //Save 0 to nodes.size in vector<double> nodes
-    iota (nodes.begin(), nodes.end(), 0);
+    vector<bool> nodes_visited;
+    nodes_visited.resize(_graph->get_nodes().size(),false);
 
-    double total_weight = 0.0;
-    double best_weight = numeric_limits<double>::max();
-    bool break_it = false;
+    vector<Node *> tour;
 
-    bool debug = false;
+    double weight = 0.0;
 
-    do{
-        total_weight = 0.0;
-        break_it = false;
-        for (auto i = 0; i < nodes.size()-1; i++){
-            int curr_node = nodes.at(i);
-            int next_node = nodes.at(i+1);
-
-            total_weight += _graph->get_node(curr_node)->get_edge_to(_graph->get_node(next_node))->get_weight();
-
-            if(debug){
-                cout << _graph->get_node(curr_node)->get_value() << " -" << total_weight << "-> ";
-            }
-
-            if(total_weight > best_weight){
-                if(debug){
-                    cout << "\nBREAK: At this point the costs (" << total_weight
-                         << ") of the current path are higher than the current best weight ("
-                         << best_weight << ")." << endl;
-                }
-                break_it = true;
-                break;
-            }
-        }
-        if (break_it){
-            continue;
-        }
-        total_weight += _graph->get_node(nodes.at(nodes.size()-1))->get_edge_to(_graph->get_node(nodes.at(0)))->get_weight();
-        if(debug){
-            cout << _graph->get_node(nodes.at(nodes.size()-1))->get_value() << " -" << total_weight << "-> " << _graph->get_node(nodes.at(0))->get_value() << endl;
-        }
-
-        if(total_weight < best_weight){
-            best_weight = total_weight;
-        }
-    }while (next_permutation(nodes.begin(), nodes.end()));
+    visit(_graph->get_node(start_node_value), nodes_visited, tour, weight);
 
     clock_t time_end = clock();
 
     double elapsed_secs = double(time_end - time_begin) / CLOCKS_PER_SEC;
-    cout << "The Brand and Bound algorithm obtained a hamiltonian circle with a total weight of " << best_weight << " in " << elapsed_secs << " seconds." << endl;
+    cout << "The TSP branch and bound algorithm obtained a hamiltonian circle with a total weight of " << _best_weight << " in " << elapsed_secs << " seconds." << endl;
 
-    return best_weight;
+    cout << "The best tour is: ";
+    print_tour(_best_tour);
+
+}
+
+void Branch_and_Bound::visit(Node* node_, vector<bool> nodes_visited_, vector<Node *> tour_, double weight_) {
+
+    if(weight_ > _best_weight){
+        if(_debug){
+            cout << "BREAK: Costs of " << weight_
+                 << " are higher than the best found tour with costs of "
+                 << _best_weight  << "."<< endl;
+        }
+        return;
+    }
+
+    tour_.push_back(node_);
+
+    nodes_visited_[node_->get_value()] = true;
+
+    vector<Edge*> cur_edges = node_->get_edges();
+    Node* next_node;
+
+    for (uint iE = 0; iE < cur_edges.size(); iE++) {
+        next_node = cur_edges[iE]->get_right_node();
+
+        if (!nodes_visited_[next_node->get_value()]) {
+            visit(next_node, nodes_visited_, tour_, weight_+node_->get_edge_to(next_node)->get_weight() );
+        }
+        if(!_graph->is_directed()){
+            next_node = cur_edges[iE]->get_left_node();
+
+            if (!nodes_visited_[next_node->get_value()]) {
+                visit(next_node, nodes_visited_, tour_, weight_+node_->get_edge_to(next_node)->get_weight() );
+            }
+        }
+    }
+
+    if(tour_.size() == nodes_visited_.size()){
+        if(_debug){
+            cout << "Found tour: " ;
+        }
+        double total_weight = print_tour(tour_,_debug);
+
+        if(total_weight < _best_weight){
+            _best_weight = total_weight;
+            _best_tour = tour_;
+        }
+    }
+}
+
+double Branch_and_Bound::print_tour(vector<Node*> tour_,bool debug_){
+
+    double total_weight = 0.0;
+
+    if(debug_){
+        cout << tour_[0]->get_value();
+    }
+    for(auto i = 0; i < tour_.size()-1; i++){
+        Node * curr_node = tour_[i];
+        Node * next_node = tour_[i+1];
+        total_weight += curr_node->get_edge_to(next_node)->get_weight();
+
+        if(debug_){
+            cout << " -" << total_weight << "-> "<< next_node->get_value();
+        }
+    }
+    total_weight += tour_[tour_.size()-1]->get_edge_to(tour_[0])->get_weight();
+
+    if(total_weight > _best_weight){
+        if(_debug){
+            cout << endl << "BREAK: Costs of " << total_weight
+                 << " are higher than the best found tour with costs of "
+                 << _best_weight  << "."<< endl;
+        }
+    }else if(debug_){
+        cout << " -" << total_weight << "-> " << tour_[0]->get_value() << endl;
+    }
+
+    return total_weight;
 }
 
