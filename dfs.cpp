@@ -5,9 +5,10 @@ DFS::DFS() {
 
 }
 
-DFS::DFS(Graph* graph)
+DFS::DFS(Graph* graph, bool debug_)
 {
     _graph = graph;
+    _debug = debug_;
 }
 
 void DFS::perform_recursive_DFS(double start_node_value) {

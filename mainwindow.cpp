@@ -17,8 +17,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->comboBox_search_type->addItem("DFS");
     ui->comboBox_search_type->addItem("BFS");
 
-    bool debug = ui->radioButton_debug_on->isChecked();
-
     _default_directory = "C://";
 
     ui->groupBox_direction->setEnabled(false);
@@ -132,7 +130,7 @@ void MainWindow::on_pushButton_neares_neighbor_clicked()
 
 void MainWindow::on_pushButton_start_double_tree_clicked()
 {
-    Double_Tree double_tree (_graph);
+    Double_Tree double_tree (_graph,ui->checkBox_debug_double_tree->isChecked());
     double_tree.perform_double_tree(ui->spinBox_start_node->value());
 }
 

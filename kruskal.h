@@ -14,7 +14,7 @@ public:
     Kruskal();
     Kruskal(Graph* graph_);
 
-    multimap<Edge *, double> perform_kruskal(double start_node_);
+    Graph * perform_kruskal(double start_node_);
 
 private:
     Graph* _graph;
