@@ -17,8 +17,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->comboBox_search_type->addItem("DFS");
     ui->comboBox_search_type->addItem("BFS");
 
-    bool debug = ui->radioButton_debug_on->isChecked();
-
     _default_directory = "C://";
 
     ui->groupBox_direction->setEnabled(false);
@@ -82,7 +80,7 @@ void MainWindow::on_pushButton_read_clicked()
 
 void MainWindow::on_pushButton_count_components_clicked()
 {
-    Components components(_graph);
+    Components components(_graph, ui->checkBox_debug_components->isChecked());
     components.perform_connected_compontents(Components::SearchInputType(ui->comboBox_search_type->currentIndex()));
     //_graph->reset_visited();
 }
@@ -92,14 +90,14 @@ void MainWindow::on_pushButton_start_search_clicked()
     switch(ui->comboBox_search_type->currentIndex()){
         case Components::enum_DFS  :
         {
-            DFS dfs(_graph);
+            DFS dfs(_graph, ui->checkBox_debug_search->isChecked());
             dfs.perform_recursive_DFS(ui->spinBox_start_node->value());
             //_graph->reset_visited();
             break;
         }
         case Components::enum_BFS  :
         {
-            BFS bfs(_graph);
+            BFS bfs(_graph, ui->checkBox_debug_search->isChecked());
             bfs.perform_iterative_BFS(ui->spinBox_start_node->value());
             //_graph->reset_visited();
             break;
@@ -109,13 +107,13 @@ void MainWindow::on_pushButton_start_search_clicked()
 
 void MainWindow::on_pushButton_start_kruskal_clicked()
 {
-    Kruskal kruskal(_graph);
+    Kruskal kruskal(_graph, ui->checkBox_debug_kruskal->isChecked());
     kruskal.perform_kruskal(ui->spinBox_start_node->value());
 }
 
 void MainWindow::on_pushButton_start_prim_clicked()
 {
-    Prim prim(_graph);
+    Prim prim(_graph, ui->checkBox_debug_prim->isChecked());
     prim.perform_prim(ui->spinBox_start_node->value());
 }
 
@@ -126,31 +124,31 @@ void MainWindow::on_pushButton_quit_clicked()
 
 void MainWindow::on_pushButton_neares_neighbor_clicked()
 {
-    Nearest_Neighbor nearest_neighbor(_graph);
+    Nearest_Neighbor nearest_neighbor(_graph, ui->checkBox_debug_nearset_neighbor->isChecked());
     nearest_neighbor.perform_nearest_neighbor(ui->spinBox_start_node->value());
 }
 
 void MainWindow::on_pushButton_start_double_tree_clicked()
 {
-    Double_Tree double_tree (_graph);
+    Double_Tree double_tree (_graph, ui->checkBox_debug_double_tree->isChecked());
     double_tree.perform_double_tree(ui->spinBox_start_node->value());
 }
 
 void MainWindow::on_pushButton_start_branch_and_bound_clicked()
 {
-    Branch_and_Bound branch_and_bound(_graph);
+    Branch_and_Bound branch_and_bound(_graph, ui->checkBox_debug_branch_and_bound->isChecked());
     branch_and_bound.perform_branch_and_bound(ui->spinBox_start_node->value());
 }
 
 void MainWindow::on_pushButton_start_tsp_bruteforce_clicked()
 {
-    TSP_Bruteforce tsp_bruteforce(_graph);
+    TSP_Bruteforce tsp_bruteforce(_graph,ui->checkBox_debug_tsp_bruteforce->isChecked());
     tsp_bruteforce.perform_tsp_bruteforce(ui->spinBox_start_node->value());
 }
 
 void MainWindow::on_pushButton_start_bellman_ford_clicked()
 {
-    Bellman_Ford bellman_ford(_graph);
+    Bellman_Ford bellman_ford(_graph, ui->checkBox_debug_bellman_ford->isChecked());
     bellman_ford.perform_bellman_ford(ui->spinBox_start_node->value());
 }
 
@@ -170,7 +168,7 @@ void MainWindow::on_radioButton_undirected_clicked()
 
 void MainWindow::on_pushButton_start_dijkstra_clicked()
 {
-    Shortest_Path shortest_path(_graph);
+    Shortest_Path shortest_path(_graph, ui->checkBox_debug_dijkstra->isChecked());
     if(ui->checkBox_use_end_node->isChecked())
         shortest_path.perform_dijkstra(ui->spinBox_start_node->value(),ui->spinBox_end_node->value());
     else

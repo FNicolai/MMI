@@ -1,16 +1,16 @@
 #include "shortest_path.h"
 
-Shortest_Path::Shortest_Path(Graph* graph_)
+Shortest_Path::Shortest_Path(Graph* graph_, bool debug_)
 {
     _graph = graph_;
     _nodes_count = _graph->get_nodes().size();
+    _debug = debug_;
 }
 
 // TODO: Endnode = NULL or -1
 void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
 {
     // Initializations
-    bool debug = false;
     clock_t time_begin = clock();
 
     distances.resize(_nodes_count);
@@ -72,7 +72,7 @@ void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
             }
         }
 
-        if(debug)
+        if(_debug)
             print_table();
     }
 

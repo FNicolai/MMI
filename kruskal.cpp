@@ -5,16 +5,23 @@ Kruskal::Kruskal()
 
 }
 
-Kruskal::Kruskal(Graph *graph_)
+Kruskal::Kruskal(Graph *graph_, bool debug_)
 {
     _graph = graph_;
+    _debug = debug_;
 }
 
-multimap<Edge *, double> Kruskal::perform_kruskal(double start_node_)
+Graph* Kruskal::perform_kruskal(double start_node_)
 {
+    //Init MST graph to return it later
+    Graph* MST = new Graph (true,false);
+    for(auto i = 0; i < _graph->get_nodes().size(); i++){
+        MST->insert_node_if_not_exist(i);
+    }
+
     _nodes_visited.resize(_graph->get_nodes().size(),false);
 
-    DFS dfs(_graph);
+    DFS dfs(_graph, _debug);
     dfs.perform_recursive_DFS(start_node_);
 
     vector<Node *> found_nodes = dfs.get_found_nodes();
@@ -40,22 +47,11 @@ multimap<Edge *, double> Kruskal::perform_kruskal(double start_node_)
         }
     }
 
-    cout << "Found " << _edges.size() << " edges." << endl;
-
-//    for(auto it = _edges_by_weight.begin(); it != _edges_by_weight.end(); ++it){
-//        cout << "Weight: " << it->first << " from Edge " << it->second->get_left_node()->get_value() << " to " << it->second->get_right_node()->get_value() << endl;
-//        //auto it_next = next(it,2);
-//        //cout << (*it->second > *it_next->second) <<endl;
-
-//    }
+    if(_debug){
+        cout << "Found " << _edges.size() << " edges." << endl;
+    }
 
     clock_t time_begin = clock();
-
-//    _MST_graph = new Graph (_graph->is_weighted(),_graph->is_directed());
-
-//    for(auto i = 0; i < _graph->get_nodes().size(); i++){
-//        _MST_graph->insert_node_if_not_exist(i);
-//    }
 
     double total_MST_weight = 0.;
 
@@ -94,6 +90,10 @@ multimap<Edge *, double> Kruskal::perform_kruskal(double start_node_)
             }
 
             //_MST_graph->insert_edge_if_not_exist(curr_left_node,curr_right_node,curr_edge->get_weight());         // Insert new Edge in _MST_graph
+            MST->insert_edge_if_not_exist(MST->get_node(curr_left_node->get_value()),
+                                          MST->get_node(curr_right_node->get_value()),
+                                          curr_left_node->get_edge_to(curr_right_node)->get_weight());              // Insert new Edge in MST graph
+
             _MST_edges.insert(pair<Edge*, double>(curr_edge, NAN));                                                 // Add Edge* to MST, second is placeholder.
             total_MST_weight += curr_edge->get_weight();
         }
@@ -106,7 +106,7 @@ multimap<Edge *, double> Kruskal::perform_kruskal(double start_node_)
 
     cout << "The MST calculated by KRUSKAL has a total weight of " << total_MST_weight << ". That was calculated in " << elapsed_secs << " seconds." << endl;
 
-    return _MST_edges;
+    return MST;
 }
 
 bool Kruskal::get_node_visited(Node *node_)

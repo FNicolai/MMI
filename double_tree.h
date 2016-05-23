@@ -4,29 +4,29 @@
 #include "graph.h"
 #include "kruskal.h"
 #include <queue>
+#include "dfs.h"
 
 // Iterative BFS
 
 class Double_Tree
 {
 public:
-    Double_Tree(Graph * graph);
+    Double_Tree(Graph * graph, bool debug_ = true);
 
     double perform_double_tree(int start_node_value);
 
-    vector<Node *> get_found_nodes();
-
-    Edge* locate_edge_in_orig_graph(int start_node, int end_node);
-
-    void print_tree();
+    vector<Node *> get_tour;
 
     Kruskal _kruskal;
 
 private:
     Graph* _graph;
-    queue<Node *> _nodes_queue;
-    vector<Node *> _found_nodes;
-//    vector<Edge*> double_tree_edges;
+
+    vector<Node *> _tour;
+
+    bool _debug;
+
+    double print_tour(vector<Node*> path_);
 };
 
 #endif // DOUBLE_TREE_H

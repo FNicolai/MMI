@@ -8,11 +8,12 @@
 class Shortest_Path
 {
 public:
-    Shortest_Path(Graph* graph_);
+    Shortest_Path(Graph* graph_, bool debug_ = true);
     void perform_dijkstra(int start_node_, int end_node_);
 
 private:
     Graph* _graph;
+    bool _debug;
     int _nodes_count;
     vector<double> distances;
     vector<int> prev_nodes;

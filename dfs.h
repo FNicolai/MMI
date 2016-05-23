@@ -11,7 +11,7 @@ class DFS
 {
 public:
     DFS();
-    DFS(Graph * graph);
+    DFS(Graph * graph, bool debug_ = true);
 
     void perform_recursive_DFS(double start_node_value);
 
@@ -25,6 +25,8 @@ private:
     vector<bool> _nodes_visited;
     bool get_node_visited(Node * node_);
     void set_node_visited(Node *node_, bool status_);
+
+    bool _debug;
 };
 
 #endif // DFS_H

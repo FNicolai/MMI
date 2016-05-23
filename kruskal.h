@@ -2,7 +2,6 @@
 #define KRUSKAL_H
 
 #include "graph.h"
-#include "bfs.h"
 #include "dfs.h"
 #include <map>
 #include <queue>
@@ -12,12 +11,13 @@ class Kruskal
 {
 public:
     Kruskal();
-    Kruskal(Graph* graph_);
+    Kruskal(Graph* graph_, bool debug_ = true);
 
-    multimap<Edge *, double> perform_kruskal(double start_node_);
+    Graph * perform_kruskal(double start_node_);
 
 private:
     Graph* _graph;
+    bool _debug;
 
     multimap<Edge *, double> _edges;            // Edges sorted by pointer-value. Double is placeholder
     multimap<double,Edge *> _sorted_edges;      // Edges sorted by their weight.

@@ -5,9 +5,10 @@ Nearest_Neighbor::Nearest_Neighbor()
 
 }
 
-Nearest_Neighbor::Nearest_Neighbor(Graph *graph_)
+Nearest_Neighbor::Nearest_Neighbor(Graph *graph_, bool debug_)
 {
     _graph = graph_;
+    _debug = debug_;
 }
 
 double Nearest_Neighbor::perform_nearest_neighbor(double start_node_)

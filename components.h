@@ -13,13 +13,14 @@ class Components
 {
 public:
     Components();
-    Components(Graph* graph_);
+    Components(Graph* graph_, bool debug_  = true);
 
     enum SearchInputType {enum_DFS, enum_BFS};
 
     double perform_connected_compontents(SearchInputType search_input_type_);
 public:
     Graph* _graph;
+    bool _debug;
 };
 
 #endif // COMPONENTS_H

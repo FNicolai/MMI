@@ -2,15 +2,13 @@
 #define PRIM_H
 
 #include "graph.h"
-#include "bfs.h"
-#include "dfs.h"
 #include <queue>
 
 class Prim
 {
 public:
     Prim();
-    Prim(Graph* graph_);
+    Prim(Graph* graph_, bool debug_ = true);
 
     multimap<Edge *, double> perform_prim(double start_node_);
 private:
@@ -24,6 +22,7 @@ private:
     void insert_edges(vector<Edge *> edges_);
 
     Graph* _graph;
+    bool _debug;
     //Graph* _MST_graph;
 
     multimap<Edge *, double> _edges;        // Edges sorted by pointer-value. Double is placeholder

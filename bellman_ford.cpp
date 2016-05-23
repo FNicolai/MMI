@@ -5,9 +5,10 @@ Bellman_Ford::Bellman_Ford()
 
 }
 
-Bellman_Ford::Bellman_Ford(Graph *graph_)
+Bellman_Ford::Bellman_Ford(Graph *graph_, bool debug_)
 {
     _graph = graph_;
+    _debug = debug_;
 }
 
 double Bellman_Ford::perform_bellman_ford(int start_node_)
@@ -124,7 +125,7 @@ double Bellman_Ford::perform_bellman_ford(int start_node_)
 
 void Bellman_Ford::get_edgelist(int start_node_)
 {
-    DFS dfs(_graph);
+    DFS dfs(_graph,_debug);
     dfs.perform_recursive_DFS(start_node_);
 
     vector<Node *> found_nodes = dfs.get_found_nodes();

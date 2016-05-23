@@ -5,9 +5,10 @@ Components::Components()
 
 }
 
-Components::Components(Graph *graph_)
+Components::Components(Graph *graph_, bool debug_)
 {
     _graph = graph_;
+    _debug = debug_;
 }
 
 double Components::perform_connected_compontents(SearchInputType search_input_type_)
@@ -21,11 +22,11 @@ double Components::perform_connected_compontents(SearchInputType search_input_ty
 
     switch(search_input_type_){
     case enum_DFS  :
-        dfs = new DFS (_graph);
+        dfs = new DFS (_graph, _debug);
         cout << "with DFS." << endl;
         break;
     case enum_BFS  :
-        bfs = new BFS (_graph);
+        bfs = new BFS (_graph, _debug);
         cout << "with BFS." << endl;
         break;
     }

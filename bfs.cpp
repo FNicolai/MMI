@@ -4,9 +4,10 @@ BFS::BFS() {
 
 }
 
-BFS::BFS(Graph* graph)
+BFS::BFS(Graph* graph, bool debug_)
 {
     _graph = graph;
+    _debug = debug_;
 }
 
 void BFS::perform_iterative_BFS(int start_node_value) {
@@ -18,13 +19,16 @@ void BFS::perform_iterative_BFS(int start_node_value) {
     set_node_visited(cur_node,true);
     //cur_node->set_visited(true);
 
-    cout << endl << "iterative BFS:" << endl;
+    if(_debug){
+        cout << endl << "iterative BFS:" << endl;
+    }
 
     while (!_nodes_queue.empty()) {
         cur_node = _nodes_queue.front();
         _nodes_queue.pop();
-
-        cout << cur_node->get_value();
+        if(_debug){
+            cout << cur_node->get_value();
+        }
         _found_nodes.push_back(cur_node);
 
 //        if (cur_node == goal_node) {
@@ -51,11 +55,15 @@ void BFS::perform_iterative_BFS(int start_node_value) {
                 }
             }
         }
-        if(!_nodes_queue.empty()){
-            cout << " -> ";
+        if(_debug){
+            if(!_nodes_queue.empty()){
+                cout << " -> ";
+            }
         }
     }
-    cout << endl;
+    if(_debug){
+        cout << endl;
+    }
 }
 
 vector<Node *> BFS::get_found_nodes()
