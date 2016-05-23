@@ -16,9 +16,9 @@ double Double_Tree::perform_double_tree(int start_node_value_) {
 
     clock_t time_begin = clock();
 
-    BFS bfs (graph_for_search, _debug);
-    bfs.perform_iterative_BFS(start_node_value_);
-    vector<Node *> path = bfs.get_found_nodes();
+    DFS dfs (graph_for_search, _debug);
+    dfs.perform_recursive_DFS(start_node_value_);
+    vector<Node *> path = dfs.get_found_nodes();
 
     double total_weight = print_tour(path);
 

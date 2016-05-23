@@ -4,7 +4,7 @@
 #include "graph.h"
 #include "kruskal.h"
 #include <queue>
-#include "bfs.h"
+#include "dfs.h"
 
 // Iterative BFS
 
