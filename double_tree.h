@@ -11,7 +11,7 @@
 class Double_Tree
 {
 public:
-    Double_Tree(Graph * graph, bool debug_);
+    Double_Tree(Graph * graph, bool debug_ = true);
 
     double perform_double_tree(int start_node_value);
 

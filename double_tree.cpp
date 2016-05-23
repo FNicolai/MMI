@@ -11,12 +11,12 @@ double Double_Tree::perform_double_tree(int start_node_value_) {
     // Graph based on Kruskal required in order to perform BFS
     Graph* graph_for_search;
 
-    _kruskal = Kruskal(_graph);
+    _kruskal = Kruskal(_graph, _debug);
     graph_for_search = _kruskal.perform_kruskal(start_node_value_);
 
     clock_t time_begin = clock();
 
-    BFS bfs (graph_for_search);
+    BFS bfs (graph_for_search, _debug);
     bfs.perform_iterative_BFS(start_node_value_);
     vector<Node *> path = bfs.get_found_nodes();
 

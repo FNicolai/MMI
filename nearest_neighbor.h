@@ -8,7 +8,7 @@ class Nearest_Neighbor
 {
 public:
     Nearest_Neighbor();
-    Nearest_Neighbor(Graph* graph_);
+    Nearest_Neighbor(Graph* graph_, bool debug_ = true);
 
     double perform_nearest_neighbor(double start_node_);
 private:
@@ -23,6 +23,8 @@ private:
 
     Graph* _graph;
     Graph* _MST_graph;
+
+    bool _debug;
 
     multimap<Edge *, double> _edges; // Edge
 

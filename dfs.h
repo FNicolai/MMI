@@ -11,7 +11,7 @@ class DFS
 {
 public:
     DFS();
-    DFS(Graph * graph, bool debug_);
+    DFS(Graph * graph, bool debug_ = true);
 
     void perform_recursive_DFS(double start_node_value);
 

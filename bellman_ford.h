@@ -9,11 +9,11 @@ class Bellman_Ford
 {
 public:
     Bellman_Ford();
-    Bellman_Ford(Graph *graph_);
+    Bellman_Ford(Graph *graph_,bool debug_ = true);
 
     double perform_bellman_ford(int start_node_);
 private:
-    bool _debug = true;
+    bool _debug;
 
     Graph* _graph;
 

@@ -11,7 +11,7 @@ class BFS
 {
 public:
     BFS();
-    BFS(Graph * graph, bool debug_);
+    BFS(Graph * graph, bool debug_ = true);
 
     void perform_iterative_BFS(int start_node_value);
 

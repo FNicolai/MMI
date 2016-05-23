@@ -9,7 +9,7 @@ class Branch_and_Bound
 {
 public:
     Branch_and_Bound();
-    Branch_and_Bound(Graph *graph_);
+    Branch_and_Bound(Graph *graph_, bool debug_ = true);
 
     void perform_branch_and_bound(double start_node_value);
 

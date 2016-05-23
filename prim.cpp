@@ -5,9 +5,10 @@ Prim::Prim()
 
 }
 
-Prim::Prim(Graph *graph_)
+Prim::Prim(Graph *graph_, bool debug_)
 {
     _graph = graph_;
+    _debug = debug_;
 }
 
 multimap<Edge *, double> Prim::perform_prim(double start_node_)

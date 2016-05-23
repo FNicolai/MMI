@@ -5,14 +5,13 @@ TSP_Bruteforce::TSP_Bruteforce()
 
 }
 
-TSP_Bruteforce::TSP_Bruteforce(Graph *graph_)
+TSP_Bruteforce::TSP_Bruteforce(Graph *graph_, bool debug_)
 {
     _graph = graph_;
+    _debug = debug_;
 }
 
 void TSP_Bruteforce::perform_tsp_bruteforce(double start_node_value) {
-
-    _debug = false;
 
     cout << endl << "recursive TSP bruteforce:" << endl;
     clock_t time_begin = clock();
@@ -81,7 +80,7 @@ double TSP_Bruteforce::print_tour(vector<Node*> tour_,bool debug_){
 
     double total_weight = 0.0;
 
-    if(debug_){
+    if(_debug){
         cout << tour_[0]->get_value();
     }
     for(auto i = 0; i < tour_.size()-1; i++){
@@ -89,13 +88,13 @@ double TSP_Bruteforce::print_tour(vector<Node*> tour_,bool debug_){
         Node * next_node = tour_[i+1];
         total_weight += curr_node->get_edge_to(next_node)->get_weight();
 
-        if(debug_){
+        if(_debug){
             cout << " -" << total_weight << "-> "<< next_node->get_value();
         }
     }
     total_weight += tour_[tour_.size()-1]->get_edge_to(tour_[0])->get_weight();
 
-    if(debug_){
+    if(_debug){
         cout << " -" << total_weight << "-> " << tour_[0]->get_value() << endl;
     }
 

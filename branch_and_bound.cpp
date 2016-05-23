@@ -5,14 +5,13 @@ Branch_and_Bound::Branch_and_Bound()
 
 }
 
-Branch_and_Bound::Branch_and_Bound(Graph *graph_)
+Branch_and_Bound::Branch_and_Bound(Graph *graph_, bool debug_)
 {
     _graph = graph_;
+    _debug = debug_;
 }
 
 void Branch_and_Bound::perform_branch_and_bound(double start_node_value) {
-
-    _debug = false;
 
     cout << endl << "recursive TSP Branch and Bound:" << endl;
     clock_t time_begin = clock();

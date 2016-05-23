@@ -5,9 +5,10 @@ Kruskal::Kruskal()
 
 }
 
-Kruskal::Kruskal(Graph *graph_)
+Kruskal::Kruskal(Graph *graph_, bool debug_)
 {
     _graph = graph_;
+    _debug = debug_;
 }
 
 Graph* Kruskal::perform_kruskal(double start_node_)
@@ -20,7 +21,7 @@ Graph* Kruskal::perform_kruskal(double start_node_)
 
     _nodes_visited.resize(_graph->get_nodes().size(),false);
 
-    DFS dfs(_graph);
+    DFS dfs(_graph, _debug);
     dfs.perform_recursive_DFS(start_node_);
 
     vector<Node *> found_nodes = dfs.get_found_nodes();
@@ -46,7 +47,9 @@ Graph* Kruskal::perform_kruskal(double start_node_)
         }
     }
 
-    cout << "Found " << _edges.size() << " edges." << endl;
+    if(_debug){
+        cout << "Found " << _edges.size() << " edges." << endl;
+    }
 
     clock_t time_begin = clock();
 
