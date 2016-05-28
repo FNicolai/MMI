@@ -19,6 +19,7 @@ public:
 
     void set_weight(double weight_);
     double get_weight() const;
+    double get_flow() const;
 
     inline bool operator< (const Edge& rhs){ return _weight < rhs._weight; }
     inline bool operator> (const Edge& rhs){ return rhs._weight < _weight; }
