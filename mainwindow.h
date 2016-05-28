@@ -62,6 +62,10 @@ private slots:
 
     void on_radioButton_undirected_clicked();
 
+    void on_radioButton_debug_on_clicked();
+
+    void on_radioButton_debug_off_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -69,6 +73,7 @@ private:
     const char * _default_directory;
 
     Graph* _graph;
+    bool _debug;
 
 };
 

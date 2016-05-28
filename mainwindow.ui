@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>470</width>
-    <height>496</height>
+    <width>477</width>
+    <height>509</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,6 +38,9 @@
      <property name="text">
       <string>Edgelist</string>
      </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
     </widget>
     <widget class="QRadioButton" name="radioButton_adjacency_matrix">
      <property name="geometry">
@@ -59,10 +62,10 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>274</x>
       <y>450</y>
-      <width>75</width>
-      <height>23</height>
+      <width>81</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="autoFillBackground">
@@ -95,6 +98,9 @@
      </property>
      <property name="text">
       <string>Yes</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QRadioButton" name="radioButton_weighted_no">
@@ -165,10 +171,10 @@
    <widget class="QPushButton" name="pushButton_quit">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>364</x>
       <y>450</y>
-      <width>75</width>
-      <height>23</height>
+      <width>81</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="text">
@@ -219,9 +225,9 @@
     <widget class="QPushButton" name="pushButton_start_search">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>90</x>
        <y>100</y>
-       <width>111</width>
+       <width>151</width>
        <height>31</height>
       </rect>
      </property>
@@ -271,19 +277,6 @@
       <string>(Max. is x)</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_count_components">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>100</y>
-       <width>141</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Count components</string>
-     </property>
-    </widget>
     <widget class="QComboBox" name="comboBox_search_type">
      <property name="geometry">
       <rect>
@@ -297,9 +290,9 @@
     <widget class="QPushButton" name="pushButton_start_kruskal">
      <property name="geometry">
       <rect>
-       <x>230</x>
+       <x>260</x>
        <y>140</y>
-       <width>141</width>
+       <width>151</width>
        <height>31</height>
       </rect>
      </property>
@@ -310,9 +303,9 @@
     <widget class="QPushButton" name="pushButton_start_prim">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>90</x>
        <y>140</y>
-       <width>111</width>
+       <width>151</width>
        <height>31</height>
       </rect>
      </property>
@@ -323,9 +316,9 @@
     <widget class="QPushButton" name="pushButton_neares_neighbor">
      <property name="geometry">
       <rect>
-       <x>230</x>
+       <x>260</x>
        <y>180</y>
-       <width>141</width>
+       <width>151</width>
        <height>31</height>
       </rect>
      </property>
@@ -336,9 +329,9 @@
     <widget class="QPushButton" name="pushButton_start_double_tree">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>90</x>
        <y>180</y>
-       <width>111</width>
+       <width>151</width>
        <height>31</height>
       </rect>
      </property>
@@ -349,9 +342,9 @@
     <widget class="QPushButton" name="pushButton_start_branch_and_bound">
      <property name="geometry">
       <rect>
-       <x>230</x>
+       <x>260</x>
        <y>220</y>
-       <width>141</width>
+       <width>151</width>
        <height>31</height>
       </rect>
      </property>
@@ -362,9 +355,9 @@
     <widget class="QPushButton" name="pushButton_start_tsp_bruteforce">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>90</x>
        <y>220</y>
-       <width>111</width>
+       <width>151</width>
        <height>31</height>
       </rect>
      </property>
@@ -375,9 +368,9 @@
     <widget class="QPushButton" name="pushButton_start_dijkstra">
      <property name="geometry">
       <rect>
-       <x>80</x>
+       <x>90</x>
        <y>260</y>
-       <width>111</width>
+       <width>151</width>
        <height>31</height>
       </rect>
      </property>
@@ -433,9 +426,9 @@
     <widget class="QPushButton" name="pushButton_start_bellman_ford">
      <property name="geometry">
       <rect>
-       <x>230</x>
+       <x>260</x>
        <y>260</y>
-       <width>141</width>
+       <width>151</width>
        <height>31</height>
       </rect>
      </property>
@@ -443,172 +436,62 @@
       <string>Start Bellman-Ford</string>
      </property>
     </widget>
-    <widget class="QCheckBox" name="checkBox_debug_search">
+    <widget class="QPushButton" name="pushButton_count_components">
      <property name="geometry">
       <rect>
-       <x>200</x>
+       <x>260</x>
        <y>100</y>
-       <width>16</width>
+       <width>151</width>
        <height>31</height>
       </rect>
      </property>
      <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_debug_prim">
-     <property name="geometry">
-      <rect>
-       <x>200</x>
-       <y>140</y>
-       <width>16</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_debug_double_tree">
-     <property name="geometry">
-      <rect>
-       <x>200</x>
-       <y>180</y>
-       <width>16</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_debug_tsp_bruteforce">
-     <property name="geometry">
-      <rect>
-       <x>200</x>
-       <y>220</y>
-       <width>16</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_debug_dijkstra">
-     <property name="geometry">
-      <rect>
-       <x>200</x>
-       <y>260</y>
-       <width>16</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_debug_components">
-     <property name="geometry">
-      <rect>
-       <x>380</x>
-       <y>100</y>
-       <width>16</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_debug_kruskal">
-     <property name="geometry">
-      <rect>
-       <x>380</x>
-       <y>140</y>
-       <width>16</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_debug_nearset_neighbor">
-     <property name="geometry">
-      <rect>
-       <x>380</x>
-       <y>180</y>
-       <width>16</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_debug_branch_and_bound">
-     <property name="geometry">
-      <rect>
-       <x>380</x>
-       <y>220</y>
-       <width>16</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QCheckBox" name="checkBox_debug_bellman_ford">
-     <property name="geometry">
-      <rect>
-       <x>380</x>
-       <y>260</y>
-       <width>16</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>190</x>
-       <y>80</y>
-       <width>31</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Debug</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_2">
-     <property name="geometry">
-      <rect>
-       <x>370</x>
-       <y>80</y>
-       <width>31</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Debug</string>
+      <string>Count components</string>
      </property>
     </widget>
    </widget>
-   <zorder>groupBox_matrixtyp</zorder>
-   <zorder>pushButton_read</zorder>
-   <zorder>groupBox_weighted</zorder>
-   <zorder>groupBox_direction</zorder>
-   <zorder>pushButton_quit</zorder>
-   <zorder>pushButton_select_file</zorder>
-   <zorder>label_chosen_file</zorder>
-   <zorder>groupBox_algorithems</zorder>
-   <zorder>radioButton_weighted_yes</zorder>
+   <widget class="QGroupBox" name="groupBox_debug">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>50</y>
+      <width>71</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Debug</string>
+    </property>
+    <widget class="QRadioButton" name="radioButton_debug_on">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>41</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>On</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QRadioButton" name="radioButton_debug_off">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>40</y>
+       <width>51</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Off</string>
+     </property>
+    </widget>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
