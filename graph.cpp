@@ -180,7 +180,11 @@ void Graph::insert_edge(int start_value_, int end_value_, double weight_) {
 }
 
 bool Graph::insert_edge_if_not_exist(Node* start_node_, Node* end_node_, double weight_) {
-    start_node_->insert_edge_to(end_node_, is_directed(), weight_);
+    Edge * rtnValue;
+    rtnValue = start_node_->insert_edge_to(end_node_, is_directed(), weight_);
+    if(rtnValue != NULL){
+        _edgelist.push_back(rtnValue);
+    }
 }
 
 void Graph::reset_edges()
@@ -188,6 +192,11 @@ void Graph::reset_edges()
     for(auto i=0; i < _nodes.size(); i++){
         _nodes[i]->reset_edges();
     }
+}
+
+vector<Edge *> Graph::get_edgelist()
+{
+    return _edgelist;
 }
 
 Node* Graph::get_node(int value_) {

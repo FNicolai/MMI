@@ -33,6 +33,8 @@ private:
     Node * right_node;
 
     double _weight;     //Weight of edge
+
+    double _flow = 0.0;       // Flow for edmonds_karp
 };
 
 #endif // EDGE_H

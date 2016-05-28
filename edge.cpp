@@ -31,6 +31,11 @@ double Edge::get_weight() const
     return _weight;
 }
 
+double Edge::get_flow() const
+{
+    return _flow;
+}
+
 void Edge::set_weight(double weight_)
 {
     _weight = weight_;
