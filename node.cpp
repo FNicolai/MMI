@@ -66,11 +66,11 @@ bool Node::has_edge_to(Node *target_node) {
     return get_edge_to(target_node) != NULL;
 }
 
-Edge* Node::insert_edge_to(Node *target_node, bool directed, double weight) {
+Edge* Node::insert_edge_to(Node *target_node, bool directed, double weight, double flow) {
     Edge* retVal = get_edge_to(target_node);
 
     if (retVal == NULL) {
-        retVal = new Edge(this, target_node, weight);
+        retVal = new Edge(this, target_node, weight, flow);
         _edges.push_back(retVal);
 
         if (!directed) {

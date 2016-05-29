@@ -9,7 +9,7 @@ class Node;
 class Edge
 {
 public:
-    Edge(Node* left_node, Node* right_node, double weight_);
+    Edge(Node* left_node, Node* right_node, double weight_, double flow_);
 
     Node* get_right_node() const;
     Node* get_left_node() const;
@@ -19,7 +19,9 @@ public:
 
     void set_weight(double weight_);
     double get_weight() const;
+
     double get_flow() const;
+    void set_flow(double flow_);
 
     inline bool operator< (const Edge& rhs){ return _weight < rhs._weight; }
     inline bool operator> (const Edge& rhs){ return rhs._weight < _weight; }

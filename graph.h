@@ -37,12 +37,14 @@ public:
 //    unordered_map<double, Node*> get_nodes();
     vector<Node*> get_nodes();
     Node* insert_node_if_not_exist(int value_);
-    bool insert_edge_if_not_exist(Node* start_node_, Node* end_node_, double weight_);
+    bool insert_edge_if_not_exist(Node* start_node_, Node* end_node_, double weight_, double flow_ = 0.0);
     void reset_edges();
 
     vector <Edge *> get_edgelist();
 
     void insert_n_nodes(int n);
+
+    Graph * create_copy();
 
 private:
 

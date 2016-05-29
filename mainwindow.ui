@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>477</width>
-    <height>509</height>
+    <width>478</width>
+    <height>606</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -62,8 +62,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>274</x>
-      <y>450</y>
+      <x>270</x>
+      <y>540</y>
       <width>81</width>
       <height>31</height>
      </rect>
@@ -171,8 +171,8 @@
    <widget class="QPushButton" name="pushButton_quit">
     <property name="geometry">
      <rect>
-      <x>364</x>
-      <y>450</y>
+      <x>360</x>
+      <y>540</y>
       <width>81</width>
       <height>31</height>
      </rect>
@@ -216,7 +216,7 @@
       <x>10</x>
       <y>130</y>
       <width>451</width>
-      <height>311</height>
+      <height>361</height>
      </rect>
     </property>
     <property name="title">
@@ -447,6 +447,19 @@
      </property>
      <property name="text">
       <string>Count components</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_start_edmonds_karp">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>300</y>
+       <width>151</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Start Edmonds-Karp</string>
      </property>
     </widget>
    </widget>
