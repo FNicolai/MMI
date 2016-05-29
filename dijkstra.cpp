@@ -1,6 +1,6 @@
-#include "shortest_path.h"
+#include "dijkstra.h"
 
-Shortest_Path::Shortest_Path(Graph* graph_, bool debug_)
+Dijkstra::Dijkstra(Graph* graph_, bool debug_)
 {
     _graph = graph_;
     _nodes_count = _graph->get_nodes().size();
@@ -8,7 +8,7 @@ Shortest_Path::Shortest_Path(Graph* graph_, bool debug_)
 }
 
 // TODO: Endnode = NULL or -1
-void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
+void Dijkstra::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
 {
     // Initializations
     clock_t time_begin = clock();
@@ -44,6 +44,25 @@ void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
             clock_t time_end = clock();
             double elapsed_secs = double(time_end - time_begin) / CLOCKS_PER_SEC;
             cout << "The Dijkstra algorithm obtained the result in " << elapsed_secs << " seconds." << endl;
+
+            auto i = end_node_;
+            do{
+                _path.push_back(_graph->get_node(i));
+                i = prev_nodes[i];
+            }while(i != start_node_);
+
+            _path.push_back(_graph->get_node(start_node_));
+
+            reverse(_path.begin(),_path.end());
+
+            if(_debug){
+                cout << "Path: ";
+                for(auto x: _path){
+                    cout << x->get_value() << " ";
+                }
+                cout << endl;
+            }
+
             return;
         }
 
@@ -80,14 +99,22 @@ void Shortest_Path::perform_dijkstra(int start_node_, int end_node_ = INFINITY)
 
     double elapsed_secs = double(time_end - time_begin) / CLOCKS_PER_SEC;
 
-    cout << "Shortest path from node " << start_node_ << " to all other nodes has the following connections:" << endl;
-    for(int i = 0; i < _nodes_count; i++)
-        cout << "Node " << i << " is reachable over node " << prev_nodes[i] << " with distance " << distances[i] << endl;
+    if(_debug){
+        cout << "Shortest path from node " << start_node_ << " to all other nodes has the following connections:" << endl;
+        for(int i = 0; i < _nodes_count; i++){
+            cout << "Node " << i << " is reachable over node " << prev_nodes[i] << " with distance " << distances[i] << endl;
+        }
+    }
 
     cout << "The Dijkstra algorithm obtained the result in " << elapsed_secs << " seconds." << endl;
 }
 
-bool Shortest_Path::every_node_processed()
+vector<Node *> Dijkstra::get_path()
+{
+    return _path;
+}
+
+bool Dijkstra::every_node_processed()
 {
     for(auto i = 0; i < _nodes_count; i++)
         if(!nodes_processed[i])
@@ -96,7 +123,7 @@ bool Shortest_Path::every_node_processed()
     return true;
 }
 
-int Shortest_Path::get_unvisited_node_with_least_dist()
+int Dijkstra::get_unvisited_node_with_least_dist()
 {
     double least_dist = INFINITY;
     int unvisited_node_with_least_dist = -1;
@@ -110,7 +137,7 @@ int Shortest_Path::get_unvisited_node_with_least_dist()
     return unvisited_node_with_least_dist;
 }
 
-void Shortest_Path::print_table()
+void Dijkstra::print_table()
 {
     cout << "distance: ";
     for(auto i = 0; i < _nodes_count; i++)

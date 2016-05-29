@@ -37,8 +37,14 @@ public:
 //    unordered_map<double, Node*> get_nodes();
     vector<Node*> get_nodes();
     Node* insert_node_if_not_exist(int value_);
-    bool insert_edge_if_not_exist(Node* start_node_, Node* end_node_, double weight_);
+    bool insert_edge_if_not_exist(Node* start_node_, Node* end_node_, double weight_, double flow_ = 0.0);
     void reset_edges();
+
+    vector <Edge *> get_edgelist();
+
+    void insert_n_nodes(int n);
+
+    Graph * create_copy();
 
 private:
 
@@ -49,6 +55,8 @@ private:
 
     //std::unordered_map<double, Node*> nodes;
     vector<Node*> _nodes;
+
+    vector<Edge *> _edgelist;
 
     //std::unordered_map<Edge*, std::vector<Node*> > edges_to_nodes;
     //std::unordered_map<Node*, std::vector<Edge*> > nodes_to_edges;
@@ -61,7 +69,6 @@ private:
     void read_unweighted_edgelist(ifstream &graph_file_);
 
     void insert_edge(int start_value_, int end_value_, double weight_);
-    void insert_n_nodes(int n);
 
     void print_nodes();
 

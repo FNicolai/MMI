@@ -168,11 +168,11 @@ void MainWindow::on_radioButton_undirected_clicked()
 
 void MainWindow::on_pushButton_start_dijkstra_clicked()
 {
-    Shortest_Path shortest_path(_graph, _debug);
+    Dijkstra dijkstra(_graph, _debug);
     if(ui->checkBox_use_end_node->isChecked())
-        shortest_path.perform_dijkstra(ui->spinBox_start_node->value(),ui->spinBox_end_node->value());
+        dijkstra.perform_dijkstra(ui->spinBox_start_node->value(),ui->spinBox_end_node->value());
     else
-        shortest_path.perform_dijkstra(ui->spinBox_start_node->value(),INFINITY);
+        dijkstra.perform_dijkstra(ui->spinBox_start_node->value(),INFINITY);
 }
 
 void MainWindow::on_checkBox_use_end_node_clicked()
@@ -191,4 +191,16 @@ void MainWindow::on_radioButton_debug_on_clicked()
 void MainWindow::on_radioButton_debug_off_clicked()
 {
     _debug = false;
+}
+
+void MainWindow::on_pushButton_start_edmonds_karp_clicked()
+{
+    Edmonds_Karp edmonds_karp(_graph,_debug);
+    if(ui->spinBox_end_node->isEnabled()){
+        edmonds_karp.perform_edmonds_karp(ui->spinBox_start_node->value(), ui->spinBox_end_node->value());
+    }else{
+        QMessageBox messageBox;
+        messageBox.setText("Please set End-Node");
+        messageBox.exec();
+    }
 }

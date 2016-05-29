@@ -163,6 +163,24 @@ void Graph::insert_n_nodes(int n) {
     }
 }
 
+Graph *Graph::create_copy()
+{
+    Graph * copy = new Graph (this->is_weighted(),this->is_directed());
+    copy->insert_n_nodes(this->get_nodes().size());
+
+    vector<Edge *> edgelist = this->get_edgelist();
+    for(auto i = 0; i < edgelist.size(); i++){
+        Edge * curr_edge = edgelist.at(i);
+        Node * start_node = copy->get_node(curr_edge->get_left_node()->get_value());
+        Node * end_node = copy->get_node(curr_edge->get_right_node()->get_value());
+        double weight = curr_edge->get_weight();
+        double flow = curr_edge->get_flow();
+
+        copy->insert_edge_if_not_exist(start_node, end_node, weight, flow);
+    }
+    return copy;
+}
+
 Node* Graph::insert_node_if_not_exist(int value_) {
     if (_nodes.size() <= value_) {
         Node * cur_node = new Node(value_);
@@ -179,8 +197,12 @@ void Graph::insert_edge(int start_value_, int end_value_, double weight_) {
     insert_edge_if_not_exist(start_node, end_node, weight_);
 }
 
-bool Graph::insert_edge_if_not_exist(Node* start_node_, Node* end_node_, double weight_) {
-    start_node_->insert_edge_to(end_node_, is_directed(), weight_);
+bool Graph::insert_edge_if_not_exist(Node* start_node_, Node* end_node_, double weight_, double flow_) {
+    Edge * rtnValue;
+    rtnValue = start_node_->insert_edge_to(end_node_, is_directed(), weight_, flow_);
+    if(rtnValue != NULL){
+        _edgelist.push_back(rtnValue);
+    }
 }
 
 void Graph::reset_edges()
@@ -188,6 +210,11 @@ void Graph::reset_edges()
     for(auto i=0; i < _nodes.size(); i++){
         _nodes[i]->reset_edges();
     }
+}
+
+vector<Edge *> Graph::get_edgelist()
+{
+    return _edgelist;
 }
 
 Node* Graph::get_node(int value_) {

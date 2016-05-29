@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     branch_and_bound.cpp \
     tsp_bruteforce.cpp \
     bellman_ford.cpp \
-    shortest_path.cpp
+    edmonds_karp.cpp \
+    dijkstra.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -46,7 +47,8 @@ HEADERS  += \
     branch_and_bound.h \
     tsp_bruteforce.h \
     bellman_ford.h \
-    shortest_path.h
+    edmonds_karp.h \
+    dijkstra.h
 
 FORMS    += \
     mainwindow.ui

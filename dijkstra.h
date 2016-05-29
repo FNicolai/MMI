@@ -1,15 +1,17 @@
-#ifndef SHORTEST_PATH_H
-#define SHORTEST_PATH_H
+#ifndef DIJKSTRA_H
+#define DIJKSTRA_H
 
 #include "graph.h"
 #include "node.h"
 #include <queue>
 
-class Shortest_Path
+class Dijkstra
 {
 public:
-    Shortest_Path(Graph* graph_, bool debug_ = true);
+    Dijkstra(Graph* graph_, bool debug_ = true);
     void perform_dijkstra(int start_node_, int end_node_);
+
+    vector<Node *> get_path();
 
 private:
     Graph* _graph;
@@ -19,9 +21,11 @@ private:
     vector<int> prev_nodes;
     vector<bool> nodes_processed;
 
+    vector<Node *> _path;
+
     bool every_node_processed();
     int get_unvisited_node_with_least_dist();
     void print_table();
 };
 
-#endif // SHORTEST_PATH_H
+#endif // DIJKSTRA_H

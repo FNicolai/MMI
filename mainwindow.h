@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
 #include "graph.h"
 #include "dfs.h"
 #include "bfs.h"
@@ -13,7 +14,8 @@
 #include "branch_and_bound.h"
 #include "tsp_bruteforce.h"
 #include "bellman_ford.h"
-#include "shortest_path.h"
+#include "dijkstra.h"
+#include "edmonds_karp.h"
 
 using namespace std;
 
@@ -65,6 +67,8 @@ private slots:
     void on_radioButton_debug_on_clicked();
 
     void on_radioButton_debug_off_clicked();
+
+    void on_pushButton_start_edmonds_karp_clicked();
 
 private:
     Ui::MainWindow *ui;
