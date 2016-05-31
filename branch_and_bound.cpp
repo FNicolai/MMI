@@ -55,21 +55,7 @@ void Branch_and_Bound::visit(Node* node_, vector<bool> nodes_visited_, vector<No
     vector<Edge*> cur_edges = node_->get_edges();
     Node* next_node;
 
-    for (uint iE = 0; iE < cur_edges.size(); iE++) {
-        next_node = cur_edges[iE]->get_right_node();
-
-        if (!nodes_visited_[next_node->get_value()]) {
-            visit(next_node, nodes_visited_, tour_, weight_+node_->get_edge_to(next_node)->get_weight() );
-        }
-        if(!_graph->is_directed()){
-            next_node = cur_edges[iE]->get_left_node();
-
-            if (!nodes_visited_[next_node->get_value()]) {
-                visit(next_node, nodes_visited_, tour_, weight_+node_->get_edge_to(next_node)->get_weight() );
-            }
-        }
-    }
-
+    // TODO: MAKE COUNTER, CHANGE PARAMS TO REFERENCE,
     if(tour_.size() == nodes_visited_.size()){
         if(_debug){
             cout << "Found tour: " ;
@@ -80,7 +66,24 @@ void Branch_and_Bound::visit(Node* node_, vector<bool> nodes_visited_, vector<No
             _best_weight = total_weight;
             _best_tour = tour_;
         }
+    }else{
+        for (uint iE = 0; iE < cur_edges.size(); iE++) {
+            next_node = cur_edges[iE]->get_right_node();
+
+            if (!nodes_visited_[next_node->get_value()]) {
+                visit(next_node, nodes_visited_, tour_, weight_+node_->get_edge_to(next_node)->get_weight() );
+            }
+            if(!_graph->is_directed()){
+                next_node = cur_edges[iE]->get_left_node();
+
+                if (!nodes_visited_[next_node->get_value()]) {
+                    visit(next_node, nodes_visited_, tour_, weight_+node_->get_edge_to(next_node)->get_weight() );
+                }
+            }
+        }
     }
+
+
 }
 
 double Branch_and_Bound::print_tour(vector<Node*> tour_,bool debug_){

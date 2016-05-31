@@ -8,7 +8,7 @@ Double_Tree::Double_Tree(Graph* graph, bool debug_)
 
 double Double_Tree::perform_double_tree(int start_node_value_) {
 
-    // Graph based on Kruskal required in order to perform BFS
+    // Graph based on Kruskal required in order to perform DFS
     Graph* graph_for_search;
 
     _kruskal = Kruskal(_graph, _debug);
