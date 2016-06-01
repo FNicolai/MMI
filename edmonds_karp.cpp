@@ -16,18 +16,18 @@ void Edmonds_Karp::perform_edmonds_karp(int start_node_,int end_node_)
 {
     // Initializations
     clock_t time_begin = clock();
+    Graph * residualgraph = generate_residualgraph();
+    vector<Node *> shortest_path = calc_shortest_path(residualgraph, start_node_, end_node_);
 
-    while(true){
-        Graph * residualgraph = generate_residualgraph();
-        vector<Node *> shortest_path = calc_shortest_path(residualgraph, start_node_, end_node_);
-        if(shortest_path.empty()){
-            break;
-        }
-        double min_residualcapacity = find_min_residualcapacity_on_path(residualgraph,shortest_path);
-        update_flow(min_residualcapacity,shortest_path);
+    while(!shortest_path.empty()){
+
+        double min_residualcapacity = find_min_residualcapacity_on_path(residualgraph, shortest_path);
+        update_flow(min_residualcapacity, shortest_path);
         if(_debug){
             print_graph();
         }
+        residualgraph = generate_residualgraph();
+        shortest_path = calc_shortest_path(residualgraph, start_node_, end_node_);
     }
 
     clock_t time_end = clock();
