@@ -15,7 +15,7 @@ class Node
 {
 public:
     Node();
-    Node(int value);
+    Node(int value, double balance_ = 0.0);
 
     //bool get_visited() const;
     //void set_visited(bool visited_);

@@ -5,9 +5,10 @@ Node::Node()
     _value = 0;
 }
 
-Node::Node(int value)
+Node::Node(int value, double balance_)
 {
     _value = value;
+    _balance = balance_;
 }
 
 // ### GET and SET methods

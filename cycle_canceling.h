@@ -15,6 +15,11 @@ private:
     bool _debug;
 
     Graph* _graph;
+
+    Node * _start_node;
+    Node * _end_node;
+    void add_super_source_and_sink();
+    Graph* calc_b_flow();
 };
 
 #endif // CYCLECANCELING_H

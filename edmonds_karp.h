@@ -11,7 +11,7 @@ public:
     Edmonds_Karp();
     Edmonds_Karp(Graph * graph_, bool debug_ = true);
 
-    void perform_edmonds_karp(int start_node_, int end_node_);
+    Graph * perform_edmonds_karp(int start_node_, int end_node_);
 
     double get_max_flow() const;
 private:

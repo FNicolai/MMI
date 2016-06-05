@@ -212,3 +212,9 @@ void MainWindow::on_pushButton_start_edmonds_karp_clicked()
         messageBox.exec();
     }
 }
+
+void MainWindow::on_pushButton_start_cycle_canceling_clicked()
+{
+    Cycle_Canceling cycle_canceling(_graph,_debug);
+    cycle_canceling.perform_cycle_canceling();
+}

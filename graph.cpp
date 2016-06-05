@@ -5,10 +5,11 @@ Graph::Graph()
 
 }
 
-Graph::Graph(bool weighted_, bool directed_)
+Graph::Graph(bool weighted_, bool directed_, GraphInputType input_type_)
 {
     _is_weighted = weighted_;
     _is_directed = directed_;
+    _input_type = input_type_;
 }
 
 Graph::Graph(bool weighted_, bool directed_, GraphInputType graph_input_type_, QString filename_)
@@ -93,7 +94,7 @@ void Graph::read_quantity(ifstream &graph_file_, int &quantity)
 
         cout << "There are " << quantity << " nodes in the file." << endl;
 
-        insert_n_nodes(quantity);
+        //insert_n_nodes(quantity);
         //graph_file.close();
     }else cout << "Error while reading file";
 }
@@ -178,15 +179,20 @@ void Graph::read_balanced_edgelist(ifstream &graph_file_)
 }
 
 void Graph::insert_n_nodes(int n) {
-    for (int i = 0; i < n; i++) {
+    int offset = _nodes.size();
+    for (int i = offset; i < offset + n; i++) {
         insert_node_if_not_exist(i);
     }
 }
 
 Graph *Graph::create_copy()
 {
-    Graph * copy = new Graph (this->is_weighted(),this->is_directed());
+    Graph * copy = new Graph (this->is_weighted(),this->is_directed(),this->_input_type);
     copy->insert_n_nodes(this->get_nodes().size());
+
+    for(auto x = 0; x < _nodes.size(); x++){
+        copy->get_node(x)->set_balance(_nodes.at(x)->get_balance());
+    }
 
     vector<Edge *> edgelist = this->get_edgelist();
     for(auto i = 0; i < edgelist.size(); i++){
@@ -202,9 +208,9 @@ Graph *Graph::create_copy()
     return copy;
 }
 
-Node* Graph::insert_node_if_not_exist(int value_) {
+Node* Graph::insert_node_if_not_exist(int value_, double balance_) {
     if (_nodes.size() <= value_) {
-        Node * cur_node = new Node(value_);
+        Node * cur_node = new Node(value_, balance_);
         _nodes.push_back(cur_node);
     }
     return _nodes[value_];
