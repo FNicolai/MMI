@@ -13,7 +13,7 @@ public:
 
     void perform_edmonds_karp(int start_node_, int end_node_);
 
-    double get_flow();
+    double get_max_flow() const;
 private:
     bool _debug;
 
@@ -26,11 +26,7 @@ private:
 
     void print_graph();
 
-    vector<double> _flow; // Return value
-
     double _max_flow = 0.0;
-
-    void cleanup();
 
 };
 
