@@ -16,20 +16,20 @@ double Bellman_Ford::perform_bellman_ford(int start_node_)
     // Initializations
     clock_t time_begin = clock();
 
-    double distance[_graph->get_nodes().size()];    // Distance to Node [i]
-    Node * prev_node[_graph->get_nodes().size()];   // Previus node from Node [i]
+    _distance.resize(_graph->get_nodes().size(),INFINITY);  // Distance to Node [i]
+    _prev_node.resize(_graph->get_nodes().size(),NULL);     // Previus node from Node [i]
 
     //Init node_description
-    for(auto i = 0; i < _graph->get_nodes().size(); i++) {
-        // INFINITY = Distance to Node i is INFINITE
-        // NULL = Node i has no prev node at start
-        distance[i] = INFINITY;
-        prev_node[i] = NULL;
-    }
+//    for(auto i = 0; i < _graph->get_nodes().size(); i++) {
+//        // INFINITY = Distance to Node i is INFINITE
+//        // NULL = Node i has no prev node at start
+//        _distance[i] = INFINITY;
+//        _prev_node[i] = NULL;
+//    }
 
     // Init startnode
-    distance[start_node_] = 0;
-    prev_node[start_node_] = _graph->get_node(start_node_);
+    _distance[start_node_] = 0;
+    _prev_node[start_node_] = _graph->get_node(start_node_);
 
     // Get edgelist "E" and write it to _edges
     get_edgelist(start_node_);
@@ -44,11 +44,11 @@ double Bellman_Ford::perform_bellman_ford(int start_node_)
             Node * v = curr_edge->get_right_node(); // Goal node
 
             // IF (Distance(u) + Weight(u,v)) < Distance(v)
-            if ( (distance[u->get_value()] + u->get_edge_to(v)->get_weight() ) < distance[v->get_value()] ){
+            if ( (_distance[u->get_value()] + u->get_edge_to(v)->get_weight() ) < _distance[v->get_value()] ){
                 // Distance(v) := Distance(u) + Weight(u,v)
-                distance[v->get_value()] = distance[u->get_value()] + u->get_edge_to(v)->get_weight();
+                _distance[v->get_value()] = _distance[u->get_value()] + u->get_edge_to(v)->get_weight();
                 // Prev(v) := u
-                prev_node[v->get_value()] = u;
+                _prev_node[v->get_value()] = u;
             }
 
             // If graph is undirected, look at E the other way round too
@@ -58,11 +58,11 @@ double Bellman_Ford::perform_bellman_ford(int start_node_)
                 Node * u = curr_edge->get_right_node(); // Goal node
 
                 // IF (Distance(u) + Weight(u,v)) < Distance(v)
-                if ( (distance[u->get_value()] + u->get_edge_to(v)->get_weight() ) < distance[v->get_value()] ){
+                if ( (_distance[u->get_value()] + u->get_edge_to(v)->get_weight() ) < _distance[v->get_value()] ){
                     // Distance(v) := Distance(u) + Weight(u,v)
-                    distance[v->get_value()] = distance[u->get_value()] + u->get_edge_to(v)->get_weight();
+                    _distance[v->get_value()] = _distance[u->get_value()] + u->get_edge_to(v)->get_weight();
                     // Prev(v) := u
-                    prev_node[v->get_value()] = u;
+                    _prev_node[v->get_value()] = u;
                 }
             }
         }
@@ -76,12 +76,13 @@ double Bellman_Ford::perform_bellman_ford(int start_node_)
         Node * v = curr_edge->get_right_node(); // Goal node
 
         // IF (Distance(u) + Weight(u,v)) < Distance(v)
-        if ( (distance[u->get_value()] + u->get_edge_to(v)->get_weight() ) < distance[v->get_value()] ){
+        if ( (_distance[u->get_value()] + u->get_edge_to(v)->get_weight() ) < _distance[v->get_value()] ){
             // STOPP and print out that e cycle with negative weight exists
             cout << "Negative cycle found at: (" << u->get_value() << "," << v->get_value() << ")"
-                 << " where distance[" << u->get_value() << "] = " << distance[u->get_value()] << " + "
+                 << " where distance[" << u->get_value() << "] = " << _distance[u->get_value()] << " + "
                  << u->get_edge_to(v)->get_weight() << " < " << "distance[" << v->get_value() << "] = "
-                 << distance[v->get_value()] <<  endl;
+                 << _distance[v->get_value()] <<  endl;
+            calc_negative_cycle(u);
             break;
         }
 
@@ -92,12 +93,13 @@ double Bellman_Ford::perform_bellman_ford(int start_node_)
             Node * u = curr_edge->get_right_node(); // Goal node
 
             // IF (Distance(u) + Weight(u,v)) < Distance(v)
-            if ( (distance[u->get_value()] + u->get_edge_to(v)->get_weight() ) < distance[v->get_value()] ){
+            if ( (_distance[u->get_value()] + u->get_edge_to(v)->get_weight() ) < _distance[v->get_value()] ){
                 // STOPP and print out that e cycle with negative weight exists
                 cout << "Negative cycle found at: (" << u->get_value() << "," << v->get_value() << ")"
-                     << " where distance[" << u->get_value() << "] = " << distance[u->get_value()] << " + "
+                     << " where distance[" << u->get_value() << "] = " << _distance[u->get_value()] << " + "
                      << u->get_edge_to(v)->get_weight() << " < " << "distance[" << v->get_value() << "] = "
-                     << distance[v->get_value()] <<  endl;
+                     << _distance[v->get_value()] <<  endl;
+                calc_negative_cycle(u);
                 break;
             }
         }
@@ -110,10 +112,10 @@ double Bellman_Ford::perform_bellman_ford(int start_node_)
     if(_debug){
         cout << "Node\tDistance\tPrevious Node" << endl;
         for(int i = 0; i < _graph->get_nodes().size(); i++){
-            cout << i << "\t" << distance[i];
+            cout << i << "\t" << _distance[i];
 
-            if(prev_node[i] != NULL){
-                cout << "\t" << prev_node[i]->get_value() << endl;
+            if(_prev_node[i] != NULL){
+                cout << "\t" << _prev_node[i]->get_value() << endl;
             }else{
                 cout << "\t" << "-" << endl;
             }
@@ -121,6 +123,11 @@ double Bellman_Ford::perform_bellman_ford(int start_node_)
     }
 
     cout << "The Moore-Bellman-Ford algorithm needed " << elapsed_secs << " seconds to deliver a result." << endl;
+}
+
+vector<Node *> Bellman_Ford::get_negative_cycle()
+{
+    return _negative_cycle;
 }
 
 void Bellman_Ford::get_edgelist(int start_node_)
@@ -146,4 +153,46 @@ void Bellman_Ford::get_edgelist(int start_node_)
     if (_debug){
         cout << "Found " << _edges.size() << " edges." << endl;
     }
+}
+
+void Bellman_Ford::calc_negative_cycle(Node *start_node_)
+{
+    vector<Node *> temp;
+    vector<bool> in_cycle;
+    in_cycle.resize(_graph->get_nodes().size(), false);
+
+    temp.push_back(start_node_);
+    in_cycle[start_node_->get_value()] = true;
+
+    Node * prev_node = _prev_node[start_node_->get_value()];
+    do{
+        temp.push_back(prev_node);
+        in_cycle[prev_node->get_value()] = true;
+        prev_node = _prev_node[prev_node->get_value()];
+    }
+    while(in_cycle[prev_node->get_value()] == false);
+
+    auto it = temp.end();
+    it--;
+    auto it_start = it;
+    do{
+        _negative_cycle.push_back(*it);
+        it--;
+    }
+    while(prev_node != *it);
+    _negative_cycle.push_back(*it);
+    _negative_cycle.push_back(*it_start);
+
+    if(_debug){
+        print_negative_cycle();
+    }
+}
+
+void Bellman_Ford::print_negative_cycle()
+{
+    cout << "The negative cycle is: ";
+    for(auto i = 0; i < _negative_cycle.size()-1; i++){
+        cout << _negative_cycle[i]->get_value() << " -> ";
+    }
+    cout << _negative_cycle[_negative_cycle.size()-1]->get_value() << endl;
 }
