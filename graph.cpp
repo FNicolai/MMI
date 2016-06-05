@@ -18,7 +18,7 @@ Graph::Graph(bool weighted_, bool directed_, GraphInputType graph_input_type_, Q
     _filename = filename_;
     _input_type = graph_input_type_;
 
-    cout << _is_weighted << " " << _is_directed << " " << is_adjacency_matrix() << " " << _filename.toUtf8().constData() << endl;
+    cout << _is_weighted << " " << _is_directed << " " << _input_type << " " << _filename.toUtf8().constData() << endl;
 
     read_graph();
 }
@@ -43,6 +43,11 @@ bool Graph::is_edgelist() const {
     return _input_type == EDGELIST;
 }
 
+bool Graph::is_balance_given() const
+{
+    return _input_type == BALANCE;
+}
+
 // ### Other functions
 
 void Graph::read_graph()
@@ -57,7 +62,6 @@ void Graph::read_graph()
 
     // Insert number of nodes no matter what kind of graph is given
     insert_n_nodes(quantity);
-
 
     if (is_adjacency_matrix()){
 
@@ -77,6 +81,8 @@ void Graph::read_graph()
         }else{
             read_unweighted_edgelist(graph_file);
         }
+    }else if(is_balance_given()){
+        read_balanced_edgelist(graph_file);
     }
 }
 
@@ -87,9 +93,7 @@ void Graph::read_quantity(ifstream &graph_file_, int &quantity)
 
         cout << "There are " << quantity << " nodes in the file." << endl;
 
-        for (double i = 0; i < quantity; i++) {
-            insert_node_if_not_exist(i);
-        }
+        insert_n_nodes(quantity);
         //graph_file.close();
     }else cout << "Error while reading file";
 }
@@ -157,6 +161,22 @@ void Graph::read_unweighted_edgelist(ifstream &graph_file_)
     }else cout << "Error while reading file";
 }
 
+void Graph::read_balanced_edgelist(ifstream &graph_file_)
+{
+    double cost, weight, cur_node, goal_node, balance;
+    if(graph_file_){
+        for (auto i = 0; i < _nodes.size();i++){
+            graph_file_ >> balance;
+            _nodes.at(i)->set_balance(balance);
+        }
+        while (graph_file_ >> cur_node >> goal_node >> cost >> weight){
+            //cout << a << " " << b << endl;
+            insert_edge(cur_node, goal_node, weight, cost);
+        }
+        print_nodes();
+    }else cout << "Error while reading file";
+}
+
 void Graph::insert_n_nodes(int n) {
     for (int i = 0; i < n; i++) {
         insert_node_if_not_exist(i);
@@ -175,8 +195,9 @@ Graph *Graph::create_copy()
         Node * end_node = copy->get_node(curr_edge->get_right_node()->get_value());
         double weight = curr_edge->get_weight();
         double flow = curr_edge->get_flow();
+        double cost = curr_edge->get_cost();
 
-        copy->insert_edge_if_not_exist(start_node, end_node, weight, flow);
+        copy->insert_edge_if_not_exist(start_node, end_node, weight, flow, cost);
     }
     return copy;
 }
@@ -189,17 +210,17 @@ Node* Graph::insert_node_if_not_exist(int value_) {
     return _nodes[value_];
 }
 
-void Graph::insert_edge(int start_value_, int end_value_, double weight_) {
+void Graph::insert_edge(int start_value_, int end_value_, double weight_, double cost_) {
 
     Node* start_node = insert_node_if_not_exist(start_value_);
     Node* end_node = insert_node_if_not_exist(end_value_);
 
-    insert_edge_if_not_exist(start_node, end_node, weight_);
+    insert_edge_if_not_exist(start_node, end_node, weight_, 0.0, cost_);
 }
 
-bool Graph::insert_edge_if_not_exist(Node* start_node_, Node* end_node_, double weight_, double flow_) {
+bool Graph::insert_edge_if_not_exist(Node* start_node_, Node* end_node_, double weight_, double flow_, double cost_) {
     Edge * rtnValue;
-    rtnValue = start_node_->insert_edge_to(end_node_, is_directed(), weight_, flow_);
+    rtnValue = start_node_->insert_edge_to(end_node_, is_directed(), weight_, flow_, cost_);
     if(rtnValue != NULL){
         _edgelist.push_back(rtnValue);
     }
@@ -228,11 +249,21 @@ vector<Node *> Graph::get_nodes()
 
 void Graph::print_nodes()
 {
-    cout << "DEBUG:\nNode\t#Edges\tadjacent_nodes" << endl;
+    if(is_balance_given()){
+        cout << "DEBUG:\nNode(Balance)\t#Edges\tadjacent_nodes (flow,weight|cost)" << endl;
+    }else{
+        cout << "DEBUG:\nNode\t#Edges\tadjacent_nodes(weight)" << endl;
+    }
 
     for (size_t i = 0; i < _nodes.size(); i++) {
         vector<Edge*> cur_edges = _nodes[i]->get_edges();
-        cout << i << "\t" << cur_edges.size() << "\t";
+
+        if(is_balance_given()){
+            cout << i << " ("<< _nodes[i]->get_balance() << ")" << "\t\t" << cur_edges.size() << "\t";
+        }
+        else{
+            cout << i << "\t" << cur_edges.size() << "\t";
+        }
 
         for (int j = 0; j < cur_edges.size(); j++) {
             if (cur_edges[j]->get_right_node()->get_value() == _nodes[i]->get_value()){
@@ -240,7 +271,12 @@ void Graph::print_nodes()
             }else{
                 cout << cur_edges[j]->get_right_node()->get_value();
             }
-            if(is_weighted()){
+
+            if(is_balance_given()){
+                cout << "(" << cur_edges[j]->get_flow()
+                     << "," << cur_edges[j]->get_weight()
+                     << "|" << cur_edges[j]->get_cost() << ")";
+            }else if(is_weighted()){
                 cout << " (" << cur_edges[j]->get_weight() << ")";
             }
             cout <<  "\t";

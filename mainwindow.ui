@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>478</width>
-    <height>606</height>
+    <width>495</width>
+    <height>574</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>10</x>
       <y>50</y>
       <width>141</width>
-      <height>71</height>
+      <height>91</height>
      </rect>
     </property>
     <property name="title">
@@ -55,6 +55,19 @@
       <string>Adjacency matrix</string>
      </property>
     </widget>
+    <widget class="QRadioButton" name="radioButton_balance_given">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>60</y>
+       <width>82</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Balance</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QPushButton" name="pushButton_read">
     <property name="enabled">
@@ -62,8 +75,8 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>270</x>
-      <y>540</y>
+      <x>300</x>
+      <y>520</y>
       <width>81</width>
       <height>31</height>
      </rect>
@@ -171,8 +184,8 @@
    <widget class="QPushButton" name="pushButton_quit">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>540</y>
+      <x>400</x>
+      <y>520</y>
       <width>81</width>
       <height>31</height>
      </rect>
@@ -214,8 +227,8 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>130</y>
-      <width>451</width>
+      <y>150</y>
+      <width>471</width>
       <height>361</height>
      </rect>
     </property>
@@ -227,7 +240,7 @@
       <rect>
        <x>90</x>
        <y>100</y>
-       <width>151</width>
+       <width>171</width>
        <height>31</height>
       </rect>
      </property>
@@ -290,9 +303,9 @@
     <widget class="QPushButton" name="pushButton_start_kruskal">
      <property name="geometry">
       <rect>
-       <x>260</x>
+       <x>280</x>
        <y>140</y>
-       <width>151</width>
+       <width>171</width>
        <height>31</height>
       </rect>
      </property>
@@ -305,7 +318,7 @@
       <rect>
        <x>90</x>
        <y>140</y>
-       <width>151</width>
+       <width>171</width>
        <height>31</height>
       </rect>
      </property>
@@ -316,9 +329,9 @@
     <widget class="QPushButton" name="pushButton_neares_neighbor">
      <property name="geometry">
       <rect>
-       <x>260</x>
+       <x>280</x>
        <y>180</y>
-       <width>151</width>
+       <width>171</width>
        <height>31</height>
       </rect>
      </property>
@@ -331,7 +344,7 @@
       <rect>
        <x>90</x>
        <y>180</y>
-       <width>151</width>
+       <width>171</width>
        <height>31</height>
       </rect>
      </property>
@@ -342,9 +355,9 @@
     <widget class="QPushButton" name="pushButton_start_branch_and_bound">
      <property name="geometry">
       <rect>
-       <x>260</x>
+       <x>280</x>
        <y>220</y>
-       <width>151</width>
+       <width>171</width>
        <height>31</height>
       </rect>
      </property>
@@ -357,7 +370,7 @@
       <rect>
        <x>90</x>
        <y>220</y>
-       <width>151</width>
+       <width>171</width>
        <height>31</height>
       </rect>
      </property>
@@ -370,7 +383,7 @@
       <rect>
        <x>90</x>
        <y>260</y>
-       <width>151</width>
+       <width>171</width>
        <height>31</height>
       </rect>
      </property>
@@ -426,9 +439,9 @@
     <widget class="QPushButton" name="pushButton_start_bellman_ford">
      <property name="geometry">
       <rect>
-       <x>260</x>
+       <x>280</x>
        <y>260</y>
-       <width>151</width>
+       <width>171</width>
        <height>31</height>
       </rect>
      </property>
@@ -439,9 +452,9 @@
     <widget class="QPushButton" name="pushButton_count_components">
      <property name="geometry">
       <rect>
-       <x>260</x>
+       <x>280</x>
        <y>100</y>
-       <width>151</width>
+       <width>171</width>
        <height>31</height>
       </rect>
      </property>
@@ -454,7 +467,7 @@
       <rect>
        <x>90</x>
        <y>300</y>
-       <width>151</width>
+       <width>171</width>
        <height>31</height>
       </rect>
      </property>

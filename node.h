@@ -22,7 +22,7 @@ public:
 
     bool has_edge_to(Node* target_node);
     Edge* get_edge_to(Node* target_node);
-    Edge* insert_edge_to(Node* target_node, bool directed, double weight, double flow);
+    Edge* insert_edge_to(Node* target_node, bool directed, double weight, double flow = 0.0, double cost = 0.0);
 
     vector<Edge *> get_edges() const;
 
@@ -34,12 +34,17 @@ public:
     double get_group();
     void set_group(double group_);
 
+    double get_balance();
+    void set_balance(double balance_);
+
     void reset_edges();
 
 private:
     int _value;
     //bool _visited = false;   //Already visited?
     double _group; // Group ID for Kruskal
+
+    double _balance;
 
     vector<Edge*> _edges;
 };

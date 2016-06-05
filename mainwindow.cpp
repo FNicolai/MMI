@@ -59,10 +59,18 @@ void MainWindow::on_pushButton_select_file_clicked()
 
 void MainWindow::on_pushButton_read_clicked()
 {
+    Graph::GraphInputType input_type;
+    if(ui->radioButton_adjacency_matrix->isChecked()){
+        input_type = Graph::ADJACENCY_MATRIX;
+    }else if(ui->radioButton_edgelist->isChecked()){
+        input_type = Graph::EDGELIST;
+    }else if(ui->radioButton_balance_given->isChecked()){
+        input_type = Graph::BALANCE;
+    }
     _graph = new Graph(
                 ui->radioButton_weighted_yes->isChecked(),
                 ui->radioButton_directed->isChecked(),
-                ui->radioButton_adjacency_matrix->isChecked() ? Graph::ADJACENCY_MATRIX : Graph::EDGELIST,
+                input_type,
                 filename);
 
     ui->pushButton_read->setText("Done!");
