@@ -15,16 +15,21 @@ void Cycle_Canceling::perform_cycle_canceling()
 {
     clock_t time_begin = clock();
 
-    _graph = calc_b_flow();
+    Graph *b_flow = calc_b_flow();
 
-    Graph * residualgraph = generate_residualgraph(_graph);
-    vector<Node *> negative_cycle = get_negative_cycle(residualgraph);
+    if(b_flow != NULL){
 
-    while(!negative_cycle.empty()){
-        double min_residualcapacity = find_min_residualcapacity_on_cycle(residualgraph,negative_cycle);
-        update_flow(min_residualcapacity,negative_cycle);
-        residualgraph = generate_residualgraph(_graph);
-        negative_cycle = get_negative_cycle(residualgraph);
+        _graph = b_flow;
+
+        Graph * residualgraph = generate_residualgraph(_graph);
+        vector<Node *> negative_cycle = get_negative_cycle(residualgraph);
+
+        while(!negative_cycle.empty()){
+            double min_residualcapacity = find_min_residualcapacity_on_cycle(residualgraph,negative_cycle);
+            update_flow(min_residualcapacity,negative_cycle);
+            residualgraph = generate_residualgraph(_graph);
+            negative_cycle = get_negative_cycle(residualgraph);
+        }
     }
 
     clock_t time_end = clock();
@@ -34,9 +39,18 @@ void Cycle_Canceling::perform_cycle_canceling()
 
     _graph->print_nodes();
 
+    _total_cost = calc_total_cost(_graph);
+
     cout << "Maximum flow of the graph is: " << _max_flow << endl;
 
+    cout << "The total cost of the graph are: " << _total_cost << endl;
+
     cout << "The Cycle-Canceling algorithm obtained the result in " << elapsed_secs << " seconds." << endl;
+}
+
+double Cycle_Canceling::get_total_cost() const
+{
+    return _total_cost;
 }
 
 Graph *Cycle_Canceling::calc_b_flow()
@@ -48,10 +62,23 @@ Graph *Cycle_Canceling::calc_b_flow()
 
     Edmonds_Karp edmonds_karp(super_graph,_debug);
     Graph * b_flow = edmonds_karp.perform_edmonds_karp(super_start_node->get_value(),super_end_node->get_value());
+    _max_flow = edmonds_karp.get_max_flow();
 
     if(_debug){
         cout << "\nCalculatet b flow. RESULT:" << endl;
         b_flow->print_nodes();
+    }
+
+    double max_negative_balance = calc_max_negative_balance(b_flow);
+
+    if(max_negative_balance < (_max_flow * -1) ){
+        // NO b-flow !
+        // BREAK
+        cout << "\nNO b-flow! Max negative balance is " << max_negative_balance
+             << " and smaller than (max flow * -1) which is: " << _max_flow * -1 << " !" << endl;
+
+        cout << "STOPPING algorithm here!" << endl;
+        return NULL;
     }
 
     b_flow = remove_super_source_and_sink(b_flow);
@@ -217,10 +244,35 @@ void Cycle_Canceling::update_flow(double min_residualcapacity_, vector<Node *> n
         }
     }
 
-    _max_flow += min_residualcapacity_;
-
     if(_debug){
         cout << "\nUpdated flow. RESULT:" << endl;
         _graph->print_nodes();
     }
+}
+
+double Cycle_Canceling::calc_total_cost(Graph * graph_)
+{
+    double total_cost = 0.0;
+    for(auto i = 0; i < graph_->get_edgelist().size(); i++){
+        Edge * curr_edge = graph_->get_edgelist().at(i);
+        total_cost += curr_edge->get_cost() * curr_edge->get_flow();
+    }
+    return total_cost;
+}
+
+double Cycle_Canceling::calc_max_negative_balance(Graph * graph_)
+{
+    double max_negative_balance = 0.0;
+    for(auto i = 0; i < graph_->get_nodes().size(); i++){
+        Node * curr_node = graph_->get_node(i);
+        if(curr_node->get_balance() < 0){
+            max_negative_balance += curr_node->get_balance();
+        }
+    }
+
+    if(_debug){
+        cout << "\nMax negative balance is: " << max_negative_balance << endl;
+    }
+
+    return max_negative_balance;
 }
