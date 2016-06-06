@@ -33,6 +33,7 @@ public:
     inline bool is_adjacency_matrix() const;
     inline bool is_edgelist() const;
     inline bool is_balance_given() const;
+    GraphInputType get_input_type() const;
 
     Node* get_node(int value_);
 //    unordered_map<double, Node*> get_nodes();
@@ -45,7 +46,10 @@ public:
 
     void insert_n_nodes(int n);
 
+    //void remove_node(Node * node_);
+
     Graph * create_copy();
+    void *transfer_balance(Graph *graph_);
 
     void print_nodes();
 

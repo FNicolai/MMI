@@ -27,7 +27,6 @@ public:
     vector<Edge *> get_edges() const;
 
     void add_edge(double value_);
-    void remove_edge(double value_);
 
     int get_value();
 

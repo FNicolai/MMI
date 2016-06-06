@@ -17,9 +17,9 @@ public:
 private:
     bool _debug;
 
-    Graph* _graph;
+    Graph * _graph;
 
-    Graph *generate_residualgraph();
+    Graph * generate_residualgraph();
     vector<Node *> calc_shortest_path(Graph * residualgraph_, int start_node_, int end_node_); //Based on edges
     double find_min_residualcapacity_on_path(Graph * residualgraph_, vector<Node *> shortest_path_);
     void update_flow(double min_residualcapacity_, vector<Node *> shortest_path_);

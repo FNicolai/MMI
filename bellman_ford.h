@@ -10,9 +10,10 @@ class Bellman_Ford
 public:
     Bellman_Ford();
     Bellman_Ford(Graph *graph_,bool debug_ = true);
+    enum Criterion {WEIGHT, COST};
 
-    double perform_bellman_ford(int start_node_);
-    vector<Node *> get_negative_cycle();
+    double perform_bellman_ford(int start_node_, Criterion criterion_ = WEIGHT);
+    vector<Node *> get_negative_cycle();    
 private:
     bool _debug;
 

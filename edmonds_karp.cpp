@@ -35,7 +35,7 @@ Graph * Edmonds_Karp::perform_edmonds_karp(int start_node_,int end_node_)
 
     print_graph();
 
-    cout << "Maximum flow of graph is: " << _max_flow << endl;
+    cout << "Maximum flow of the graph is: " << _max_flow << endl;
 
     cout << "The Edmonds-Karp algorithm obtained the result in " << elapsed_secs << " seconds." << endl;
 

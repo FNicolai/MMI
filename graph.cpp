@@ -49,6 +49,11 @@ bool Graph::is_balance_given() const
     return _input_type == BALANCE;
 }
 
+Graph::GraphInputType Graph::get_input_type() const
+{
+    return _input_type;
+}
+
 // ### Other functions
 
 void Graph::read_graph()
@@ -185,6 +190,35 @@ void Graph::insert_n_nodes(int n) {
     }
 }
 
+//void Graph::remove_node(Node *node_)
+//{
+//    for(auto i = 0; i < _edgelist.size(); i++){
+//        Edge * curr_edge = _edgelist.at(i);
+//        vector<Edge *> source_node_edges_left, source_node_edges_right;
+
+//        source_node_edges_left = curr_edge->get_left_node()->get_edges();
+
+//        source_node_edges_right = curr_edge->get_right_node()->get_edges();
+
+//        source_node_edges_left.erase(std::remove(source_node_edges_left.begin(), source_node_edges_left.end(), curr_edge),
+//                               source_node_edges_left.end());
+
+//        source_node_edges_right.erase(std::remove(source_node_edges_right.begin(), source_node_edges_right.end(), curr_edge),
+//                               source_node_edges_right.end());
+//    }
+
+//    for(auto j = 0; j < _edgelist.size(); j++){
+//        _edgelist.erase(std::remove(_edgelist.begin(),_edgelist.end(),curr_edge),_edgelist.end());
+//    }
+
+
+
+//    _nodes.erase(std::remove(_nodes.begin(),_nodes.end(), node_),
+//                            _nodes.end());
+
+
+//}
+
 Graph *Graph::create_copy()
 {
     Graph * copy = new Graph (this->is_weighted(),this->is_directed(),this->_input_type);
@@ -206,6 +240,15 @@ Graph *Graph::create_copy()
         copy->insert_edge_if_not_exist(start_node, end_node, weight, flow, cost);
     }
     return copy;
+}
+
+void *Graph::transfer_balance(Graph * graph_)
+{
+    if(this->_nodes.size() == graph_->get_nodes().size()){
+        for(auto i = 0; i < graph_->get_nodes().size(); i++){
+            this->_nodes[i]->set_balance(graph_->get_node(i)->get_balance());
+        }
+    }
 }
 
 Node* Graph::insert_node_if_not_exist(int value_, double balance_) {
@@ -256,9 +299,9 @@ vector<Node *> Graph::get_nodes()
 void Graph::print_nodes()
 {
     if(is_balance_given()){
-        cout << "DEBUG:\nNode(Balance)\t#Edges\tadjacent_nodes (flow,weight|cost)" << endl;
+        cout << "\nNode(Balance)\t#Edges\tadjacent_nodes (flow,weight|cost)" << endl;
     }else{
-        cout << "DEBUG:\nNode\t#Edges\tadjacent_nodes(weight)" << endl;
+        cout << "\nNode\t#Edges\tadjacent_nodes(weight)" << endl;
     }
 
     for (size_t i = 0; i < _nodes.size(); i++) {
