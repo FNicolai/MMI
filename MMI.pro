@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     tsp_bruteforce.cpp \
     bellman_ford.cpp \
     edmonds_karp.cpp \
-    dijkstra.cpp
+    dijkstra.cpp \
+    cycle_canceling.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -48,7 +49,8 @@ HEADERS  += \
     tsp_bruteforce.h \
     bellman_ford.h \
     edmonds_karp.h \
-    dijkstra.h
+    dijkstra.h \
+    cycle_canceling.h
 
 FORMS    += \
     mainwindow.ui

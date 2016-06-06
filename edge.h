@@ -9,7 +9,7 @@ class Node;
 class Edge
 {
 public:
-    Edge(Node* left_node, Node* right_node, double weight_, double flow_);
+    Edge(Node* left_node, Node* right_node, double weight_, double flow_ = 0.0, double cost_ = 0.0);
 
     Node* get_right_node() const;
     Node* get_left_node() const;
@@ -22,6 +22,8 @@ public:
 
     double get_flow() const;
     void set_flow(double flow_);
+
+    double get_cost();
 
     inline bool operator< (const Edge& rhs){ return _weight < rhs._weight; }
     inline bool operator> (const Edge& rhs){ return rhs._weight < _weight; }
@@ -37,7 +39,9 @@ private:
 
     double _weight;     //Weight of edge
 
-    double _flow = 0.0;       // Flow for edmonds_karp
+    double _flow;       // Flow for edmonds_karp
+
+    double _cost;
 };
 
 #endif // EDGE_H

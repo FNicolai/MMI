@@ -5,9 +5,10 @@ Node::Node()
     _value = 0;
 }
 
-Node::Node(int value)
+Node::Node(int value, double balance_)
 {
     _value = value;
+    _balance = balance_;
 }
 
 // ### GET and SET methods
@@ -25,6 +26,16 @@ double Node::get_group()
 void Node::set_group(double group_)
 {
     _group = group_;
+}
+
+double Node::get_balance()
+{
+    return _balance;
+}
+
+void Node::set_balance(double balance_)
+{
+    _balance = balance_;
 }
 
 void Node::reset_edges()
@@ -66,11 +77,11 @@ bool Node::has_edge_to(Node *target_node) {
     return get_edge_to(target_node) != NULL;
 }
 
-Edge* Node::insert_edge_to(Node *target_node, bool directed, double weight, double flow) {
+Edge* Node::insert_edge_to(Node *target_node, bool directed, double weight, double flow, double cost) {
     Edge* retVal = get_edge_to(target_node);
 
     if (retVal == NULL) {
-        retVal = new Edge(this, target_node, weight, flow);
+        retVal = new Edge(this, target_node, weight, flow, cost);
         _edges.push_back(retVal);
 
         if (!directed) {
@@ -88,3 +99,4 @@ void Node::add_edge(double value_)
 {
 
 }
+

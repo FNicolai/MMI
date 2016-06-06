@@ -1,6 +1,6 @@
 #include "edge.h"
 
-Edge::Edge(Node* left_node, Node* right_node, double weight_, double flow_)
+Edge::Edge(Node* left_node, Node* right_node, double weight_, double flow_, double cost_)
 {
     this->left_node = left_node;
     this->right_node = right_node;
@@ -8,6 +8,7 @@ Edge::Edge(Node* left_node, Node* right_node, double weight_, double flow_)
 //    _goal_node = goal_node_;
     _weight = weight_;
     _flow = flow_;
+    _cost = cost_;
 }
 
 // ### GET and SET methods
@@ -40,6 +41,11 @@ double Edge::get_flow() const
 void Edge::set_flow(double flow_)
 {
     _flow = flow_;
+}
+
+double Edge::get_cost()
+{
+    return _cost;
 }
 
 void Edge::set_weight(double weight_)

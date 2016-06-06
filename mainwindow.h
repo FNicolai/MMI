@@ -16,6 +16,7 @@
 #include "bellman_ford.h"
 #include "dijkstra.h"
 #include "edmonds_karp.h"
+#include "cycle_canceling.h"
 
 using namespace std;
 
@@ -69,6 +70,8 @@ private slots:
     void on_radioButton_debug_off_clicked();
 
     void on_pushButton_start_edmonds_karp_clicked();
+
+    void on_pushButton_start_cycle_canceling_clicked();
 
 private:
     Ui::MainWindow *ui;

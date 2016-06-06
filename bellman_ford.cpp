@@ -11,7 +11,7 @@ Bellman_Ford::Bellman_Ford(Graph *graph_, bool debug_)
     _debug = debug_;
 }
 
-double Bellman_Ford::perform_bellman_ford(int start_node_)
+double Bellman_Ford::perform_bellman_ford(int start_node_, Criterion criterion_)
 {
     // Initializations
     clock_t time_begin = clock();
@@ -42,11 +42,17 @@ double Bellman_Ford::perform_bellman_ford(int start_node_)
             Edge * curr_edge = it->first;
             Node * u = curr_edge->get_left_node();  // Start node
             Node * v = curr_edge->get_right_node(); // Goal node
+            double weight;
+            if(criterion_ == COST){
+                weight = u->get_edge_to(v)->get_cost();
+            }else {
+                weight = u->get_edge_to(v)->get_weight();
+            }
 
             // IF (Distance(u) + Weight(u,v)) < Distance(v)
-            if ( (_distance[u->get_value()] + u->get_edge_to(v)->get_weight() ) < _distance[v->get_value()] ){
+            if ( (_distance[u->get_value()] + weight ) < _distance[v->get_value()] ){
                 // Distance(v) := Distance(u) + Weight(u,v)
-                _distance[v->get_value()] = _distance[u->get_value()] + u->get_edge_to(v)->get_weight();
+                _distance[v->get_value()] = _distance[u->get_value()] + weight;
                 // Prev(v) := u
                 _prev_node[v->get_value()] = u;
             }
@@ -56,11 +62,17 @@ double Bellman_Ford::perform_bellman_ford(int start_node_)
 
                 Node * v = curr_edge->get_left_node();  // Start node
                 Node * u = curr_edge->get_right_node(); // Goal node
+                double weight;
+                if(criterion_ == COST){
+                    weight = u->get_edge_to(v)->get_cost();
+                }else {
+                    weight = u->get_edge_to(v)->get_weight();
+                }
 
                 // IF (Distance(u) + Weight(u,v)) < Distance(v)
-                if ( (_distance[u->get_value()] + u->get_edge_to(v)->get_weight() ) < _distance[v->get_value()] ){
+                if ( (_distance[u->get_value()] + weight ) < _distance[v->get_value()] ){
                     // Distance(v) := Distance(u) + Weight(u,v)
-                    _distance[v->get_value()] = _distance[u->get_value()] + u->get_edge_to(v)->get_weight();
+                    _distance[v->get_value()] = _distance[u->get_value()] + weight;
                     // Prev(v) := u
                     _prev_node[v->get_value()] = u;
                 }
@@ -74,13 +86,19 @@ double Bellman_Ford::perform_bellman_ford(int start_node_)
         Edge * curr_edge = it->first;
         Node * u = curr_edge->get_left_node();  // Start node
         Node * v = curr_edge->get_right_node(); // Goal node
+        double weight;
+        if(criterion_ == COST){
+            weight = u->get_edge_to(v)->get_cost();
+        }else {
+            weight = u->get_edge_to(v)->get_weight();
+        }
 
         // IF (Distance(u) + Weight(u,v)) < Distance(v)
-        if ( (_distance[u->get_value()] + u->get_edge_to(v)->get_weight() ) < _distance[v->get_value()] ){
+        if ( (_distance[u->get_value()] + weight ) < _distance[v->get_value()] ){
             // STOPP and print out that e cycle with negative weight exists
             cout << "Negative cycle found at: (" << u->get_value() << "," << v->get_value() << ")"
                  << " where distance[" << u->get_value() << "] = " << _distance[u->get_value()] << " + "
-                 << u->get_edge_to(v)->get_weight() << " < " << "distance[" << v->get_value() << "] = "
+                 << weight << " < " << "distance[" << v->get_value() << "] = "
                  << _distance[v->get_value()] <<  endl;
             calc_negative_cycle(u);
             break;
@@ -91,13 +109,19 @@ double Bellman_Ford::perform_bellman_ford(int start_node_)
 
             Node * v = curr_edge->get_left_node();  // Start node
             Node * u = curr_edge->get_right_node(); // Goal node
+            double weight;
+            if(criterion_ == COST){
+                weight = u->get_edge_to(v)->get_cost();
+            }else {
+                weight = u->get_edge_to(v)->get_weight();
+            }
 
             // IF (Distance(u) + Weight(u,v)) < Distance(v)
-            if ( (_distance[u->get_value()] + u->get_edge_to(v)->get_weight() ) < _distance[v->get_value()] ){
+            if ( (_distance[u->get_value()] + weight ) < _distance[v->get_value()] ){
                 // STOPP and print out that e cycle with negative weight exists
                 cout << "Negative cycle found at: (" << u->get_value() << "," << v->get_value() << ")"
                      << " where distance[" << u->get_value() << "] = " << _distance[u->get_value()] << " + "
-                     << u->get_edge_to(v)->get_weight() << " < " << "distance[" << v->get_value() << "] = "
+                     << weight << " < " << "distance[" << v->get_value() << "] = "
                      << _distance[v->get_value()] <<  endl;
                 calc_negative_cycle(u);
                 break;

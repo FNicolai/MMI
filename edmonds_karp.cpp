@@ -7,12 +7,11 @@ Edmonds_Karp::Edmonds_Karp()
 
 Edmonds_Karp::Edmonds_Karp(Graph * graph_, bool debug_)
 {
-    _graph = graph_;
+    _graph = graph_->create_copy();
     _debug = debug_;
-    _flow.resize(_graph->get_nodes().size(), 0.0);
 }
 
-void Edmonds_Karp::perform_edmonds_karp(int start_node_,int end_node_)
+Graph * Edmonds_Karp::perform_edmonds_karp(int start_node_,int end_node_)
 {
     // Initializations
     clock_t time_begin = clock();
@@ -36,11 +35,16 @@ void Edmonds_Karp::perform_edmonds_karp(int start_node_,int end_node_)
 
     print_graph();
 
-    cout << "Maximum flow of graph is: " << _max_flow << endl;
+    cout << "Maximum flow of the graph is: " << _max_flow << endl;
 
     cout << "The Edmonds-Karp algorithm obtained the result in " << elapsed_secs << " seconds." << endl;
 
-    cleanup();
+    return _graph;
+}
+
+double Edmonds_Karp::get_max_flow() const
+{
+    return _max_flow;
 }
 
 Graph * Edmonds_Karp::generate_residualgraph()
@@ -166,14 +170,5 @@ void Edmonds_Karp::print_graph()
             cout << endl;
         }
         cout << endl;
-    }
-}
-
-void Edmonds_Karp::cleanup()
-{
-    vector<Edge *> edgelist = _graph->get_edgelist();
-    for(auto i = 0; i < edgelist.size(); i++){
-        Edge * curr_edge = edgelist.at(i);
-        curr_edge->set_flow(0.0);
     }
 }
