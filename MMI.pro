@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     bellman_ford.cpp \
     edmonds_karp.cpp \
     dijkstra.cpp \
-    cycle_canceling.cpp
+    cycle_canceling.cpp \
+    successive_shortest_path.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -50,7 +51,8 @@ HEADERS  += \
     bellman_ford.h \
     edmonds_karp.h \
     dijkstra.h \
-    cycle_canceling.h
+    cycle_canceling.h \
+    successive_shortest_path.h
 
 FORMS    += \
     mainwindow.ui

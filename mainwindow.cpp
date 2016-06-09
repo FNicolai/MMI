@@ -218,3 +218,9 @@ void MainWindow::on_pushButton_start_cycle_canceling_clicked()
     Cycle_Canceling cycle_canceling(_graph,_debug);
     cycle_canceling.perform_cycle_canceling();
 }
+
+void MainWindow::on_pushButton_start_successive_shortest_path_clicked()
+{
+    Successive_Shortest_Path successive_shortest_path(_graph,_debug);
+    successive_shortest_path.perform_successive_shortest_path();
+}

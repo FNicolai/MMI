@@ -43,6 +43,16 @@ void Node::reset_edges()
     _edges.clear();
 }
 
+double Node::get_pseudo_balance() const
+{
+    return _pseudo_balance;
+}
+
+void Node::set_pseudo_balance(double pseudo_balance_)
+{
+    _pseudo_balance = pseudo_balance_;
+}
+
 //bool Node::get_visited() const
 //{
 //    return _visited;

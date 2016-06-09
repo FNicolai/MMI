@@ -226,6 +226,7 @@ Graph *Graph::create_copy()
 
     for(auto x = 0; x < _nodes.size(); x++){
         copy->get_node(x)->set_balance(_nodes.at(x)->get_balance());
+        copy->get_node(x)->set_pseudo_balance(_nodes.at(x)->get_pseudo_balance());
     }
 
     vector<Edge *> edgelist = this->get_edgelist();
@@ -247,6 +248,7 @@ void *Graph::transfer_balance(Graph * graph_)
     if(this->_nodes.size() == graph_->get_nodes().size()){
         for(auto i = 0; i < graph_->get_nodes().size(); i++){
             this->_nodes[i]->set_balance(graph_->get_node(i)->get_balance());
+            this->_nodes[i]->set_pseudo_balance(graph_->get_node(i)->get_pseudo_balance());
         }
     }
 }
@@ -299,7 +301,7 @@ vector<Node *> Graph::get_nodes()
 void Graph::print_nodes()
 {
     if(is_balance_given()){
-        cout << "\nNode(Balance)\t#Edges\tadjacent_nodes (flow,weight|cost)" << endl;
+        cout << "\nNode(Balance,Pseudo-Balance)\t#Edges\tadjacent_nodes (flow,weight|cost)" << endl;
     }else{
         cout << "\nNode\t#Edges\tadjacent_nodes(weight)" << endl;
     }
@@ -308,7 +310,7 @@ void Graph::print_nodes()
         vector<Edge*> cur_edges = _nodes[i]->get_edges();
 
         if(is_balance_given()){
-            cout << i << " ("<< _nodes[i]->get_balance() << ")" << "\t\t" << cur_edges.size() << "\t";
+            cout << i << " ("<< _nodes[i]->get_balance() << "," << _nodes[i]->get_pseudo_balance() << ")" << "\t\t" << cur_edges.size() << "\t";
         }
         else{
             cout << i << "\t" << cur_edges.size() << "\t";

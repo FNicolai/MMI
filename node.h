@@ -38,12 +38,16 @@ public:
 
     void reset_edges();
 
+    double get_pseudo_balance() const;
+    void set_pseudo_balance(double pseudo_balance_);
+
 private:
     int _value;
-    //bool _visited = false;   //Already visited?
-    double _group; // Group ID for Kruskal
+    //bool _visited = false;    //Already visited?
+    double _group = 0.0;        // Group ID for Kruskal
 
     double _balance;
+    double _pseudo_balance = 0.0;
 
     vector<Edge*> _edges;
 };
