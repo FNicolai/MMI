@@ -25,9 +25,11 @@ private:
 
     void calc_start_flow_and_pseudo_balance();
     Graph *generate_residualgraph(Graph *graph_);
-    vector<Node *> calc_shortest_path(Graph * residualgraph_);
+    vector<Node *> calc_shortest_path(Graph * residualgraph_, bool &finished_);
     double find_min_residualcapacity_on_cycle(Graph * residualgraph_, vector<Node *> shortest_path_);
     void update_flow(double min_residualcapacity_, vector<Node *> shortest_path_);
+
+    bool proof_finish(Graph * graph_);
 };
 
 #endif // SUCCESSIVE_SHORTEST_PATH_H

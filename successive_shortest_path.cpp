@@ -14,10 +14,41 @@ Successive_Shortest_Path::Successive_Shortest_Path(Graph *graph_, bool debug_)
 void Successive_Shortest_Path::perform_successive_shortest_path()
 {
     calc_start_flow_and_pseudo_balance();
+
+    bool finished;
+
     Graph * residualgraph = generate_residualgraph(_graph);
-    vector<Node *> shortest_path = calc_shortest_path(residualgraph);
-    double min_residualcapacity = find_min_residualcapacity_on_cycle(residualgraph,shortest_path);
-    update_flow(min_residualcapacity,shortest_path);
+    vector<Node *> shortest_path = calc_shortest_path(residualgraph, finished);
+
+    while(!shortest_path.empty()){
+        double min_residualcapacity = find_min_residualcapacity_on_cycle(residualgraph,shortest_path);
+        update_flow(min_residualcapacity,shortest_path);
+
+        Graph * residualgraph = generate_residualgraph(_graph);
+        shortest_path = calc_shortest_path(residualgraph, finished);
+    }
+
+    if(finished){
+        cout << "Finished" << endl;
+    }else{
+       cout << "No b-flow" << endl;
+    }
+
+
+//    if(b_flow != NULL){
+
+//        _graph = b_flow;
+
+//        Graph * residualgraph = generate_residualgraph(_graph);
+//        vector<Node *> negative_cycle = get_negative_cycle(residualgraph);
+
+//        while(!negative_cycle.empty()){
+//            double min_residualcapacity = find_min_residualcapacity_on_cycle(residualgraph,negative_cycle);
+//            update_flow(min_residualcapacity,negative_cycle);
+//            residualgraph = generate_residualgraph(_graph);
+//            negative_cycle = get_negative_cycle(residualgraph);
+//        }
+//    }
 
 }
 
@@ -93,7 +124,7 @@ Graph *Successive_Shortest_Path::generate_residualgraph(Graph *graph_)
     return residualgraph;
 }
 
-vector<Node *> Successive_Shortest_Path::calc_shortest_path(Graph *residualgraph_)
+vector<Node *> Successive_Shortest_Path::calc_shortest_path(Graph *residualgraph_, bool &finished_)
 {
     //TODO INSERT STOP HERE---SEE PDF
     Bellman_Ford bellman_ford(residualgraph_,_debug);
@@ -112,6 +143,15 @@ vector<Node *> Successive_Shortest_Path::calc_shortest_path(Graph *residualgraph
                 }
             }
         }
+    }
+
+    vector<Node*> empty;
+    if(proof_finish(residualgraph_)){
+        finished_ = true;
+        return empty;
+    }else{
+        finished_ = false;
+        return empty;
     }
 }
 
@@ -167,7 +207,8 @@ void Successive_Shortest_Path::update_flow(double min_residualcapacity_, vector<
         curr_node->set_pseudo_balance(0.0);
     }
 
-    //TODO:  reset 0,2 but update 4 from 2 ATM. CHANGE THAT!
+    // Update pseudo-balance. DO NOT update outgoing edges at last node
+    // because it would update a node that is not part of the curr path
     vector<Node *> nodes = shortest_path_;
     for(auto i = 0; i < nodes.size(); i++){
         Node * curr_node = _graph->get_node(nodes[i]->get_value());
@@ -176,7 +217,9 @@ void Successive_Shortest_Path::update_flow(double min_residualcapacity_, vector<
             Edge *curr_edge = curr_edges.at(j);
             if(curr_edge->get_cost() < 0.0){
                 curr_node->set_pseudo_balance(curr_node->get_pseudo_balance() + curr_edge->get_flow());
-                curr_edge->get_right_node()->set_pseudo_balance(curr_edge->get_right_node()->get_pseudo_balance() - curr_edge->get_flow());
+                if(i != nodes.size()-1){
+                    curr_edge->get_right_node()->set_pseudo_balance(curr_edge->get_right_node()->get_pseudo_balance() - curr_edge->get_flow());
+                }
             }
         }
     }
@@ -187,4 +230,17 @@ void Successive_Shortest_Path::update_flow(double min_residualcapacity_, vector<
         cout << "\nUpdated flow and pseudo-balance. RESULT:" << endl;
         _graph->print_nodes();
     }
+}
+
+bool Successive_Shortest_Path::proof_finish(Graph *graph_)
+{
+    // Check if every's node balance == pseudo-balance
+    vector<Node *> nodes = graph_->get_nodes();
+    for(auto i = 0; i < nodes.size(); i++){
+        Node * curr_node = nodes.at(i);
+        if(curr_node->get_balance() != curr_node->get_pseudo_balance()){
+            return false;
+        }
+    }
+    return true;
 }
