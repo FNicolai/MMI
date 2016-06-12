@@ -15,7 +15,7 @@ public:
     double perform_bellman_ford(int start_node_, Criterion criterion_ = WEIGHT);
     vector<Node *> get_negative_cycle();
     double get_distance_to(int goal_node_);
-    vector<Node *> get_path_to(Node *goal_node_);
+    vector<Node *> get_path(Node *start_node_, Node *goal_node_);
 private:
     bool _debug;
 

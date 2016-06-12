@@ -13,6 +13,8 @@ Successive_Shortest_Path::Successive_Shortest_Path(Graph *graph_, bool debug_)
 
 void Successive_Shortest_Path::perform_successive_shortest_path()
 {
+    clock_t time_begin = clock();
+
     calc_start_flow_and_pseudo_balance();
 
     bool finished;
@@ -21,35 +23,32 @@ void Successive_Shortest_Path::perform_successive_shortest_path()
     vector<Node *> shortest_path = calc_shortest_path(residualgraph, finished);
 
     while(!shortest_path.empty()){
-        double min_residualcapacity = find_min_residualcapacity_on_cycle(residualgraph,shortest_path);
+        double min_residualcapacity = find_min_residualcapacity_on_path(residualgraph,shortest_path);
         update_flow(min_residualcapacity,shortest_path);
 
-        Graph * residualgraph = generate_residualgraph(_graph);
+        residualgraph = generate_residualgraph(_graph);
         shortest_path = calc_shortest_path(residualgraph, finished);
     }
 
+    clock_t time_end = clock();
+    double elapsed_secs = double(time_end - time_begin) / CLOCKS_PER_SEC;
+
     if(finished){
-        cout << "Finished" << endl;
+
+        cout << "\nFinal RESULT:" << endl;
+
+        _graph->print_nodes();
+
+        _total_cost = calc_total_cost(_graph);
+
+        cout << "The total cost of the graph are: " << _total_cost << endl;
+
+        cout << "The Successive shortest path algorithm obtained the result in " << elapsed_secs << " seconds." << endl;
+
     }else{
-       cout << "No b-flow" << endl;
+       cout << "No b-flow!" << endl;
+       cout << "STOPPING algorithm here!" << endl;
     }
-
-
-//    if(b_flow != NULL){
-
-//        _graph = b_flow;
-
-//        Graph * residualgraph = generate_residualgraph(_graph);
-//        vector<Node *> negative_cycle = get_negative_cycle(residualgraph);
-
-//        while(!negative_cycle.empty()){
-//            double min_residualcapacity = find_min_residualcapacity_on_cycle(residualgraph,negative_cycle);
-//            update_flow(min_residualcapacity,negative_cycle);
-//            residualgraph = generate_residualgraph(_graph);
-//            negative_cycle = get_negative_cycle(residualgraph);
-//        }
-//    }
-
 }
 
 void Successive_Shortest_Path::calc_start_flow_and_pseudo_balance()
@@ -62,24 +61,36 @@ void Successive_Shortest_Path::calc_start_flow_and_pseudo_balance()
         }//else(cost >= 0.0){flow = 0.0} //Pre-Initialized
     }
 
-    vector<Node *> nodes = _graph->get_nodes();
-    for(auto i = 0; i < nodes.size(); i++){
-        Node * curr_node = nodes.at(i);
-        vector<Edge *> curr_edges = curr_node->get_edges();
-        for(auto j = 0; j < curr_edges.size(); j++){
-            Edge *curr_edge = curr_edges.at(j);
-            if(curr_edge->get_cost() < 0.0){
-                curr_node->set_pseudo_balance(curr_node->get_pseudo_balance() + curr_edge->get_flow());
-                curr_edge->get_right_node()->set_pseudo_balance(curr_edge->get_right_node()->get_pseudo_balance() - curr_edge->get_flow());
-            }
-        }
-    }
+    calc_pseudo_balance();
 
     if(_debug){
         cout << "\nCalculatet start flow and pseudo-balance. RESULT:" << endl;
         _graph->print_nodes();
     }
 
+}
+
+void Successive_Shortest_Path::calc_pseudo_balance()
+{
+    vector<Node *> nodes = _graph->get_nodes();
+
+    // Reset pseudo-balance
+    for(auto i = 0; i < nodes.size(); i++){
+        Node * curr_node = nodes.at(i);
+        curr_node->set_pseudo_balance(0.0);
+    }
+
+    for(auto i = 0; i < nodes.size(); i++){
+        Node * curr_node = nodes.at(i);
+        vector<Edge *> curr_edges = curr_node->get_edges();
+        for(auto j = 0; j < curr_edges.size(); j++){
+            Edge *curr_edge = curr_edges.at(j);
+            //if(curr_edge->get_cost() < 0.0){
+                curr_node->set_pseudo_balance(curr_node->get_pseudo_balance() + curr_edge->get_flow());
+                curr_edge->get_right_node()->set_pseudo_balance(curr_edge->get_right_node()->get_pseudo_balance() - curr_edge->get_flow());
+            //}
+        }
+    }
 }
 
 Graph *Successive_Shortest_Path::generate_residualgraph(Graph *graph_)
@@ -126,18 +137,31 @@ Graph *Successive_Shortest_Path::generate_residualgraph(Graph *graph_)
 
 vector<Node *> Successive_Shortest_Path::calc_shortest_path(Graph *residualgraph_, bool &finished_)
 {
-    //TODO INSERT STOP HERE---SEE PDF
     Bellman_Ford bellman_ford(residualgraph_,_debug);
     for(auto i = 0; i < residualgraph_->get_nodes().size(); i++){
         Node * curr_start_node = residualgraph_->get_node(i);
+
+        // Check if curr node is a possible start node. b(s) - b'(s) > 0
+        // If theres no start node we are finished or there is now b-flow at all
+        // We check that down below
         if(curr_start_node->get_balance() - curr_start_node->get_pseudo_balance() > 0){
+            // So we found a valid start node. Let's perform the BF to get the
+            // shortest path based on c(e)
             bellman_ford.perform_bellman_ford(curr_start_node->get_value(),Bellman_Ford::COST);
             for(auto j = 0; j < residualgraph_->get_nodes().size(); j++){
                 Node * curr_goal_node = residualgraph_->get_node(j);
+                // Let's check if there is a valid goal node. b(t) - b'(t) < 0
+                // If theres no goal node we are there is now b-flow at all
+                // We check that down below
+
+                // Goal node shoudn't be the start node itself
                 if(curr_start_node != curr_goal_node){
+                    // Goal node should be reachable
                     if(bellman_ford.get_distance_to(curr_goal_node->get_value()) != INFINITY){
+                        // The criterion b(t) - b'(t) < 0 should be true
                         if(curr_goal_node->get_balance() - curr_goal_node->get_pseudo_balance() < 0){
-                            return bellman_ford.get_path_to(curr_goal_node);
+                            // We found a valid goal node. Let's get the path and return it.
+                            return bellman_ford.get_path(curr_start_node, curr_goal_node);
                         }
                     }
                 }
@@ -145,6 +169,11 @@ vector<Node *> Successive_Shortest_Path::calc_shortest_path(Graph *residualgraph
         }
     }
 
+    // The algorithem above hasn't found a
+    // valid path.
+    // Let's check if we are finished or we have no
+    // b-flow at all
+    // Finished means all b(v) - b'(v) are 0
     vector<Node*> empty;
     if(proof_finish(residualgraph_)){
         finished_ = true;
@@ -155,7 +184,7 @@ vector<Node *> Successive_Shortest_Path::calc_shortest_path(Graph *residualgraph
     }
 }
 
-double Successive_Shortest_Path::find_min_residualcapacity_on_cycle(Graph *residualgraph_, vector<Node *> shortest_path_)
+double Successive_Shortest_Path::find_min_residualcapacity_on_path(Graph *residualgraph_, vector<Node *> shortest_path_)
 {
     double min_residualcapacity = INFINITY;
 
@@ -184,7 +213,7 @@ double Successive_Shortest_Path::find_min_residualcapacity_on_cycle(Graph *resid
 }
 
 void Successive_Shortest_Path::update_flow(double min_residualcapacity_, vector<Node *> shortest_path_)
-{
+{    
     for(auto i = 0; i < shortest_path_.size()-1; i++){
         Node * curr_node = _graph->get_node(shortest_path_[i]->get_value());
         Node * next_node = _graph->get_node(shortest_path_[i+1]->get_value());
@@ -201,30 +230,7 @@ void Successive_Shortest_Path::update_flow(double min_residualcapacity_, vector<
         }
     }
 
-    // Reset pseudo-balance
-    for(auto i = 0; i < shortest_path_.size(); i++){
-        Node * curr_node = _graph->get_node(shortest_path_[i]->get_value());
-        curr_node->set_pseudo_balance(0.0);
-    }
-
-    // Update pseudo-balance. DO NOT update outgoing edges at last node
-    // because it would update a node that is not part of the curr path
-    vector<Node *> nodes = shortest_path_;
-    for(auto i = 0; i < nodes.size(); i++){
-        Node * curr_node = _graph->get_node(nodes[i]->get_value());
-        vector<Edge *> curr_edges = curr_node->get_edges();
-        for(auto j = 0; j < curr_edges.size(); j++){
-            Edge *curr_edge = curr_edges.at(j);
-            if(curr_edge->get_cost() < 0.0){
-                curr_node->set_pseudo_balance(curr_node->get_pseudo_balance() + curr_edge->get_flow());
-                if(i != nodes.size()-1){
-                    curr_edge->get_right_node()->set_pseudo_balance(curr_edge->get_right_node()->get_pseudo_balance() - curr_edge->get_flow());
-                }
-            }
-        }
-    }
-
-    _max_flow += min_residualcapacity_;
+    calc_pseudo_balance();
 
     if(_debug){
         cout << "\nUpdated flow and pseudo-balance. RESULT:" << endl;
@@ -243,4 +249,14 @@ bool Successive_Shortest_Path::proof_finish(Graph *graph_)
         }
     }
     return true;
+}
+
+double Successive_Shortest_Path::calc_total_cost(Graph *graph_)
+{
+    double total_cost = 0.0;
+    for(auto i = 0; i < graph_->get_edgelist().size(); i++){
+        Edge * curr_edge = graph_->get_edgelist().at(i);
+        total_cost += curr_edge->get_cost() * curr_edge->get_flow();
+    }
+    return total_cost;
 }

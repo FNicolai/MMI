@@ -30,22 +30,22 @@ void Cycle_Canceling::perform_cycle_canceling()
             residualgraph = generate_residualgraph(_graph);
             negative_cycle = get_negative_cycle(residualgraph);
         }
+
+        clock_t time_end = clock();
+        double elapsed_secs = double(time_end - time_begin) / CLOCKS_PER_SEC;
+
+        cout << "\nFinal RESULT:" << endl;
+
+        _graph->print_nodes();
+
+        _total_cost = calc_total_cost(_graph);
+
+        cout << "Maximum flow of the graph is: " << _max_flow << endl;
+
+        cout << "The total cost of the graph are: " << _total_cost << endl;
+
+        cout << "The Cycle-Canceling algorithm obtained the result in " << elapsed_secs << " seconds." << endl;
     }
-
-    clock_t time_end = clock();
-    double elapsed_secs = double(time_end - time_begin) / CLOCKS_PER_SEC;
-
-    cout << "\nFinal RESULT:" << endl;
-
-    _graph->print_nodes();
-
-    _total_cost = calc_total_cost(_graph);
-
-    cout << "Maximum flow of the graph is: " << _max_flow << endl;
-
-    cout << "The total cost of the graph are: " << _total_cost << endl;
-
-    cout << "The Cycle-Canceling algorithm obtained the result in " << elapsed_secs << " seconds." << endl;
 }
 
 double Cycle_Canceling::get_total_cost() const
@@ -69,12 +69,12 @@ Graph *Cycle_Canceling::calc_b_flow()
         b_flow->print_nodes();
     }
 
-    double max_negative_balance = calc_max_negative_balance(b_flow);
+    double total_negative_balance = calc_total_negative_balance(b_flow);
 
-    if(max_negative_balance < (_max_flow * -1) ){
+    if(total_negative_balance < (_max_flow * -1) ){
         // NO b-flow !
         // BREAK
-        cout << "\nNO b-flow! Max negative balance is " << max_negative_balance
+        cout << "\nNO b-flow! Total negative balance is " << total_negative_balance
              << " and smaller than (max flow * -1) which is: " << _max_flow * -1 << " !" << endl;
 
         cout << "STOPPING algorithm here!" << endl;
@@ -260,7 +260,7 @@ double Cycle_Canceling::calc_total_cost(Graph * graph_)
     return total_cost;
 }
 
-double Cycle_Canceling::calc_max_negative_balance(Graph * graph_)
+double Cycle_Canceling::calc_total_negative_balance(Graph * graph_)
 {
     double max_negative_balance = 0.0;
     for(auto i = 0; i < graph_->get_nodes().size(); i++){
@@ -271,7 +271,7 @@ double Cycle_Canceling::calc_max_negative_balance(Graph * graph_)
     }
 
     if(_debug){
-        cout << "\nMax negative balance is: " << max_negative_balance << endl;
+        cout << "\nTotal negative balance is: " << max_negative_balance << endl;
     }
 
     return max_negative_balance;

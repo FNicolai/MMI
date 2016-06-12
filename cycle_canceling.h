@@ -35,7 +35,7 @@ private:
     void update_flow(double min_residualcapacity_, vector<Node *> negative_cycle_);
 
     double calc_total_cost(Graph *graph_);
-    double calc_max_negative_balance(Graph *graph_);
+    double calc_total_negative_balance(Graph *graph_);
 };
 
 #endif // CYCLECANCELING_H
