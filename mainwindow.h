@@ -17,6 +17,7 @@
 #include "dijkstra.h"
 #include "edmonds_karp.h"
 #include "cycle_canceling.h"
+#include "successive_shortest_path.h"
 
 using namespace std;
 
@@ -72,6 +73,8 @@ private slots:
     void on_pushButton_start_edmonds_karp_clicked();
 
     void on_pushButton_start_cycle_canceling_clicked();
+
+    void on_pushButton_start_successive_shortest_path_clicked();
 
 private:
     Ui::MainWindow *ui;

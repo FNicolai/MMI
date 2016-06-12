@@ -154,6 +154,35 @@ vector<Node *> Bellman_Ford::get_negative_cycle()
     return _negative_cycle;
 }
 
+double Bellman_Ford::get_distance_to(int goal_node_)
+{
+    return _distance[goal_node_];
+}
+
+vector<Node *> Bellman_Ford::get_path(Node * start_node_, Node * goal_node_)
+{
+    vector<Node *> path;
+    //path.push_back(goal_node_);
+    Node * prev_node = goal_node_;
+    do{
+        path.push_back(prev_node);
+        prev_node = _prev_node[prev_node->get_value()];
+    }while(prev_node != start_node_);
+    path.push_back(start_node_);
+    reverse(path.begin(),path.end());
+
+    if(_debug){
+        cout << "The path to " << goal_node_->get_value() << " is: ";
+        for(auto i = 0; i < path.size()-1; i++){
+            cout << path[i]->get_value() << " -> ";
+        }
+        cout << path[path.size()-1]->get_value() << endl;
+    }
+
+    return path;
+
+}
+
 void Bellman_Ford::get_edgelist(int start_node_)
 {
     DFS dfs(_graph,_debug);
