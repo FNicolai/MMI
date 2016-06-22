@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>513</width>
-    <height>597</height>
+    <height>614</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>10</x>
       <y>50</y>
       <width>141</width>
-      <height>91</height>
+      <height>111</height>
      </rect>
     </property>
     <property name="title">
@@ -68,6 +68,19 @@
       <string>Balance</string>
      </property>
     </widget>
+    <widget class="QRadioButton" name="radioButton_maximum_matching">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>80</y>
+       <width>111</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Maximum Matching</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QPushButton" name="pushButton_read">
     <property name="enabled">
@@ -76,7 +89,7 @@
     <property name="geometry">
      <rect>
       <x>300</x>
-      <y>540</y>
+      <y>560</y>
       <width>81</width>
       <height>31</height>
      </rect>
@@ -185,7 +198,7 @@
     <property name="geometry">
      <rect>
       <x>400</x>
-      <y>540</y>
+      <y>560</y>
       <width>81</width>
       <height>31</height>
      </rect>
@@ -227,7 +240,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>150</y>
+      <y>170</y>
       <width>471</width>
       <height>381</height>
      </rect>
@@ -499,6 +512,19 @@
      </property>
      <property name="text">
       <string>Start Successive Shortest Path</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_maximum_matching">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>340</y>
+       <width>171</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Start Maximum Matching</string>
      </property>
     </widget>
    </widget>

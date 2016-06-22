@@ -89,6 +89,8 @@ void Graph::read_graph()
         }
     }else if(is_balance_given()){
         read_balanced_edgelist(graph_file);
+    }else{
+        read_matching_edgelist(graph_file);
     }
 }
 
@@ -178,6 +180,49 @@ void Graph::read_balanced_edgelist(ifstream &graph_file_)
         while (graph_file_ >> cur_node >> goal_node >> cost >> weight){
             //cout << a << " " << b << endl;
             insert_edge(cur_node, goal_node, weight, cost);
+        }
+        print_nodes();
+    }else cout << "Error while reading file";
+}
+
+void Graph::read_matching_edgelist(ifstream &graph_file_)
+{
+    double nodes_in_group_one;
+    double weight = 1.0;
+    double cost = 0.0;
+    double cur_node, goal_node;
+
+    // Add super source and super sink
+    insert_n_nodes(2);
+
+    Node * super_source = _nodes[_nodes.size()-2];
+    Node * super_sink   = _nodes[_nodes.size()-1];
+
+    if(graph_file_){
+
+        graph_file_ >> nodes_in_group_one;
+
+        while (graph_file_ >> cur_node >> goal_node){
+            //cout << a << " " << b << endl;
+            insert_edge(cur_node, goal_node, weight, cost);
+
+            // Check group for left node
+            if(cur_node < nodes_in_group_one){
+                // First group >> super source
+                insert_edge(super_source->get_value(), cur_node, 1.0, 0.0);
+            }else{
+                // Second group >> super sink
+                insert_edge(cur_node, super_sink->get_value(), 1.0, 0.0);
+            }
+
+            // Check group for right node
+            if(goal_node < nodes_in_group_one){
+                // First group >> super source
+                insert_edge(super_source->get_value(), goal_node, 1.0, 0.0);
+            }else{
+                // Second group >> super sink
+                insert_edge(goal_node, super_sink->get_value(), 1.0, 0.0);
+            }
         }
         print_nodes();
     }else cout << "Error while reading file";

@@ -66,6 +66,8 @@ void MainWindow::on_pushButton_read_clicked()
         input_type = Graph::EDGELIST;
     }else if(ui->radioButton_balance_given->isChecked()){
         input_type = Graph::BALANCE;
+    }else if(ui->radioButton_maximum_matching->isChecked()){
+        input_type = Graph::MAXIMUM_MATCHING;
     }
     _graph = new Graph(
                 ui->radioButton_weighted_yes->isChecked(),
@@ -223,4 +225,10 @@ void MainWindow::on_pushButton_start_successive_shortest_path_clicked()
 {
     Successive_Shortest_Path successive_shortest_path(_graph,_debug);
     successive_shortest_path.perform_successive_shortest_path();
+}
+
+void MainWindow::on_pushButton_maximum_matching_clicked()
+{
+    Maximum_Matching maximum_matching(_graph,_debug);
+    maximum_matching.perform_maximum_matching();
 }
