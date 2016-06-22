@@ -18,6 +18,7 @@
 #include "edmonds_karp.h"
 #include "cycle_canceling.h"
 #include "successive_shortest_path.h"
+#include "maximum_matching.h"
 
 using namespace std;
 
@@ -75,6 +76,8 @@ private slots:
     void on_pushButton_start_cycle_canceling_clicked();
 
     void on_pushButton_start_successive_shortest_path_clicked();
+
+    void on_pushButton_maximum_matching_clicked();
 
 private:
     Ui::MainWindow *ui;

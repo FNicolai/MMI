@@ -23,7 +23,7 @@ using namespace std;
 class Graph
 {
 public:
-    enum GraphInputType {EDGELIST, ADJACENCY_MATRIX, BALANCE};
+    enum GraphInputType {EDGELIST, ADJACENCY_MATRIX, BALANCE, MAXIMUM_MATCHING};
     Graph();
     Graph(bool weighted_, bool directed_, GraphInputType input_type_ = EDGELIST);
     Graph(bool weighted_, bool directed_, GraphInputType graph_input_type_, QString filename_);
@@ -76,6 +76,7 @@ private:
     void read_weighted_edgelist(ifstream &graph_file_);
     void read_unweighted_edgelist(ifstream &graph_file_);
     void read_balanced_edgelist(ifstream &graph_file_);
+    void read_matching_edgelist(ifstream &graph_file_);
 
     void insert_edge(int start_value_, int end_value_, double weight_ = NAN, double cost_ = 0.0);
 

@@ -32,7 +32,8 @@ SOURCES += main.cpp\
     edmonds_karp.cpp \
     dijkstra.cpp \
     cycle_canceling.cpp \
-    successive_shortest_path.cpp
+    successive_shortest_path.cpp \
+    maximum_matching.cpp
 
 HEADERS  += \
     mainwindow.h \
@@ -52,7 +53,8 @@ HEADERS  += \
     edmonds_karp.h \
     dijkstra.h \
     cycle_canceling.h \
-    successive_shortest_path.h
+    successive_shortest_path.h \
+    maximum_matching.h
 
 FORMS    += \
     mainwindow.ui
